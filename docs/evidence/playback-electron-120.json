@@ -1,0 +1,122 @@
+{
+  "date": "2026-11-07T09:03:30.536Z",
+  "checks": [
+    {
+      "name": "exact-reported-track-and-real-stream-repeat",
+      "ok": true,
+      "result": {
+        "id": "141758899",
+        "name": "越痛越上瘾",
+        "artist": "郭飞宏",
+        "rounds": [
+          {
+            "ms": 322,
+            "quality": "flac",
+            "info": {
+              "format": "flac",
+              "codec": "FLAC",
+              "sampleRate": 44100,
+              "bitsPerSample": 24,
+              "channels": 2,
+              "duration": 198.00002267573697,
+              "bitrate": 1654
+            }
+          },
+          {
+            "ms": 99,
+            "quality": "flac",
+            "info": {
+              "format": "flac",
+              "codec": "FLAC",
+              "sampleRate": 44100,
+              "bitsPerSample": 24,
+              "channels": 2,
+              "duration": 198.00002267573697,
+              "bitrate": 1654
+            }
+          },
+          {
+            "ms": 116,
+            "quality": "flac",
+            "info": {
+              "format": "flac",
+              "codec": "FLAC",
+              "sampleRate": 44100,
+              "bitsPerSample": 24,
+              "channels": 2,
+              "duration": 198.00002267573697,
+              "bitrate": 1654
+            }
+          },
+          {
+            "ms": 166,
+            "quality": "flac",
+            "info": {
+              "format": "flac",
+              "codec": "FLAC",
+              "sampleRate": 44100,
+              "bitsPerSample": 24,
+              "channels": 2,
+              "duration": 198.00002267573697,
+              "bitrate": 1654
+            }
+          },
+          {
+            "ms": 114,
+            "quality": "flac",
+            "info": {
+              "format": "flac",
+              "codec": "FLAC",
+              "sampleRate": 44100,
+              "bitsPerSample": 24,
+              "channels": 2,
+              "duration": 198.00002267573697,
+              "bitrate": 1654
+            }
+          }
+        ]
+      },
+      "ms": 2555
+    },
+    {
+      "name": "real-electron-header-timeout",
+      "ok": true,
+      "result": "finite timeout",
+      "ms": 402
+    },
+    {
+      "name": "real-electron-first-byte-timeout",
+      "ok": true,
+      "result": "finite timeout",
+      "ms": 406
+    },
+    {
+      "name": "real-electron-body-stall",
+      "ok": true,
+      "result": "stream aborted",
+      "ms": 203
+    },
+    {
+      "name": "real-electron-503-recovery",
+      "ok": true,
+      "result": {
+        "attempts": 2
+      },
+      "ms": 4
+    },
+    {
+      "name": "real-electron-expired-url-refresh",
+      "ok": true,
+      "result": {
+        "refreshes": 1
+      },
+      "ms": 2
+    },
+    {
+      "name": "real-electron-track-switch-abort",
+      "ok": true,
+      "result": "previous request aborted",
+      "ms": 61
+    }
+  ]
+}

@@ -1,0 +1,190 @@
+{
+  "timestamp": "2026-11-07T05:41:22.565Z",
+  "checks": [
+    {
+      "name": "search-music",
+      "ok": true,
+      "total": 3515,
+      "tracks": [
+        {
+          "id": "228908",
+          "name": "晴天",
+          "hasMv": true
+        },
+        {
+          "id": "539121879",
+          "name": "晴天",
+          "hasMv": true
+        }
+      ],
+      "items": []
+    },
+    {
+      "name": "search-artist",
+      "ok": true,
+      "total": 180,
+      "tracks": [],
+      "items": [
+        {
+          "id": "336",
+          "name": "周杰伦",
+          "kind": "artist"
+        },
+        {
+          "id": "3422662",
+          "name": "浅影阿",
+          "kind": "artist"
+        }
+      ]
+    },
+    {
+      "name": "search-playlist",
+      "ok": true,
+      "total": 149,
+      "tracks": [],
+      "items": [
+        {
+          "id": "3689572335",
+          "name": "晴天",
+          "kind": "playlist"
+        },
+        {
+          "id": "3726333536",
+          "name": "晴天",
+          "kind": "playlist"
+        }
+      ]
+    },
+    {
+      "name": "search-all",
+      "ok": true,
+      "total": 3515,
+      "tracks": [
+        {
+          "id": "228908",
+          "name": "晴天",
+          "hasMv": true
+        },
+        {
+          "id": "539121879",
+          "name": "晴天",
+          "hasMv": true
+        }
+      ],
+      "items": [
+        {
+          "id": "336",
+          "name": "周杰伦",
+          "kind": "artist"
+        },
+        {
+          "id": "3422662",
+          "name": "浅影阿",
+          "kind": "artist"
+        }
+      ],
+      "errors": []
+    },
+    {
+      "name": "search-album",
+      "ok": true,
+      "total": 1688,
+      "tracks": [],
+      "items": [
+        {
+          "id": "38070214",
+          "name": "小小的我",
+          "kind": "album"
+        },
+        {
+          "id": "37781527",
+          "name": "晴天（纯音乐）",
+          "kind": "album"
+        }
+      ]
+    },
+    {
+      "name": "search-lyrics",
+      "ok": true,
+      "total": 100,
+      "tracks": [
+        {
+          "id": "228908",
+          "name": "晴天",
+          "hasMv": true
+        },
+        {
+          "id": "197123020",
+          "name": "晴天+告白气球",
+          "hasMv": true
+        }
+      ],
+      "items": []
+    },
+    {
+      "name": "detail-artist",
+      "ok": true,
+      "id": "336",
+      "total": 1708,
+      "rows": 30,
+      "first": "晴天"
+    },
+    {
+      "name": "detail-album",
+      "ok": true,
+      "id": "38070214",
+      "total": 1,
+      "rows": 1,
+      "first": "小小的我&nbsp;(Live)"
+    },
+    {
+      "name": "detail-playlist",
+      "ok": true,
+      "id": "3689572335",
+      "total": 649,
+      "rows": 30,
+      "first": "Wild"
+    },
+    {
+      "name": "playlist-tags-pagination",
+      "ok": true,
+      "tags": 67,
+      "total": 1754,
+      "rows": 24,
+      "tag": "流行",
+      "filtered": 24
+    },
+    {
+      "name": "recommendations-ranks",
+      "ok": true,
+      "recommendations": 12,
+      "ranks": 36,
+      "groups": [
+        "官方",
+        "特色",
+        "场景",
+        "语言",
+        "全球"
+      ],
+      "first": "无奈的思绪"
+    },
+    {
+      "name": "mv-real-video-range",
+      "ok": true,
+      "id": "228908",
+      "quality": "MP4BD",
+      "bitrate": 3000,
+      "host": "other-bj.kuwo.cn",
+      "status": 206,
+      "contentType": "video/mp4",
+      "range": "bytes 0-65535/122676711",
+      "bytes": 65536,
+      "mp4": true
+    },
+    {
+      "name": "mv-unavailable",
+      "ok": true,
+      "rejected": true
+    }
+  ]
+}

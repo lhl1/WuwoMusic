@@ -1,0 +1,52 @@
+{
+  "date": "2026-11-07T13:31:45.974Z",
+  "systemSettingsModified": false,
+  "checks": [
+    {
+      "name": "proxy-fixture-detects-an-inherited-route",
+      "ok": true,
+      "result": {
+        "proxyHits": 1
+      }
+    },
+    {
+      "name": "default-direct-bypasses-previous-proxy",
+      "ok": true,
+      "result": {
+        "originHits": 1,
+        "proxyHits": 1
+      }
+    },
+    {
+      "name": "system-mode-restores-the-operating-system-policy",
+      "ok": true,
+      "result": {
+        "matchesSystem": true
+      }
+    },
+    {
+      "name": "switching-back-to-direct-retires-the-system-route",
+      "ok": true,
+      "result": {
+        "originHits": 2
+      }
+    },
+    {
+      "name": "real-search-and-audio-use-direct-session",
+      "ok": true,
+      "result": {
+        "id": "228908",
+        "quality": "flac",
+        "sampleRate": 44100,
+        "bitrate": 1643
+      }
+    },
+    {
+      "name": "real-comments-use-direct-session",
+      "ok": true,
+      "result": {
+        "rows": 20
+      }
+    }
+  ]
+}

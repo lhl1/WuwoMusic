@@ -1,0 +1,64 @@
+{
+  "date": "2026-11-07T07:28:08.688Z",
+  "platform": "Windows 10 Pro x64 19045",
+  "version": "1.2.0",
+  "output": "D:\\3DS_MAX\\20261107_music\\kuwo-desktop\\release\\win-unpacked",
+  "packaging": "win-unpacked only",
+  "backup": "D:\\3DS_MAX\\20261107_music\\backups\\wuwo-before-hifi-20261107-144855\\profile-before-merge",
+  "sourceBackup": "D:\\3DS_MAX\\20261107_music\\backups\\wuwo-before-hifi-20261107-144855\\source.zip",
+  "profile": {
+    "settingsPreserved": true,
+    "tasksPreserved": true,
+    "playlistsPreserved": true,
+    "allOriginalIdsRetained": true,
+    "stateBeforeSha256": "e021c4198de7156dadb0926f0dd20f1659bb13be5b0451a84765c0b29cec2fa8",
+    "stateAfterSha256": "6ed5938f715f1428be28451102e4d534ae193a86196e3879e20b2bf64d5e2391",
+    "imports": [
+      {
+        "id": "local-1aeed41ae31b21da1fdd",
+        "name": "别怕我伤心",
+        "onlineId": "222066894"
+      },
+      {
+        "id": "local-3b1b7e8d63b3ba8179a5",
+        "name": "江南",
+        "onlineId": "93157"
+      }
+    ],
+    "originalLocalCount": 4,
+    "finalLocalCount": 6,
+    "metadataCopied": 2
+  },
+  "tests": {
+    "automated": 57,
+    "electronIntegration": 5,
+    "nativeWasapi": true,
+    "finalGui": "hifi-final-local-120.png",
+    "crossWindowDragGestureAutomated": false
+  },
+  "files": 82,
+  "sha256Manifest": "315ad3371916f630c014caf8953e6b1cef9a09d06afd777c9691ae8dd2c6032d",
+  "verifiedManifest": true,
+  "artifacts": [
+    {
+      "name": "无我音乐.exe",
+      "sha256": "9a85e46718147ba9ab2742c09c9fa6b9ae6c8e182149d675bb9d66c543f699c1",
+      "equalsGuiTestedCopy": true
+    },
+    {
+      "name": "resources/app.asar",
+      "sha256": "7b85e066ab3266d73bd45af5d8b3b1336d556c9f0405c1fdc97077ec0e286bd2",
+      "equalsGuiTestedCopy": true
+    },
+    {
+      "name": "resources/hifi/mpv.exe",
+      "sha256": "b91b4543b44dd4afbd914edbf9c61927c9eb6c7be31a909f27cabf3cef6b8dfb",
+      "equalsGuiTestedCopy": true
+    }
+  ],
+  "limitations": [
+    "External DAC not tested",
+    "Windows 11 not tested",
+    "No ASIO/DSD/bit-perfect measurements"
+  ]
+}

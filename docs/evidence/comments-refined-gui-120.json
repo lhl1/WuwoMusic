@@ -1,0 +1,12 @@
+{
+  "manual": {
+    "snapshot": "s0000001d",
+    "buttons": 12
+  },
+  "automatic": {
+    "snapshot": "s0000001f",
+    "expansionButtons": 0,
+    "tree": ""
+  },
+  "at": "2026-11-07T09:34:05.832Z"
+}

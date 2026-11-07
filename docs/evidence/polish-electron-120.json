@@ -1,0 +1,224 @@
+{
+  "timestamp": "2026-11-07T07:50:59.926Z",
+  "checks": [
+    {
+      "name": "APK-typed-search-suggestions",
+      "ok": true,
+      "items": [
+        {
+          "text": "晴天"
+        },
+        {
+          "text": "晴天周杰伦"
+        },
+        {
+          "text": "晴"
+        },
+        {
+          "text": "晴空月儿明"
+        },
+        {
+          "text": "晴天伴奏"
+        },
+        {
+          "text": "晴婉"
+        },
+        {
+          "text": "晴川音"
+        },
+        {
+          "text": "晴空万里不及心中有你"
+        },
+        {
+          "text": "晴天姐妹"
+        },
+        {
+          "text": "晴空月儿明 迟重瑞"
+        }
+      ]
+    },
+    {
+      "name": "APK-blank-and-idle-search-recommendations",
+      "ok": true,
+      "suggestions": [],
+      "hot": [
+        {
+          "text": "慌啥子嘛"
+        },
+        {
+          "text": "无奈的思绪"
+        },
+        {
+          "text": "周杰伦"
+        },
+        {
+          "text": "中国人能飞"
+        },
+        {
+          "text": "说好再见却再也不见"
+        },
+        {
+          "text": "山风山风等等我"
+        },
+        {
+          "text": "旗帜上的中国"
+        },
+        {
+          "text": "琵琶曲"
+        },
+        {
+          "text": "故乡的月"
+        },
+        {
+          "text": "北京没有你"
+        },
+        {
+          "text": "情人不甘恋人不愿"
+        },
+        {
+          "text": "牡丹亭"
+        },
+        {
+          "text": "月亮替我望故乡"
+        },
+        {
+          "text": "半生半醉半愚昧"
+        },
+        {
+          "text": "若你看见花开"
+        },
+        {
+          "text": "甲乙丙丁"
+        },
+        {
+          "text": "与人为善好人生"
+        },
+        {
+          "text": "大梦归"
+        },
+        {
+          "text": "八千里路明月照"
+        },
+        {
+          "text": "天龙八部之宿敌"
+        }
+      ],
+      "idle": [
+        {
+          "text": "周杰伦",
+          "description": "连续飙升"
+        },
+        {
+          "text": "蔡依林",
+          "description": "正在热搜"
+        },
+        {
+          "text": "林俊杰",
+          "description": "最近很火"
+        },
+        {
+          "text": "薛之谦",
+          "description": "热门搜索"
+        }
+      ]
+    },
+    {
+      "name": "APK-historical-chart-period-identity",
+      "ok": true,
+      "periodCount": 60,
+      "selected": {
+        "id": "271058",
+        "rankId": "16",
+        "year": "2026年",
+        "name": "第252期",
+        "cover": "https://img2.kuwo.cn/star/albumcover/300/s4s81/95/2497366108.jpg"
+      },
+      "currentFirst": {
+        "id": "651621673",
+        "name": "无奈的思绪",
+        "artist": "嘉慧",
+        "album": "无奈的思绪",
+        "duration": 31,
+        "qualities": [
+          "128k",
+          "320k",
+          "flac"
+        ],
+        "availability": "unknown",
+        "hasMv": false,
+        "artistId": "21819411",
+        "albumId": "103342892",
+        "payInfo": {
+          "play": "1111",
+          "download": "1111",
+          "trial": true,
+          "encrypted": true
+        }
+      },
+      "historicalFirst": {
+        "id": "624683929",
+        "name": "山风山风等等我",
+        "artist": "万海东",
+        "album": "山风山风等等我",
+        "duration": 209,
+        "cover": "https://img2.kuwo.cn/star/albumcover/300/s4s81/95/2497366108.jpg",
+        "qualities": [
+          "128k",
+          "320k",
+          "flac"
+        ],
+        "availability": "unknown",
+        "hasMv": false,
+        "artistId": "197256",
+        "albumId": "97652689",
+        "payInfo": {
+          "play": "",
+          "download": "",
+          "trial": false,
+          "encrypted": false
+        }
+      },
+      "nextFirst": {
+        "id": "386305156",
+        "name": "恋人",
+        "artist": "李荣浩",
+        "album": "黑马",
+        "duration": 275,
+        "cover": "https://img3.kuwo.cn/star/albumcover/300/s4s24/50/1914774364.jpg",
+        "qualities": [
+          "128k",
+          "320k",
+          "flac"
+        ],
+        "availability": "unknown",
+        "hasMv": true,
+        "artistId": "61144",
+        "albumId": "59947290",
+        "payInfo": {
+          "play": "",
+          "download": "",
+          "trial": false,
+          "encrypted": false
+        }
+      }
+    },
+    {
+      "name": "continuous-comment-hot-and-latest-pages",
+      "ok": true,
+      "results": [
+        {
+          "sort": "hot",
+          "page1": 20,
+          "page2": 20,
+          "pages": 63
+        },
+        {
+          "sort": "latest",
+          "page1": 20,
+          "page2": 20,
+          "pages": 1220
+        }
+      ]
+    }
+  ]
+}

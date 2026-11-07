@@ -1,0 +1,43 @@
+{
+  "date": "2026-11-07T13:38:26.641Z",
+  "version": "1.2.0",
+  "output": "D:\\3DS_MAX\\20261107_music\\kuwo-desktop\\release\\无我音乐-1.2.0-网络设置\\win-unpacked",
+  "backup": "D:/3DS_MAX/20261107_music/backups/wuwo-before-proxy-20261107-212739",
+  "formalProfileWritten": false,
+  "formalProfileSha256": "60eecc6fbb83f2b49af4fb9bd1f42938fa0046f942705f42ab565145dcf19959",
+  "formalMatchesPreChangeBackup": true,
+  "systemProxyConfigurationModified": false,
+  "guiFilesCompared": 81,
+  "manifestFiles": 83,
+  "manifestVerified": true,
+  "artifacts": [
+    {
+      "file": "无我音乐.exe",
+      "sha256": "1386c45b66b2ef92f2781414ccc6c168141ee425824a80bf3798b325a19da174",
+      "equalsGuiTestedCopy": true
+    },
+    {
+      "file": "resources/app.asar",
+      "sha256": "db9158948800508ede32386b4140b30597a07837b5f7934ff886a26b6af9fcef",
+      "equalsGuiTestedCopy": true
+    },
+    {
+      "file": "resources/hifi/mpv.exe",
+      "sha256": "b91b4543b44dd4afbd914edbf9c61927c9eb6c7be31a909f27cabf3cef6b8dfb",
+      "equalsGuiTestedCopy": true
+    }
+  ],
+  "tests": {
+    "automated": 78,
+    "networkElectron": 6,
+    "gui": [
+      "legacy-default-direct",
+      "system-choice-saved",
+      "direct-choice-saved"
+    ]
+  },
+  "limitations": [
+    "Windows 11 not tested",
+    "C-drive byte-identical GUI copy used due prior D-drive automation launcher restriction"
+  ]
+}

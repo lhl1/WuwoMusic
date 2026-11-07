@@ -1,0 +1,21 @@
+{
+  "stateSha256": "1e6bda0f41f381450997e1854560f7debc3c06b052f1ab86a53ea4669aaef133",
+  "settings": {
+    "downloadDir": "C:\\Users\\Administrator\\Music\\KuwoMusic",
+    "concurrency": 3,
+    "quality": "flac",
+    "volume": 0.56,
+    "zoom": 1
+  },
+  "favorites": 0,
+  "history": 5,
+  "local": 4,
+  "playlists": 0,
+  "taskIds": [
+    "b31ab0f7-78bc-4832-b5f1-e7fe4f14b7d2",
+    "db16336b-60a6-41b3-af22-a630a1577143",
+    "5e44fd86-d1ef-4b4f-8602-641f610a3968",
+    "8cc370bb-9ec7-4b17-9e02-898dcf93060b",
+    "90c2e1c5-f97c-4357-b959-dff3dcdcc401"
+  ]
+}

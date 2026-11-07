@@ -1,0 +1,51 @@
+{
+  "date": "2026-11-07T08:22:10.116Z",
+  "version": "1.2.0",
+  "output": "D:\\3DS_MAX\\20261107_music\\kuwo-desktop\\release\\无我音乐-1.2.0\\win-unpacked",
+  "backup": "D:\\3DS_MAX\\20261107_music\\backups\\wuwo-before-polish-20261107-1540",
+  "layoutBackup": "D:\\3DS_MAX\\20261107_music\\backups\\wuwo-before-layout-20261107-1720",
+  "profileBackup": "D:\\3DS_MAX\\20261107_music\\backups\\wuwo-before-polish-20261107-1540\\profile-final-update",
+  "legacyRuntimeRetained": "D:\\3DS_MAX\\20261107_music\\kuwo-desktop\\release\\win-unpacked",
+  "legacyRuntimeReason": "Windows EPERM: directory locked by existing process; no forced termination",
+  "files": 80,
+  "manifestVerified": true,
+  "manifestSha256": "b06b6ca00640314426f5b1084bd4a3f783c935f4fb7dae5b19e6734a2da30e49",
+  "artifacts": [
+    {
+      "file": "无我音乐.exe",
+      "sha256": "eda0b6e11386da300558a37d618ba029e114f70ae881469d0a41c3f39234cdc3",
+      "equalsGuiTestedCopy": true
+    },
+    {
+      "file": "resources/app.asar",
+      "sha256": "9d4a03cc0bdd862c87533aea7b33d28e943ae0a80ac8f0b6673e0c4eb68dd7ae",
+      "equalsGuiTestedCopy": true
+    },
+    {
+      "file": "resources/hifi/mpv.exe",
+      "sha256": "b91b4543b44dd4afbd914edbf9c61927c9eb6c7be31a909f27cabf3cef6b8dfb",
+      "equalsGuiTestedCopy": true
+    }
+  ],
+  "profile": {
+    "allOriginalIdsRetained": true,
+    "settingsPreserved": true,
+    "tasksPreserved": true,
+    "playlistsPreserved": true,
+    "newUserLocalImports": [],
+    "localCount": 6,
+    "stateBefore": "d826c224c2936c49e71d8591a46610f8ea4f50fef9bac1846f78802487e2078d",
+    "stateAfter": "d826c224c2936c49e71d8591a46610f8ea4f50fef9bac1846f78802487e2078d"
+  },
+  "tests": {
+    "automated": 63,
+    "apkNetwork": 4,
+    "hifiNetworkRechecked": 5,
+    "finalGui": true
+  },
+  "limitations": [
+    "Windows 11 not tested",
+    "External DAC and bit-perfect measurements not tested",
+    "D-drive automated launcher permission issue recorded separately"
+  ]
+}

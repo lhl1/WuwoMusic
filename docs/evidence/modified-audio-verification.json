@@ -1,0 +1,809 @@
+{
+  "timestamp": "2026-11-07T03:26:07.885Z",
+  "checks": [
+    {
+      "query": "晴天 周杰伦",
+      "track": {
+        "id": "228908",
+        "name": "晴天",
+        "artist": "周杰伦",
+        "album": "叶惠美",
+        "duration": 269,
+        "qualities": [
+          "128k",
+          "320k",
+          "flac"
+        ],
+        "availability": "unknown",
+        "payInfo": {
+          "play": "1111",
+          "download": "1111",
+          "trial": true,
+          "encrypted": true
+        }
+      },
+      "quality": "128k",
+      "reply": {
+        "code": 200,
+        "data": {
+          "bitrate": 128,
+          "duration": 269,
+          "format": "mp3",
+          "media_basic_info": {
+            "gain": -7.60297,
+            "lra": 3.71173,
+            "peak": 0.946442
+          },
+          "p2p_audiosourceid": "49364071230106trackmediaM500000bYDlc2XxKLsmp3",
+          "rid": 228908,
+          "sig": "2751377027398624021",
+          "source": "kwradio_ar_6.0.0.9_B_jiakong_vh.apk",
+          "type": 0,
+          "user": "0"
+        },
+        "locationid": "1",
+        "msg": "ok"
+      },
+      "file": "228908-128k.mp3",
+      "bytes": 4317292,
+      "sha256": "62b9564aa93b4fb951173f62660b83dfd97e647be620e5bec4462b94ea93ba76",
+      "metadata": {
+        "tagTypes": [
+          "ID3v2.3",
+          "ID3v1"
+        ],
+        "trackInfo": [],
+        "lossless": false,
+        "hasAudio": true,
+        "hasVideo": false,
+        "container": "MPEG",
+        "codec": "MPEG 1 Layer 3",
+        "sampleRate": 44100,
+        "numberOfChannels": 2,
+        "bitrate": 128000,
+        "codecProfile": "CBR",
+        "tool": "LAME 3.99r",
+        "trackPeakLevel": null,
+        "trackGain": -6.3,
+        "duration": 269.7926530612245,
+        "numberOfSamples": 11897856
+      },
+      "ok": true
+    },
+    {
+      "query": "晴天 周杰伦",
+      "track": {
+        "id": "228908",
+        "name": "晴天",
+        "artist": "周杰伦",
+        "album": "叶惠美",
+        "duration": 269,
+        "qualities": [
+          "128k",
+          "320k",
+          "flac"
+        ],
+        "availability": "unknown",
+        "payInfo": {
+          "play": "1111",
+          "download": "1111",
+          "trial": true,
+          "encrypted": true
+        }
+      },
+      "quality": "320k",
+      "reply": {
+        "code": 200,
+        "data": {
+          "bitrate": 320,
+          "duration": 269,
+          "format": "mp3",
+          "media_basic_info": {
+            "gain": -7.60297,
+            "lra": 3.71173,
+            "peak": 0.946442
+          },
+          "p2p_audiosourceid": "49364071230106trackmediaM800000bYDlc2XxKLsmp3",
+          "rid": 228908,
+          "sig": "10472417407100598937",
+          "source": "kwradio_ar_6.0.0.9_B_jiakong_vh.apk",
+          "type": 0,
+          "user": "0"
+        },
+        "locationid": "1",
+        "msg": "ok"
+      },
+      "file": "228908-320k.mp3",
+      "bytes": 10792943,
+      "sha256": "69057d49ba210910427a5bc8c433e0cbf4fc62030f9dffb983819de4bc6ecadf",
+      "metadata": {
+        "tagTypes": [
+          "ID3v2.3",
+          "ID3v1"
+        ],
+        "trackInfo": [],
+        "lossless": false,
+        "hasAudio": true,
+        "hasVideo": false,
+        "container": "MPEG",
+        "codec": "MPEG 1 Layer 3",
+        "sampleRate": 44100,
+        "numberOfChannels": 2,
+        "bitrate": 320000,
+        "codecProfile": "CBR",
+        "tool": "LAME 3.99r",
+        "trackPeakLevel": null,
+        "trackGain": -6.8,
+        "duration": 269.7926530612245,
+        "numberOfSamples": 11897856
+      },
+      "ok": true
+    },
+    {
+      "query": "晴天 周杰伦",
+      "track": {
+        "id": "228908",
+        "name": "晴天",
+        "artist": "周杰伦",
+        "album": "叶惠美",
+        "duration": 269,
+        "qualities": [
+          "128k",
+          "320k",
+          "flac"
+        ],
+        "availability": "unknown",
+        "payInfo": {
+          "play": "1111",
+          "download": "1111",
+          "trial": true,
+          "encrypted": true
+        }
+      },
+      "quality": "flac",
+      "reply": {
+        "code": 200,
+        "data": {
+          "bitrate": 2000,
+          "duration": 269,
+          "format": "flac",
+          "media_basic_info": {
+            "gain": -7.60297,
+            "lra": 3.71173,
+            "peak": 0.946442
+          },
+          "p2p_audiosourceid": "49364071230106trackmediaF000000bYDlc2XxKLsflac",
+          "rid": 228908,
+          "sig": "4564570088075504826",
+          "source": "kwradio_ar_6.0.0.9_B_jiakong_vh.apk",
+          "type": 0,
+          "user": "0"
+        },
+        "locationid": "1",
+        "msg": "ok"
+      },
+      "file": "228908-flac.flac",
+      "bytes": 55397039,
+      "sha256": "45d2073bbe60910d87e77f9f5eb87951b36a24a7da1492c7f0e7a3d5e7dd38c2",
+      "metadata": {
+        "tagTypes": [
+          "vorbis"
+        ],
+        "trackInfo": [],
+        "container": "FLAC",
+        "codec": "FLAC",
+        "hasAudio": true,
+        "lossless": true,
+        "numberOfChannels": 2,
+        "bitsPerSample": 24,
+        "sampleRate": 44100,
+        "duration": 269.74666666666667,
+        "tool": "reference libFLAC 1.3.1 20141125",
+        "bitrate": 1642673.807523108,
+        "hasVideo": false
+      },
+      "ok": true
+    },
+    {
+      "query": "江南 林俊杰",
+      "track": {
+        "id": "93157",
+        "name": "江南",
+        "artist": "林俊杰",
+        "album": "第二天堂",
+        "duration": 267,
+        "qualities": [
+          "128k",
+          "320k",
+          "flac"
+        ],
+        "availability": "unknown",
+        "payInfo": {
+          "play": "1111",
+          "download": "1111",
+          "trial": true,
+          "encrypted": true
+        }
+      },
+      "quality": "128k",
+      "reply": {
+        "code": 200,
+        "data": {
+          "bitrate": 128,
+          "duration": 267,
+          "format": "mp3",
+          "media_basic_info": {
+            "gain": -6.82058,
+            "lra": 8.16836,
+            "peak": 0.988617
+          },
+          "p2p_audiosourceid": "42500615130106trackmediaM500004TXEXY2G2c7Cmp3",
+          "rid": 93157,
+          "sig": "9650729627171578213",
+          "source": "kwradio_ar_6.0.0.9_B_jiakong_vh.apk",
+          "type": 0,
+          "user": "0"
+        },
+        "locationid": "1",
+        "msg": "ok"
+      },
+      "file": "93157-128k.mp3",
+      "bytes": 4288455,
+      "sha256": "0886f8efa5e87366e034044c6e211cc913c12faf15732e6c740d9a6adb2b9cf0",
+      "metadata": {
+        "tagTypes": [
+          "ID3v2.3",
+          "ID3v1"
+        ],
+        "trackInfo": [],
+        "lossless": false,
+        "hasAudio": true,
+        "hasVideo": false,
+        "container": "MPEG",
+        "codec": "MPEG 1 Layer 3",
+        "sampleRate": 44100,
+        "numberOfChannels": 2,
+        "bitrate": 128000,
+        "codecProfile": "CBR",
+        "tool": "LAME 3.99r",
+        "trackPeakLevel": null,
+        "trackGain": -5.4,
+        "duration": 267.99020408163267,
+        "numberOfSamples": 11818368
+      },
+      "ok": true
+    },
+    {
+      "query": "江南 林俊杰",
+      "track": {
+        "id": "93157",
+        "name": "江南",
+        "artist": "林俊杰",
+        "album": "第二天堂",
+        "duration": 267,
+        "qualities": [
+          "128k",
+          "320k",
+          "flac"
+        ],
+        "availability": "unknown",
+        "payInfo": {
+          "play": "1111",
+          "download": "1111",
+          "trial": true,
+          "encrypted": true
+        }
+      },
+      "quality": "320k",
+      "reply": {
+        "code": 200,
+        "data": {
+          "bitrate": 320,
+          "duration": 267,
+          "format": "mp3",
+          "media_basic_info": {
+            "gain": -6.82058,
+            "lra": 8.16836,
+            "peak": 0.988617
+          },
+          "p2p_audiosourceid": "42500615130106trackmediaM800004TXEXY2G2c7Cmp3",
+          "rid": 93157,
+          "sig": "691559365390123973",
+          "source": "kwradio_ar_6.0.0.9_B_jiakong_vh.apk",
+          "type": 0,
+          "user": "0"
+        },
+        "locationid": "1",
+        "msg": "ok"
+      },
+      "file": "93157-320k.mp3",
+      "bytes": 10720847,
+      "sha256": "d39b6f7cf526fcbe3d0b40c6c41fdeedf27b90bc6e5d45ec96c979b42bb6f813",
+      "metadata": {
+        "tagTypes": [
+          "ID3v2.3",
+          "ID3v1"
+        ],
+        "trackInfo": [],
+        "lossless": false,
+        "hasAudio": true,
+        "hasVideo": false,
+        "container": "MPEG",
+        "codec": "MPEG 1 Layer 3",
+        "sampleRate": 44100,
+        "numberOfChannels": 2,
+        "bitrate": 320000,
+        "codecProfile": "CBR",
+        "tool": "LAME 3.99r",
+        "trackPeakLevel": null,
+        "trackGain": -5.8,
+        "duration": 267.99020408163267,
+        "numberOfSamples": 11818368
+      },
+      "ok": true
+    },
+    {
+      "query": "江南 林俊杰",
+      "track": {
+        "id": "93157",
+        "name": "江南",
+        "artist": "林俊杰",
+        "album": "第二天堂",
+        "duration": 267,
+        "qualities": [
+          "128k",
+          "320k",
+          "flac"
+        ],
+        "availability": "unknown",
+        "payInfo": {
+          "play": "1111",
+          "download": "1111",
+          "trial": true,
+          "encrypted": true
+        }
+      },
+      "quality": "flac",
+      "reply": {
+        "code": 200,
+        "data": {
+          "bitrate": 2000,
+          "duration": 267,
+          "format": "flac",
+          "media_basic_info": {
+            "gain": -6.82058,
+            "lra": 8.16836,
+            "peak": 0.988617
+          },
+          "p2p_audiosourceid": "4250061511307392909trackmediaF000004TXEXY2G2c7Cflac",
+          "rid": 93157,
+          "sig": "9382639745679636554",
+          "source": "kwradio_ar_6.0.0.9_B_jiakong_vh.apk",
+          "type": 0,
+          "user": "0"
+        },
+        "locationid": "1",
+        "msg": "ok"
+      },
+      "file": "93157-flac.flac",
+      "bytes": 31386542,
+      "sha256": "26016a816250a0d4bf19a58464b2668eefce64937c219f70f705e54c0a7249b3",
+      "metadata": {
+        "tagTypes": [
+          "vorbis"
+        ],
+        "trackInfo": [],
+        "container": "FLAC",
+        "codec": "FLAC",
+        "hasAudio": true,
+        "lossless": true,
+        "numberOfChannels": 2,
+        "bitsPerSample": 16,
+        "sampleRate": 44100,
+        "duration": 267.94666666666666,
+        "tool": "reference libFLAC 1.3.1 20141125",
+        "bitrate": 936836.2858280255,
+        "hasVideo": false
+      },
+      "ok": true
+    },
+    {
+      "query": "无奈的思绪",
+      "track": {
+        "id": "651621673",
+        "name": "无奈的思绪",
+        "artist": "嘉慧",
+        "album": "无奈的思绪",
+        "duration": 156,
+        "qualities": [
+          "128k",
+          "320k",
+          "flac"
+        ],
+        "availability": "unknown",
+        "payInfo": {
+          "play": "1111",
+          "download": "1111",
+          "trial": true,
+          "encrypted": true
+        }
+      },
+      "quality": "128k",
+      "reply": {
+        "code": 200,
+        "data": {
+          "bitrate": 128,
+          "duration": 156,
+          "format": "mp3",
+          "media_basic_info": {
+            "gain": -11.281,
+            "lra": 2.87168,
+            "peak": 0.990021
+          },
+          "p2p_audiosourceid": "64065719830106trackmediaM5000031zvyp3S4QOQmp3",
+          "rid": 651621673,
+          "sig": "6184091999322372823",
+          "source": "kwradio_ar_6.0.0.9_B_jiakong_vh.apk",
+          "type": 0,
+          "user": "0"
+        },
+        "locationid": "1",
+        "msg": "ok"
+      },
+      "file": "651621673-128k.mp3",
+      "bytes": 2508819,
+      "sha256": "3c6b391e071461f6830ac9776bb7355606b2b983969c978c8bdc2b14d7d5ae76",
+      "metadata": {
+        "tagTypes": [
+          "ID3v2.3",
+          "ID3v1"
+        ],
+        "trackInfo": [],
+        "lossless": false,
+        "hasAudio": true,
+        "hasVideo": false,
+        "container": "MPEG",
+        "codec": "MPEG 1 Layer 3",
+        "sampleRate": 44100,
+        "numberOfChannels": 2,
+        "bitrate": 128000,
+        "codecProfile": "CBR",
+        "tool": "LAME 3.99r",
+        "trackPeakLevel": null,
+        "trackGain": -10,
+        "duration": 156.7608163265306,
+        "numberOfSamples": 6913152
+      },
+      "ok": true
+    },
+    {
+      "query": "无奈的思绪",
+      "track": {
+        "id": "651621673",
+        "name": "无奈的思绪",
+        "artist": "嘉慧",
+        "album": "无奈的思绪",
+        "duration": 156,
+        "qualities": [
+          "128k",
+          "320k",
+          "flac"
+        ],
+        "availability": "unknown",
+        "payInfo": {
+          "play": "1111",
+          "download": "1111",
+          "trial": true,
+          "encrypted": true
+        }
+      },
+      "quality": "320k",
+      "reply": {
+        "code": 200,
+        "data": {
+          "bitrate": 320,
+          "duration": 156,
+          "format": "mp3",
+          "media_basic_info": {
+            "gain": -11.281,
+            "lra": 2.87168,
+            "peak": 0.990021
+          },
+          "p2p_audiosourceid": "64065719830106trackmediaM8000031zvyp3S4QOQmp3",
+          "rid": 651621673,
+          "sig": "4055087143663030743",
+          "source": "kwradio_ar_6.0.0.9_B_jiakong_vh.apk",
+          "type": 0,
+          "user": "0"
+        },
+        "locationid": "1",
+        "msg": "ok"
+      },
+      "file": "651621673-320k.mp3",
+      "bytes": 6271380,
+      "sha256": "2b925b6405c584a4bd76c150f6075072162197c955c872891cbbe6188942321a",
+      "metadata": {
+        "tagTypes": [
+          "ID3v2.3",
+          "ID3v1"
+        ],
+        "trackInfo": [],
+        "lossless": false,
+        "hasAudio": true,
+        "hasVideo": false,
+        "container": "MPEG",
+        "codec": "MPEG 1 Layer 3",
+        "sampleRate": 44100,
+        "numberOfChannels": 2,
+        "bitrate": 320000,
+        "codecProfile": "CBR",
+        "tool": "LAME 3.99r",
+        "trackPeakLevel": null,
+        "trackGain": -10.4,
+        "duration": 156.7608163265306,
+        "numberOfSamples": 6913152
+      },
+      "ok": true
+    },
+    {
+      "query": "无奈的思绪",
+      "track": {
+        "id": "651621673",
+        "name": "无奈的思绪",
+        "artist": "嘉慧",
+        "album": "无奈的思绪",
+        "duration": 156,
+        "qualities": [
+          "128k",
+          "320k",
+          "flac"
+        ],
+        "availability": "unknown",
+        "payInfo": {
+          "play": "1111",
+          "download": "1111",
+          "trial": true,
+          "encrypted": true
+        }
+      },
+      "quality": "flac",
+      "reply": {
+        "code": 200,
+        "data": {
+          "bitrate": 2000,
+          "duration": 156,
+          "format": "flac",
+          "media_basic_info": {
+            "gain": -11.281,
+            "lra": 2.87168,
+            "peak": 0.990021
+          },
+          "p2p_audiosourceid": "64065719830106trackmediaF0000031zvyp3S4QOQflac",
+          "rid": 651621673,
+          "sig": "16605224036548486597",
+          "source": "kwradio_ar_6.0.0.9_B_jiakong_vh.apk",
+          "type": 0,
+          "user": "0"
+        },
+        "locationid": "1",
+        "msg": "ok"
+      },
+      "file": "651621673-flac.flac",
+      "bytes": 18131534,
+      "sha256": "e04b2a245a909285471735bced03b648269bbc6445794e2b8a259b61cb0b0e21",
+      "metadata": {
+        "tagTypes": [
+          "vorbis"
+        ],
+        "trackInfo": [],
+        "container": "FLAC",
+        "codec": "FLAC",
+        "hasAudio": true,
+        "lossless": true,
+        "numberOfChannels": 2,
+        "bitsPerSample": 16,
+        "sampleRate": 44100,
+        "duration": 156.73469387755102,
+        "tool": "reference libFLAC 1.3.1 20141125",
+        "bitrate": 925026.0833333333,
+        "hasVideo": false
+      },
+      "ok": true
+    },
+    {
+      "query": "LudwigvanBeethoven 苏夏依",
+      "track": {
+        "id": "172567327",
+        "name": "LudwigvanBeethoven-第九交响曲",
+        "artist": "苏夏依",
+        "album": "古今乐圣贝多芬",
+        "duration": 75,
+        "qualities": [
+          "128k"
+        ],
+        "availability": "unknown",
+        "payInfo": {
+          "play": "0000",
+          "download": "0000",
+          "trial": false,
+          "encrypted": false
+        }
+      },
+      "quality": "128k",
+      "reply": {
+        "code": 200,
+        "data": {
+          "bitrate": 128,
+          "duration": 75,
+          "format": "mp3",
+          "media_basic_info": {
+            "gain": 1.47289,
+            "lra": 18.3608,
+            "peak": 0.882782
+          },
+          "p2p_audiosourceid": "5136344630106trackmedialongM5000019RVrN3k1UV1mp3",
+          "rid": 172567327,
+          "sig": "6753984220529040795",
+          "source": "kwradio_ar_6.0.0.9_B_jiakong_vh.apk",
+          "type": 0,
+          "user": "0"
+        },
+        "locationid": "1",
+        "msg": "ok"
+      },
+      "file": "172567327-128k.mp3",
+      "bytes": 1213161,
+      "sha256": "9de8dc5a2095019f16a6bba70fcd0322f6decdec66aff86d3b656f09f34cefe4",
+      "metadata": {
+        "tagTypes": [
+          "ID3v2.3",
+          "ID3v1"
+        ],
+        "trackInfo": [],
+        "lossless": false,
+        "hasAudio": true,
+        "hasVideo": false,
+        "container": "MPEG",
+        "codec": "MPEG 1 Layer 3",
+        "sampleRate": 44100,
+        "numberOfChannels": 2,
+        "bitrate": 128000,
+        "codecProfile": "CBR",
+        "tool": "LAME 3.99.5",
+        "trackPeakLevel": null,
+        "trackGain": 1.4,
+        "duration": 75.78122448979592,
+        "numberOfSamples": 3343104
+      },
+      "ok": true
+    },
+    {
+      "query": "LudwigvanBeethoven 苏夏依",
+      "track": {
+        "id": "172567327",
+        "name": "LudwigvanBeethoven-第九交响曲",
+        "artist": "苏夏依",
+        "album": "古今乐圣贝多芬",
+        "duration": 75,
+        "qualities": [
+          "128k"
+        ],
+        "availability": "unknown",
+        "payInfo": {
+          "play": "0000",
+          "download": "0000",
+          "trial": false,
+          "encrypted": false
+        }
+      },
+      "quality": "320k",
+      "reply": {
+        "code": 200,
+        "data": {
+          "bitrate": 128,
+          "duration": 75,
+          "format": "mp3",
+          "media_basic_info": {
+            "gain": 1.47289,
+            "lra": 18.3608,
+            "peak": 0.882782
+          },
+          "p2p_audiosourceid": "5136344630106trackmedialongM5000019RVrN3k1UV1mp3",
+          "rid": 172567327,
+          "sig": "6753984220529040795",
+          "source": "kwradio_ar_6.0.0.9_B_jiakong_vh.apk",
+          "type": 0,
+          "user": "0"
+        },
+        "locationid": "1",
+        "msg": "ok"
+      },
+      "file": "172567327-320k.mp3",
+      "bytes": 1213161,
+      "sha256": "9de8dc5a2095019f16a6bba70fcd0322f6decdec66aff86d3b656f09f34cefe4",
+      "metadata": {
+        "tagTypes": [
+          "ID3v2.3",
+          "ID3v1"
+        ],
+        "trackInfo": [],
+        "lossless": false,
+        "hasAudio": true,
+        "hasVideo": false,
+        "container": "MPEG",
+        "codec": "MPEG 1 Layer 3",
+        "sampleRate": 44100,
+        "numberOfChannels": 2,
+        "bitrate": 128000,
+        "codecProfile": "CBR",
+        "tool": "LAME 3.99.5",
+        "trackPeakLevel": null,
+        "trackGain": 1.4,
+        "duration": 75.78122448979592,
+        "numberOfSamples": 3343104
+      },
+      "ok": true
+    },
+    {
+      "query": "LudwigvanBeethoven 苏夏依",
+      "track": {
+        "id": "172567327",
+        "name": "LudwigvanBeethoven-第九交响曲",
+        "artist": "苏夏依",
+        "album": "古今乐圣贝多芬",
+        "duration": 75,
+        "qualities": [
+          "128k"
+        ],
+        "availability": "unknown",
+        "payInfo": {
+          "play": "0000",
+          "download": "0000",
+          "trial": false,
+          "encrypted": false
+        }
+      },
+      "quality": "flac",
+      "reply": {
+        "code": 200,
+        "data": {
+          "bitrate": 100,
+          "duration": 75,
+          "format": "ogg",
+          "media_basic_info": {
+            "gain": 1.47289,
+            "lra": 18.3608,
+            "peak": 0.882782
+          },
+          "p2p_audiosourceid": "5136344630106trackmedialongO4000019RVrN3k1UV1ogg",
+          "rid": 172567327,
+          "sig": "7025405083772881625",
+          "source": "kwradio_ar_6.0.0.9_B_jiakong_vh.apk",
+          "type": 0,
+          "user": "0"
+        },
+        "locationid": "1",
+        "msg": "ok"
+      },
+      "file": "172567327-flac.ogg",
+      "bytes": 702927,
+      "sha256": "fffcd3d0598f9adc902fb5e60de04d9121d451e36c3746bfd24cfba6eec81bf3",
+      "metadata": {
+        "tagTypes": [
+          "vorbis"
+        ],
+        "trackInfo": [],
+        "container": "Ogg",
+        "codec": "Vorbis I",
+        "hasAudio": true,
+        "sampleRate": 44100,
+        "bitrate": 96000,
+        "numberOfChannels": 2,
+        "numberOfSamples": 3340288,
+        "duration": 75.74349206349207,
+        "hasVideo": false
+      },
+      "ok": true
+    }
+  ]
+}

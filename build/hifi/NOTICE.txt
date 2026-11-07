@@ -1,0 +1,11 @@
+﻿mpv is an unmodified, separate GPLv2+ executable, controlled through its documented JSON IPC.
+Upstream: https://mpv.io/
+Binary: https://github.com/mpv-player/mpv/releases/download/git-release/mpv-v0.42.0-dev-g55d3feb45-42342927321-x86_64-pc-windows-msvc.zip
+Source revision: https://github.com/mpv-player/mpv/tree/55d3feb45
+Included source archive: mpv-source-55d3feb45.zip
+Build recipe: upstream-build-win32.ps1 (from the same source revision)
+FFmpeg version reported by this build: 42c25af
+FFmpeg source: https://git.ffmpeg.org/ffmpeg.git/commit/42c25af
+Dependency sources and build options are specified in the included upstream source subprojects/ and ci/build-win32.ps1.
+Manual and WASAPI settings: https://mpv.io/manual/master/#options-audio-exclusive
+No user mpv configuration or scripts are loaded. The application does not register file associations.

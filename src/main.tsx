@@ -1,0 +1,10 @@
+import React from 'react';
+import { createRoot } from 'react-dom/client';
+import { App } from './App';
+import './style.css';
+import './enhancements.css';
+import './redesign.css';
+import './refinement.css';
+import './polish.css';
+import {applyAppearance} from './preferences';
+window.desktop.snapshot().then(snapshot=>{applyAppearance(snapshot.settings,Boolean(snapshot.themeDark));createRoot(document.getElementById('root')!).render(<React.StrictMode><App/></React.StrictMode>);}).catch(()=>{createRoot(document.getElementById('root')!).render(<App/>);});

@@ -1,0 +1,128 @@
+{
+  "timestamp": "2026-11-07T09:03:28.311Z",
+  "checks": [
+    {
+      "name": "real-search-repeat-and-normalized-query",
+      "ok": true,
+      "results": [
+        {
+          "q": "晴天 周杰伦",
+          "count": 30,
+          "total": 6317
+        },
+        {
+          "q": "牵丝戏",
+          "count": 30,
+          "total": 3539
+        },
+        {
+          "q": "　晴天  周杰伦​　",
+          "count": 30,
+          "total": 6317
+        }
+      ]
+    },
+    {
+      "name": "local-file-matching-without-tags",
+      "ok": true,
+      "local": {
+        "id": "local-11adbd95efb6f1c40790",
+        "name": "晴天",
+        "artist": "周杰伦",
+        "album": "",
+        "duration": 269.74666666666667,
+        "localPath": "C:\\Users\\Administrator\\Music\\WuwoMusic-HiFi-QA\\周杰伦 - 晴天.flac",
+        "qualities": [
+          "flac"
+        ],
+        "audioInfo": {
+          "format": "flac",
+          "codec": "FLAC",
+          "bitrate": 1643,
+          "sampleRate": 44100,
+          "bitsPerSample": 24,
+          "channels": 2,
+          "duration": 269.74666666666667
+        },
+        "availability": "available",
+        "onlineId": "228908"
+      },
+      "matched": {
+        "id": "228908",
+        "name": "晴天",
+        "artist": "周杰伦",
+        "album": "叶惠美",
+        "duration": 269,
+        "cover": "https://img4.kuwo.cn/star/albumcover/120/s3s94/93/211513640.jpg",
+        "qualities": [
+          "128k",
+          "320k",
+          "flac"
+        ],
+        "availability": "unknown",
+        "hasMv": true,
+        "artistId": "336",
+        "albumId": "1293",
+        "payInfo": {
+          "play": "1111",
+          "download": "1111",
+          "trial": true,
+          "encrypted": true
+        }
+      }
+    },
+    {
+      "name": "real-source-audio-parameters",
+      "ok": true,
+      "info": {
+        "format": "flac",
+        "codec": "FLAC",
+        "sampleRate": 44100,
+        "bitsPerSample": 24,
+        "channels": 2,
+        "duration": 269.74666666666667,
+        "bitrate": 1643
+      },
+      "local": {
+        "format": "flac",
+        "codec": "FLAC",
+        "bitrate": 1643,
+        "sampleRate": 44100,
+        "bitsPerSample": 24,
+        "channels": 2,
+        "duration": 269.74666666666667
+      }
+    },
+    {
+      "name": "local-association-real-lyrics-and-cover",
+      "ok": true,
+      "lines": 63,
+      "hasCover": true
+    },
+    {
+      "name": "native-stream-through-electron-network",
+      "ok": true,
+      "state": {
+        "active": true,
+        "playing": false,
+        "position": 20,
+        "duration": 269.746667,
+        "generation": 1,
+        "output": {
+          "sampleRate": 44100,
+          "channels": 2,
+          "bitsPerSample": 32,
+          "format": "s32"
+        },
+        "device": "wasapi/{095fd435-f5c1-461f-bd32-d48dddd0f8b7}",
+        "info": {
+          "sampleRate": 44100,
+          "channels": 2,
+          "bitsPerSample": 32,
+          "format": "s32"
+        }
+      },
+      "device": "wasapi/{095fd435-f5c1-461f-bd32-d48dddd0f8b7}"
+    }
+  ]
+}

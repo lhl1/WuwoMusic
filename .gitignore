@@ -1,0 +1,13 @@
+node_modules/
+dist/
+dist-electron/
+release/
+artifacts/
+*.log
+.env
+.env.*
+!.env.example
+*.pem
+*.key
+backups/
+state.json

@@ -1,0 +1,21 @@
+﻿import {app,net} from 'electron';
+import fs from 'node:fs/promises';
+import path from 'node:path';
+import assert from 'node:assert/strict';
+import {KuwoProvider} from '../electron/provider';
+import {DiscoveryService} from '../electron/discovery';
+import {inspectFile,inspectStream} from '../electron/audio-info';
+import {readLocalFiles,chooseLocalMatch} from '../electron/local-music';
+import {HifiPlayer} from '../electron/hifi';
+import {AudioBridge} from '../electron/audio-bridge';
+app.whenReady().then(async()=>{
+ const provider=new KuwoProvider((u,i)=>net.fetch(u,i)),discovery=new DiscoveryService(provider),checks:any[]=[];
+ const check=async(name:string,fn:()=>Promise<any>)=>{try{checks.push({name,ok:true,...await fn()});}catch(e){checks.push({name,ok:false,error:(e as Error).message});}};
+ await check('real-search-repeat-and-normalized-query',async()=>{const results=[];for(const q of ['晴天 周杰伦','牵丝戏','　晴天  周杰伦\u200b　']){const r=await provider.search(q);assert.ok(r.tracks.length);results.push({q,count:r.tracks.length,total:r.total});}return {results};});
+ const file=path.join(process.env.USERPROFILE!,'Music/WuwoMusic-HiFi-QA/周杰伦 - 晴天.flac');let local:any;
+ await check('local-file-matching-without-tags',async()=>{[local]=await readLocalFiles([file]);assert.equal(local.artist,'周杰伦');assert.equal(local.name,'晴天');const r=await provider.search(local.name+' '+local.artist);const matched=chooseLocalMatch(local,r.tracks);assert.ok(matched,'Expected confident recording match');assert.equal(matched.id,'228908');local.onlineId=matched.id;return {local,matched};});
+ await check('real-source-audio-parameters',async()=>{const t=(await provider.search('晴天 周杰伦')).tracks.find(t=>t.id==='228908')!;const resolved=await provider.resolveBest(t,'flac','play'),info=await inspectStream(resolved.url,(u,i)=>net.fetch(u,i));assert.equal(info.sampleRate,44100);assert.ok([16,24,32].includes(info.bitsPerSample!));assert.ok(info.bitrate!>500);return {info,local:await inspectFile(file)};});
+ await check('local-association-real-lyrics-and-cover',async()=>{assert.ok(local?.onlineId);const lyrics=await provider.lyrics(local.onlineId),share=await provider.share(local.onlineId);assert.ok(lyrics.length>20);assert.ok(share.img||share.img700);return {lines:lyrics.length,hasCover:true};});
+ await check('native-stream-through-electron-network',async()=>{const native=new HifiPlayer(path.resolve('build/hifi/mpv.exe'),()=>{}),bridge=new AudioBridge((u,i)=>net.fetch(u,i),()=>false);try{const t=(await provider.search('晴天 周杰伦')).tracks.find(t=>t.id==='228908')!,source=await provider.resolveBest(t,'flac','play'),url=await bridge.source(source.url),devices=await native.devices(),device=devices.find(d=>/CABLE In 16ch/.test(d.name))?.id??'auto';await native.play(url,device);await native.control('seek',20);await native.control('pause');assert.equal(native.state.active,true);assert.equal(native.state.playing,false);assert.equal(native.state.output?.sampleRate,44100);return {state:native.state,device};}finally{await native.dispose();bridge.close();}});
+ await fs.writeFile('docs/evidence/hifi-electron-120.json',JSON.stringify({timestamp:new Date().toISOString(),checks},null,2));console.log(JSON.stringify(checks.map(({name,ok,error})=>({name,ok,error}))));app.exit(checks.every(c=>c.ok)?0:1);
+}).catch(e=>{console.error(e);app.exit(1);});

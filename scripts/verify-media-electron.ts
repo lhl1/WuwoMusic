@@ -1,0 +1,23 @@
+import {app,net} from 'electron';
+import fs from 'node:fs/promises';
+import path from 'node:path';
+import os from 'node:os';
+import assert from 'node:assert/strict';
+import {KuwoProvider,normalizeTrack} from '../electron/provider';
+import {DiscoveryService} from '../electron/discovery';
+import {ArtworkCache} from '../electron/artwork';
+import {Store} from '../electron/storage';
+import {DownloadManager,validateVideo} from '../electron/downloads';
+app.whenReady().then(async()=>{
+ const p=new KuwoProvider((u,i)=>net.fetch(u,i)),d=new DiscoveryService(p),checks:any[]=[];
+ const check=async(name:string,run:()=>Promise<any>)=>{try{checks.push({name,ok:true,...await run()});}catch(e){checks.push({name,ok:false,error:(e as Error).message});}};
+ const dir=await fs.mkdtemp(path.join(os.tmpdir(),'wuwo-cover-proof-'));let offline=false;const cache=new ArtworkCache(dir,(u,i)=>net.fetch(u,i),()=>offline);
+ const lists=await d.playlists(0,'hot'),ranks=await p.ranks();
+ await check('playlist-covers-cold-cache',async()=>{const r=await Promise.all(lists.items.map(async c=>{try{return {id:c.id,bytes:(await cache.bytes(c.cover!)).length};}catch{const backup=await p.collectionCover(c.id,'playlist');assert.ok(backup);return {id:c.id,bytes:(await cache.bytes(backup)).length,fallback:true};}}));assert.equal(r.length,24);return {count:r.length,images:r};});
+ await check('rank-daily-covers-cold-cache',async()=>{const r=await Promise.all(ranks.map(async c=>({id:c.id,bytes:(await cache.bytes(c.cover!)).length})));return {count:r.length,images:r};});
+ await check('playlist-backup-cover',async()=>{const url=await p.collectionCover(lists.items[0].id,'playlist');assert.ok(url);return {bytes:(await cache.bytes(url)).length};});
+ await check('covers-offline',async()=>{offline=true;const r=await Promise.all(lists.items.slice(0,6).map(c=>cache.bytes(c.cover!)));return {count:r.length};});
+ await fs.rm(dir,{recursive:true,force:true});
+ await check('mv-download-actual-file',async()=>{const root=path.resolve('artifacts/mv-download-120');await fs.mkdir(root,{recursive:true});const store=new Store(path.join(root,'state.json'),root);store.data.settings.downloadDir=root;const manager=new DownloadManager(store,p,(u,i)=>net.fetch(u,i),()=>{},t=>d.mv(t));try{const t=normalizeTrack({rid:'228908',name:'晴天',artist:'周杰伦',duration:269});const [task]=manager.enqueue([t],'128k','mv'),until=Date.now()+150000;while(!['completed','failed'].includes(store.data.tasks.find(t=>t.id===task.id)!.status)){assert.ok(Date.now()<until,'MV timed out');await new Promise(r=>setTimeout(r,300));}const done=store.data.tasks.find(t=>t.id===task.id)!;assert.equal(done.status,'completed',done.error);assert.equal(done.format,'mp4');const info=await validateVideo(done.path!);assert.ok(info.duration>310);return {path:done.path,quality:done.videoQuality,bitrate:done.videoBitrate,bytes:done.received,duration:info.duration,media:done.media,format:done.format};}finally{await manager.shutdown();}});
+ await fs.writeFile('docs/evidence/media-electron-120.json',JSON.stringify({timestamp:new Date().toISOString(),checks},null,2));console.log(JSON.stringify(checks.map(({name,ok,error,...r})=>({name,ok,error,count:r.count,bytes:r.bytes,duration:r.duration}))));app.exit(checks.every(c=>c.ok)?0:1);
+}).catch(e=>{console.error(e);app.exit(1);});

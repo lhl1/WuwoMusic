@@ -1,0 +1,14 @@
+[
+  {
+    "query": "musicId only",
+    "httpStatus": 200,
+    "applicationStatus": 200,
+    "lyricLines": 63
+  },
+  {
+    "query": "musicId plus unknown probe parameter",
+    "httpStatus": 200,
+    "applicationStatus": 301,
+    "lyricLines": 0
+  }
+]

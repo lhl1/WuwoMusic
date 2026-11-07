@@ -1,0 +1,18 @@
+{
+  "timestamp": "2026-11-07T14:23:43.551217+08:00",
+  "backupValid": true,
+  "hashManifestFiles": 75,
+  "realProfileUnchanged": true,
+  "guiMvTask": {
+    "status": "completed",
+    "media": "mv",
+    "format": "mp4",
+    "videoQuality": "MP4BD",
+    "received": 122676711,
+    "total": 122676711,
+    "path": "C:\\Users\\Administrator\\Music\\WuwoMusic-QA-120\\周杰伦 - 晴天 [228908 MV MP4BD].mp4"
+  },
+  "offlineStartup": true,
+  "offlineVideoPicture": "final-mv-offline.png",
+  "offlineAudioProgress": "final-offline-audio-progress.json"
+}

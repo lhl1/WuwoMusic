@@ -1,0 +1,61 @@
+{
+  "date": "2026-11-07T09:17:21.718Z",
+  "version": "1.2.0",
+  "output": "D:\\3DS_MAX\\20261107_music\\kuwo-desktop\\release\\无我音乐-1.2.0-播放修复\\win-unpacked",
+  "backup": "D:\\3DS_MAX\\20261107_music\\backups\\wuwo-before-playback-20261107-085418",
+  "profileBackup": "D:\\3DS_MAX\\20261107_music\\backups\\wuwo-before-playback-20261107-085418\\profile-at-delivery",
+  "qaProfileBackup": "D:\\3DS_MAX\\20261107_music\\backups\\wuwo-before-playback-20261107-085418\\qa-playback-profile",
+  "formalProfileWritten": false,
+  "originalRecordsRetained": {
+    "settings": true,
+    "tasks": true,
+    "local": true,
+    "favorites": true,
+    "history": true,
+    "playlists": true
+  },
+  "formalProfileSha256": "60eecc6fbb83f2b49af4fb9bd1f42938fa0046f942705f42ab565145dcf19959",
+  "formalMatchesPreChangeBackup": true,
+  "formalLocalCount": 13,
+  "formalTaskCount": 14,
+  "guiCopyFilesCompared": 79,
+  "files": 81,
+  "manifestVerified": true,
+  "manifestSha256": "82715a89c98cd463f3c40c3bf78721d059eb132f2b8a9da3b5a8aeb389afbdc6",
+  "artifacts": [
+    {
+      "file": "无我音乐.exe",
+      "sha256": "302b89f302c97effe7cfaf7e04a8bc99e9e340d1084cdb3b5f23463e38cfd7a0",
+      "equalsGuiTestedCopy": true
+    },
+    {
+      "file": "resources/app.asar",
+      "sha256": "2e92fa23b5f166fc2b044935986429a2890866375aa002402be5a523e18a0343",
+      "equalsGuiTestedCopy": true
+    },
+    {
+      "file": "resources/hifi/mpv.exe",
+      "sha256": "b91b4543b44dd4afbd914edbf9c61927c9eb6c7be31a909f27cabf3cef6b8dfb",
+      "equalsGuiTestedCopy": true
+    }
+  ],
+  "tests": {
+    "automated": 73,
+    "playbackElectron": 7,
+    "hifiElectron": 5,
+    "gui": [
+      "online-progress",
+      "offline-online-source-error",
+      "online-retry-progress",
+      "offline-local-flac-progress",
+      "rapid-local-next-three"
+    ]
+  },
+  "originalNetworkFailureReproduced": false,
+  "controlledNetworkFailuresVerified": true,
+  "limitations": [
+    "Windows 11 not tested",
+    "External DAC / hardware bit-perfect not measured",
+    "D-drive automation launcher restriction: byte-identical C-drive copy used for GUI testing"
+  ]
+}

@@ -1,0 +1,247 @@
+{
+  "devices": [
+    {
+      "id": "auto",
+      "name": "Autoselect device"
+    },
+    {
+      "id": "wasapi/{095fd435-f5c1-461f-bd32-d48dddd0f8b7}",
+      "name": "CABLE In 16ch (VB-Audio Virtual Cable)"
+    },
+    {
+      "id": "wasapi/{6dfa19b0-7c21-43d4-845f-26cccb21a10d}",
+      "name": "Realtek Digital Output (Realtek High Definition Audio)"
+    },
+    {
+      "id": "wasapi/{9ce28178-667a-4a7c-aca6-e863dce4c609}",
+      "name": "Virtual Speakers (Virtual Speakers for AudioRelay)"
+    },
+    {
+      "id": "wasapi/{dbaae894-4426-445e-8936-4763d4711db6}",
+      "name": "HUYINUDA4K (NVIDIA High Definition Audio)"
+    },
+    {
+      "id": "wasapi/{e15088e4-e564-4a91-8125-9bfe202e8acb}",
+      "name": "CABLE Input (VB-Audio Virtual Cable)"
+    }
+  ],
+  "file": "C:\\Users\\Administrator\\Music\\KuwoMusic\\银临&Aki阿杰 - 牵丝戏 [6304356 flac].flac",
+  "device": "wasapi/{095fd435-f5c1-461f-bd32-d48dddd0f8b7}",
+  "generation": 1,
+  "paused": {
+    "active": true,
+    "playing": false,
+    "position": 1.080866,
+    "duration": 239.36,
+    "generation": 1,
+    "output": {
+      "sampleRate": 44100,
+      "channels": 2,
+      "bitsPerSample": 16,
+      "format": "s16"
+    },
+    "device": "wasapi/{095fd435-f5c1-461f-bd32-d48dddd0f8b7}",
+    "info": {
+      "sampleRate": 44100,
+      "channels": 2,
+      "bitsPerSample": 16,
+      "format": "s16",
+      "bitrate": 274
+    }
+  },
+  "resumed": {
+    "active": true,
+    "playing": true,
+    "position": 15.589594,
+    "duration": 239.36,
+    "generation": 1,
+    "output": {
+      "sampleRate": 44100,
+      "channels": 2,
+      "bitsPerSample": 16,
+      "format": "s16"
+    },
+    "device": "wasapi/{095fd435-f5c1-461f-bd32-d48dddd0f8b7}",
+    "info": {
+      "sampleRate": 44100,
+      "channels": 2,
+      "bitsPerSample": 16,
+      "format": "s16",
+      "bitrate": 756
+    }
+  },
+  "states": [
+    {
+      "active": false,
+      "playing": false,
+      "position": 0,
+      "duration": 0,
+      "generation": 0,
+      "ended": false
+    },
+    {
+      "active": true,
+      "playing": true,
+      "position": 0.047247,
+      "duration": 239.36,
+      "generation": 1,
+      "output": {
+        "sampleRate": 44100,
+        "channels": 2,
+        "bitsPerSample": 16,
+        "format": "s16"
+      },
+      "device": "wasapi/{095fd435-f5c1-461f-bd32-d48dddd0f8b7}",
+      "info": {
+        "sampleRate": 44100,
+        "channels": 2,
+        "bitsPerSample": 16,
+        "format": "s16"
+      }
+    },
+    {
+      "active": true,
+      "playing": true,
+      "position": 0.477587,
+      "duration": 239.36,
+      "generation": 1,
+      "output": {
+        "sampleRate": 44100,
+        "channels": 2,
+        "bitsPerSample": 16,
+        "format": "s16"
+      },
+      "device": "wasapi/{095fd435-f5c1-461f-bd32-d48dddd0f8b7}",
+      "info": {
+        "sampleRate": 44100,
+        "channels": 2,
+        "bitsPerSample": 16,
+        "format": "s16",
+        "bitrate": 262
+      }
+    },
+    {
+      "active": true,
+      "playing": true,
+      "position": 0.819692,
+      "duration": 239.36,
+      "generation": 1,
+      "output": {
+        "sampleRate": 44100,
+        "channels": 2,
+        "bitsPerSample": 16,
+        "format": "s16"
+      },
+      "device": "wasapi/{095fd435-f5c1-461f-bd32-d48dddd0f8b7}",
+      "info": {
+        "sampleRate": 44100,
+        "channels": 2,
+        "bitsPerSample": 16,
+        "format": "s16",
+        "bitrate": 274
+      }
+    },
+    {
+      "active": true,
+      "playing": false,
+      "position": 1.080866,
+      "duration": 239.36,
+      "generation": 1,
+      "output": {
+        "sampleRate": 44100,
+        "channels": 2,
+        "bitsPerSample": 16,
+        "format": "s16"
+      },
+      "device": "wasapi/{095fd435-f5c1-461f-bd32-d48dddd0f8b7}",
+      "info": {
+        "sampleRate": 44100,
+        "channels": 2,
+        "bitsPerSample": 16,
+        "format": "s16",
+        "bitrate": 274
+      }
+    },
+    {
+      "active": true,
+      "playing": false,
+      "position": 15,
+      "duration": 239.36,
+      "generation": 1,
+      "output": {
+        "sampleRate": 44100,
+        "channels": 2,
+        "bitsPerSample": 16,
+        "format": "s16"
+      },
+      "device": "wasapi/{095fd435-f5c1-461f-bd32-d48dddd0f8b7}",
+      "info": {
+        "sampleRate": 44100,
+        "channels": 2,
+        "bitsPerSample": 16,
+        "format": "s16"
+      }
+    },
+    {
+      "active": true,
+      "playing": true,
+      "position": 15,
+      "duration": 239.36,
+      "generation": 1,
+      "output": {
+        "sampleRate": 44100,
+        "channels": 2,
+        "bitsPerSample": 16,
+        "format": "s16"
+      },
+      "device": "wasapi/{095fd435-f5c1-461f-bd32-d48dddd0f8b7}",
+      "info": {
+        "sampleRate": 44100,
+        "channels": 2,
+        "bitsPerSample": 16,
+        "format": "s16"
+      }
+    },
+    {
+      "active": true,
+      "playing": true,
+      "position": 15.145937,
+      "duration": 239.36,
+      "generation": 1,
+      "output": {
+        "sampleRate": 44100,
+        "channels": 2,
+        "bitsPerSample": 16,
+        "format": "s16"
+      },
+      "device": "wasapi/{095fd435-f5c1-461f-bd32-d48dddd0f8b7}",
+      "info": {
+        "sampleRate": 44100,
+        "channels": 2,
+        "bitsPerSample": 16,
+        "format": "s16"
+      }
+    },
+    {
+      "active": true,
+      "playing": true,
+      "position": 15.589594,
+      "duration": 239.36,
+      "generation": 1,
+      "output": {
+        "sampleRate": 44100,
+        "channels": 2,
+        "bitsPerSample": 16,
+        "format": "s16"
+      },
+      "device": "wasapi/{095fd435-f5c1-461f-bd32-d48dddd0f8b7}",
+      "info": {
+        "sampleRate": 44100,
+        "channels": 2,
+        "bitsPerSample": 16,
+        "format": "s16",
+        "bitrate": 756
+      }
+    }
+  ]
+}

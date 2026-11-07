@@ -1,0 +1,119 @@
+{
+  "timestamp": "2026-11-07T05:55:13.508Z",
+  "checks": [
+    {
+      "name": "Search: real titles and pagination",
+      "ok": true,
+      "result": {
+        "total": 1912,
+        "first": "I. Grave - Allegro di molto e con brio",
+        "count": 30,
+        "page2": 30
+      }
+    },
+    {
+      "name": "Homepage recommendations and ranks",
+      "ok": true,
+      "result": {
+        "recommendations": 12,
+        "ranks": 36
+      }
+    },
+    {
+      "name": "Playlist detail",
+      "ok": true,
+      "result": {
+        "count": 30
+      }
+    },
+    {
+      "name": "Rank detail",
+      "ok": true,
+      "result": {
+        "count": 30
+      }
+    },
+    {
+      "name": "Chinese lyrics decode",
+      "ok": true,
+      "result": {
+        "count": 63,
+        "first": "晴天 - 周杰伦 (Jay Chou)"
+      }
+    },
+    {
+      "name": "Free full-song playback URL",
+      "ok": true,
+      "result": {
+        "id": "172567327",
+        "trial": false,
+        "format": "mp3",
+        "duration": 75,
+        "host": "other-er.kuwo.cn"
+      }
+    },
+    {
+      "name": "Free full-song download, validation, offline file",
+      "ok": true,
+      "result": {
+        "file": "D:\\3DS_MAX\\20261107_music\\kuwo-desktop\\artifacts\\downloaded\\苏夏依 - LudwigvanBeethoven-第九交响曲 [172567327 128k].mp3",
+        "bytes": 1213161,
+        "title": "LudwigvanBeethoven-第九交响曲",
+        "duration": 75.78122448979592,
+        "bitrate": 128000
+      }
+    },
+    {
+      "name": "Modified route: full playback despite official restriction",
+      "ok": true,
+      "result": {
+        "id": "228908",
+        "trial": false,
+        "duration": 269,
+        "bitrate": 320,
+        "cover": true
+      }
+    },
+    {
+      "name": "Modified route: concurrent complete MP3 and FLAC downloads",
+      "ok": true,
+      "result": [
+        {
+          "quality": "128k",
+          "file": "D:\\3DS_MAX\\20261107_music\\kuwo-desktop\\artifacts\\downloaded\\周杰伦 - 晴天 [228908 128k].mp3",
+          "bytes": 4317292,
+          "duration": 269.7926530612245,
+          "container": "MPEG",
+          "bitrate": 128000
+        },
+        {
+          "quality": "320k",
+          "file": "D:\\3DS_MAX\\20261107_music\\kuwo-desktop\\artifacts\\downloaded\\周杰伦 - 晴天 [228908 320k].mp3",
+          "bytes": 10792943,
+          "duration": 269.7926530612245,
+          "container": "MPEG",
+          "bitrate": 320000
+        },
+        {
+          "quality": "flac",
+          "file": "D:\\3DS_MAX\\20261107_music\\kuwo-desktop\\artifacts\\downloaded\\周杰伦 - 晴天 [228908 flac].flac",
+          "bytes": 55397039,
+          "duration": 269.74666666666667,
+          "container": "FLAC",
+          "bitrate": 1642673.807523108
+        }
+      ]
+    },
+    {
+      "name": "Unavailable high quality is reported instead of relabeled",
+      "ok": true,
+      "result": {
+        "id": "172567327",
+        "rejected": [
+          "320k",
+          "flac"
+        ]
+      }
+    }
+  ]
+}

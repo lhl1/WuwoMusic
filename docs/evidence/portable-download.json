@@ -1,0 +1,21 @@
+{
+  "version": "1.1.0",
+  "task": {
+    "rid": "93157",
+    "quality": "flac",
+    "status": "completed",
+    "bytes": 31386542
+  },
+  "files": [
+    {
+      "name": "林俊杰 - 江南 [93157 flac].cover.jpg",
+      "bytes": 72418
+    },
+    {
+      "name": "林俊杰 - 江南 [93157 flac].flac",
+      "bytes": 31386542
+    }
+  ],
+  "offlinePlaybackVerified": true,
+  "cachedLyricLines": 47
+}

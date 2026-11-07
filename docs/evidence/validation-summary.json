@@ -1,0 +1,39 @@
+{
+  "version": "1.1.0",
+  "date": "2026-11-07",
+  "host": "Windows 10 19045 x64",
+  "systemDpiPercent": 200,
+  "appZoomFactorsChecked": [
+    1,
+    1.5
+  ],
+  "automatedTests": {
+    "passed": 21,
+    "failed": 0
+  },
+  "liveApiChecks": {
+    "passed": 10,
+    "failed": 0
+  },
+  "gui": [
+    "Chinese search and covers",
+    "complete FLAC playback and seek beyond two minutes",
+    "synchronized lyrics, font and timing controls",
+    "record and square cover switch",
+    "offline local playback after restart",
+    "quality dialog and complete 320 kbps MP3 download",
+    "small-window layout"
+  ],
+  "limits": [
+    "Windows 11 not independently tested",
+    "display scaling checked using application zoom on a 200% system DPI host"
+  ],
+  "electronLyricCounts": {
+    "228908": 63,
+    "93157": 47,
+    "6304356": 49
+  },
+  "portableExecutableSha256": "d45e8cbfb6fd2136a9de2d64bf1576f8ec3aa2d54e8416f045160e0032b180f0",
+  "portableOfflinePlaybackRid": "93157",
+  "portableOfflineLyricLines": 47
+}

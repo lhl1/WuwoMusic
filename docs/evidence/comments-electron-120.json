@@ -1,0 +1,105 @@
+{
+  "timestamp": "2026-11-07T05:56:33.524Z",
+  "checks": [
+    {
+      "name": "hot",
+      "ok": true,
+      "total": 1252,
+      "rows": 20,
+      "page": 1,
+      "pages": 63,
+      "avatars": [
+        "img1.kuwo.cn",
+        "img4.kuwo.cn",
+        "q.qlogo.cn",
+        "q.qlogo.cn",
+        "img3.kuwo.cn",
+        "img1.kuwo.cn",
+        "q.qlogo.cn",
+        "img4.kuwo.cn",
+        "img4.kuwo.cn",
+        "img4.kuwo.cn",
+        "img1.kuwo.cn",
+        "img4.kuwo.cn",
+        "thirdwx.qlogo.cn",
+        "img4.kuwo.cn",
+        "q.qlogo.cn",
+        "img1.kuwo.cn",
+        "thirdqq.qlogo.cn",
+        "img2.kuwo.cn"
+      ]
+    },
+    {
+      "name": "latest",
+      "ok": true,
+      "total": 24389,
+      "rows": 20,
+      "page": 1,
+      "pages": 1220,
+      "avatars": [
+        "thirdqq.qlogo.cn",
+        "img1.kuwo.cn",
+        "img1.kuwo.cn",
+        "star.kuwo.cn",
+        "img1.kuwo.cn",
+        "img1.kuwo.cn",
+        "img1.kuwo.cn",
+        "img1.kuwo.cn",
+        "img1.kuwo.cn",
+        "img1.kuwo.cn",
+        "img1.kuwo.cn",
+        "img1.kuwo.cn",
+        "img1.kuwo.cn",
+        "img3.kwcdn.kuwo.cn",
+        "img1.kuwo.cn",
+        "thirdwx.qlogo.cn"
+      ]
+    },
+    {
+      "name": "empty",
+      "ok": true,
+      "total": 0
+    },
+    {
+      "name": "avatar-img1.kuwo.cn",
+      "ok": true,
+      "host": "img1.kuwo.cn",
+      "bytes": 1505
+    },
+    {
+      "name": "avatar-q.qlogo.cn",
+      "ok": true,
+      "host": "q.qlogo.cn",
+      "bytes": 3747
+    },
+    {
+      "name": "avatar-thirdwx.qlogo.cn",
+      "ok": true,
+      "host": "thirdwx.qlogo.cn",
+      "bytes": 5093
+    },
+    {
+      "name": "avatar-thirdqq.qlogo.cn",
+      "ok": true,
+      "host": "thirdqq.qlogo.cn",
+      "bytes": 1009
+    },
+    {
+      "name": "offline",
+      "ok": true,
+      "rejected": true
+    },
+    {
+      "name": "failure",
+      "ok": true,
+      "rejected": true
+    },
+    {
+      "name": "native-theme",
+      "ok": true,
+      "dark": true,
+      "light": false,
+      "system": false
+    }
+  ]
+}

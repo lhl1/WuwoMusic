@@ -1,0 +1,31 @@
+{
+  "timestamp": "2026-11-07T05:50:29.249Z",
+  "checks": [
+    {
+      "id": "51685512",
+      "name": "晴天 (KTV版伴奏)",
+      "ok": true,
+      "preferred": "flac",
+      "playQuality": "320k",
+      "downloadQuality": "320k",
+      "format": "mp3",
+      "bytes": 10797030,
+      "duration": 269.89714285714285,
+      "bitrate": 320000,
+      "path": "D:\\3DS_MAX\\20261107_music\\kuwo-desktop\\artifacts\\fallback-120\\验证 - 晴天 (KTV版伴奏) [51685512 320k].mp3"
+    },
+    {
+      "id": "172567327",
+      "name": "接口回退验证",
+      "ok": true,
+      "preferred": "flac",
+      "playQuality": "128k",
+      "downloadQuality": "128k",
+      "format": "mp3",
+      "bytes": 1213161,
+      "duration": 75.78122448979592,
+      "bitrate": 128000,
+      "path": "D:\\3DS_MAX\\20261107_music\\kuwo-desktop\\artifacts\\fallback-120\\验证 - 接口回退验证 [172567327 128k].mp3"
+    }
+  ]
+}

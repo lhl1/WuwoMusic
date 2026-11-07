@@ -1,0 +1,45 @@
+{
+  "date": "2026-11-07T09:35:52.637Z",
+  "version": "1.2.0",
+  "output": "D:\\3DS_MAX\\20261107_music\\kuwo-desktop\\release\\无我音乐-1.2.0-评论优化\\win-unpacked",
+  "backup": "D:/3DS_MAX/20261107_music/backups/wuwo-before-comments-20261107-172433",
+  "formalProfileWritten": false,
+  "formalProfileSha256": "60eecc6fbb83f2b49af4fb9bd1f42938fa0046f942705f42ab565145dcf19959",
+  "formalMatchesPreChangeBackup": true,
+  "guiFilesCompared": 81,
+  "manifestFiles": 83,
+  "manifestVerified": true,
+  "artifacts": [
+    {
+      "file": "无我音乐.exe",
+      "sha256": "0b842bcc9f0a16d17dab434f3f5feff6bec6c20048d4ad5557d8229d0a9383d9",
+      "equalsGuiTestedCopy": true
+    },
+    {
+      "file": "resources/app.asar",
+      "sha256": "9c5a6d52a89184130f69fcab7f6f2515655b92c358fd999f44393756b44cb7c3",
+      "equalsGuiTestedCopy": true
+    },
+    {
+      "file": "resources/hifi/mpv.exe",
+      "sha256": "b91b4543b44dd4afbd914edbf9c61927c9eb6c7be31a909f27cabf3cef6b8dfb",
+      "equalsGuiTestedCopy": true
+    }
+  ],
+  "tests": {
+    "automated": 73,
+    "gui": [
+      "compact-toolbar",
+      "dark-scrollbar",
+      "light-scrollbar",
+      "automatic-full-text",
+      "manual-expansion-restored",
+      "continuous-real-comments",
+      "cover-restored"
+    ]
+  },
+  "limitations": [
+    "Windows 11 not separately tested",
+    "Byte-identical C-drive GUI copy used due prior D-drive automation launcher restriction"
+  ]
+}
