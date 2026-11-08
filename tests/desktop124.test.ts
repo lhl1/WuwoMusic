@@ -28,9 +28,9 @@ test('provider order and normalization preserve attribution, paging and safe pla
 });
 test('automatic source selection skips mismatches and empty providers, pins pages and deduplicates requests',async()=>{
  const calls:string[]=[];const service=new MultiCommentService(async url=>{calls.push(url);await new Promise(r=>setTimeout(r,3));if(url.includes('music.163.com'))return Response.json({code:200,result:{songs:[{id:1,name:'晴天',artists:[{name:'翻唱者'}],album:{name:'叶惠美'},duration:269000}]}});if(url.includes('client_search'))return Response.json({code:0,data:{song:{list:[{songid:97773,songname:'晴天',singer:[{name:'周杰伦'}],albumname:'叶惠美',interval:269}]}}});return Response.json(qq());},()=>false);
- const [a,b]=await Promise.all([service.get(track,'latest',1),service.get(track,'latest',1)]);assert.equal(a.source,'qq');assert.deepEqual(a,b);assert.equal(calls.length,3);
- await service.get(track,'latest',2);assert.equal(calls.length,4);assert.ok(calls.at(-1)?.includes('pagenum=1'));
- await service.get(track,'hot',1);assert.equal(calls.length,5);assert.ok(calls.at(-1)?.includes('cmd=6'));
+ const [a,b]=await Promise.all([service.get(track,'latest',1),service.get(track,'latest',1)]);assert.equal(a.source,'qq');assert.deepEqual(a,b);assert.equal(calls.length,4);
+ await service.get(track,'latest',2);assert.equal(calls.length,5);assert.ok(calls.at(-1)?.includes('pagenum=1'));
+ await service.get(track,'hot',1);assert.equal(calls.length,6);assert.ok(calls.at(-1)?.includes('cmd=6'));
 });
 test('source failures fall through, all business errors stay errors, and offline bypasses caches',async()=>{
  let offline=false;const s=new MultiCommentService(async url=>{if(url.includes('comment.kuwo'))return Response.json({result:'ok',rows:[{id:9,msg:'酷我评论',u_name:'乙'}],total:'1',totalPage:'1'});throw Error('network unavailable');},()=>offline);

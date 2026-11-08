@@ -1,0 +1,9 @@
+SoundTouchJS 2.1.1 audio effects
+Upstream: https://github.com/cutterbl/SoundTouchJS
+Packages: @soundtouchjs/audio-worklet, @soundtouchjs/core, @soundtouchjs/worklet-base, @soundtouchjs/interpolation-strategy-lanczos (all 2.1.1).
+Copyright Steve "Cutter" Blades and SoundTouchJS contributors.
+License: Mozilla Public License 2.0 (enclosed).
+The processor and library are bundled without source modifications.
+Source and source maps: https://www.npmjs.com/package/@soundtouchjs/audio-worklet/v/2.1.1 and the corresponding package versions on npm.
+Original distributed processor and its source map are included in source/.
+WuwoMusic controls pitch, playback rate, and a separate stereo vocal matrix.

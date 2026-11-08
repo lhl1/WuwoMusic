@@ -1,4 +1,5 @@
 import type {Comment,CommentPage,CommentSort} from '../src/shared';
+import {commentContent} from '../src/comment-content';
 import type {Fetcher} from './provider';
 
 export function commentUrl(id:string,sort:CommentSort,page:number){
@@ -15,7 +16,7 @@ export function normalizeComments(raw:unknown,page:number):CommentPage {
   if(!Array.isArray(r.rows))throw Error('评论服务返回异常，请稍后重试');
   const count=Number(r.total),pages=Number(r.totalPage);
   if(!Number.isFinite(count)||count<0)throw Error('评论数量无效');
-  const comments:Comment[]=r.rows.slice(0,20).map((x:any)=>({id:String(x.id??''),author:String(x.u_name??'音乐听众').slice(0,200),avatar:typeof x.u_pic==='string'&&/^https?:\/\//.test(x.u_pic)?x.u_pic:undefined,time:String(x.time??'').slice(0,50),text:String(x.msg??'').slice(0,30000),likes:Math.max(0,Number(x.like_num)||0)}));
+  const comments:Comment[]=r.rows.slice(0,20).map((x:any)=>({id:String(x.id??''),author:String(x.u_name??'音乐听众').slice(0,200),avatar:typeof x.u_pic==='string'&&/^https?:\/\//.test(x.u_pic)?x.u_pic:undefined,time:String(x.time??'').slice(0,50),...commentContent(x.msg,Array.isArray(x.pics)?x.pics:[]),likes:Math.max(0,Number(x.like_num)||0)}));
   return {comments,total:count,page,pageSize:20,pages:Number.isFinite(pages)?Math.max(1,pages):Math.max(1,Math.ceil(count/20))};
 }
 export class CommentService {

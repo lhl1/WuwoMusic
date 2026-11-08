@@ -1,0 +1,28 @@
+{
+  "date": "2026-11-08T08:35:57.509Z",
+  "electron": "45.2.3",
+  "baseline": false,
+  "original": {
+    "frequency": 441.4306640625,
+    "rms": 0.34540915216974694
+  },
+  "accompaniment": {
+    "frequency": 441.4306640625,
+    "rms": 0
+  },
+  "up": {
+    "frequency": 877.47802734375,
+    "rms": 0.34084917878917376
+  },
+  "down": {
+    "frequency": 220.71533203125,
+    "rms": 0.34536523356188514
+  },
+  "restored": {
+    "frequency": 441.4306640625,
+    "rms": 0.3453243167931807
+  },
+  "rateUp": 1.25,
+  "rateDown": 0.75,
+  "passed": true
+}

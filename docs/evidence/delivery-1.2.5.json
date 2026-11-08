@@ -1,0 +1,39 @@
+{
+  "date": "2026-11-08T08:55:38.619Z",
+  "version": "1.2.5",
+  "output": "D:\\3DS_MAX\\20261107_music\\kuwo-desktop\\release\\无我音乐-1.2.5\\win-unpacked",
+  "backup": "D:\\3DS_MAX\\20261107_music\\backups\\wuwo-before-1.2.5-20261108-155545",
+  "formalProfileWrittenByQA": false,
+  "formalDataDirectory": "%APPDATA%/KuwoMusicDesktop",
+  "systemProxyModified": false,
+  "guiFilesCompared": 181,
+  "allRuntimeFilesEqualToGuiCopy": true,
+  "manifestFiles": 183,
+  "manifestVerified": true,
+  "artifacts": [
+    {
+      "file": "无我音乐.exe",
+      "sha256": "3b844876a11f4bdf2586a7c27f936c3b7fc113e6a42b8cc8976c923f603bbef9"
+    },
+    {
+      "file": "resources/app.asar",
+      "sha256": "dbcf5dbb120df98f0fc90056ea1ba9cd64cacb5017288ebd6c59600dbfde9e98"
+    },
+    {
+      "file": "resources/hifi/mpv.exe",
+      "sha256": "b91b4543b44dd4afbd914edbf9c61927c9eb6c7be31a909f27cabf3cef6b8dfb"
+    }
+  ],
+  "checks": {
+    "automatedPassed": 117,
+    "realElectronComments": true,
+    "realAudioWorkletPCM": true,
+    "compiledCssLayout": true
+  },
+  "limitations": [
+    "Windows 11 and physical DAC not tested this round",
+    "Tray recovery and global shortcuts not fully exercised through GUI",
+    "Line-based estimated lyric highlight; stereo processing is not AI stems",
+    "E-drive byte-identical GUI copy used because this host D-drive root ACL prevents automation launcher access"
+  ]
+}

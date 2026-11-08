@@ -1,5 +1,5 @@
-import type {Comment,CommentPage,CommentSource} from './shared';
-export interface FeedState {items:Comment[];page:number;hasMore:boolean;loading:boolean;error:string;source?:CommentSource}
+import type {Comment,CommentPage,CommentSource,CommentSourceStatus} from './shared';
+export interface FeedState {items:Comment[];page:number;hasMore:boolean;loading:boolean;error:string;source?:CommentSource;statuses?:CommentSourceStatus[];fallbackFrom?:CommentSource}
 export const emptyFeed=():FeedState=>({items:[],page:0,hasMore:true,loading:false,error:''});
 /** Serial page loading keeps duplicates out and ignores responses after a song or sort change. */
 export class CommentFeed {
@@ -11,8 +11,8 @@ export class CommentFeed {
   if(this.disposed||this.state.loading||!this.state.hasMore||this.state.error&&!force)return;
   this.emit({loading:true,error:''});const next=this.state.page+1;
   try{const data=await this.request(next,force);if(this.disposed)return;
-   const ids=new Set(this.state.items.map(c=>c.id));const added=data.comments.filter(c=>{if(ids.has(c.id))return false;ids.add(c.id);return true;});
-   this.emit({items:[...this.state.items,...added],page:next,hasMore:added.length>0&&next<data.pages,loading:false,source:data.source});
+   const switched=Boolean(this.state.source&&data.source&&this.state.source!==data.source);const previous=switched?[]:this.state.items;const ids=new Set(previous.map(c=>c.id));const added=data.comments.filter(c=>{if(ids.has(c.id))return false;ids.add(c.id);return true;});
+   this.emit({items:[...previous,...added],page:data.page,hasMore:added.length>0&&data.page<data.pages,loading:false,source:data.source,statuses:data.statuses,fallbackFrom:data.fallbackFrom});
   }catch(e){if(!this.disposed)this.emit({loading:false,error:(e as Error).message});}
  }
 }

@@ -7,7 +7,7 @@ import {serviceText} from '../src/text';
 export class Store {
   data: Snapshot;
   constructor(public filename:string, musicDir:string) {
-    this.data = {settings:{downloadDir:path.join(musicDir,'无我音乐'),concurrency:3,quality:'flac',qualityPolicyVersion:1,volume:0.75,muted:false,zoom:1,proxyMode:'direct',audioOutput:'normal',audioDevice:'auto',commentPreference:'auto',vocalMode:'original',desktopLyrics:false,...appearanceDefaults},library:{favorites:[],history:[],local:[],playlists:[]},tasks:[]};
+    this.data = {settings:{downloadDir:path.join(musicDir,'无我音乐'),concurrency:3,quality:'flac',qualityPolicyVersion:1,volume:0.75,muted:false,zoom:1,proxyMode:'direct',audioOutput:'normal',audioDevice:'auto',commentPreference:'auto',vocalMode:'original',vocalBalance:0,playbackRate:1,pitchSemitones:0,effectsVersion:1,desktopLyrics:false,...appearanceDefaults},library:{favorites:[],history:[],local:[],playlists:[]},tasks:[]};
     if(fs.existsSync(filename)) {
       try {
         const saved=JSON.parse(fs.readFileSync(filename,'utf8'));
@@ -22,7 +22,7 @@ export class Store {
         this.data.tasks=Array.isArray(saved.tasks)?saved.tasks:[];
         this.data.settings.commentPreference=['auto','netease','qq','kuwo'].includes(saved.settings?.commentPreference)?saved.settings.commentPreference:'auto';
         this.data.settings.vocalMode=['original','accompaniment','vocal'].includes(saved.settings?.vocalMode)?saved.settings.vocalMode:'original';
-        this.data.settings.playbackRate=1;
+        if(saved.settings?.effectsVersion!==1){this.data.settings.playbackRate=1;this.data.settings.pitchSemitones=0;this.data.settings.effectsVersion=1;}else{this.data.settings.playbackRate=Math.max(.5,Math.min(2,Number(saved.settings.playbackRate)||1));this.data.settings.pitchSemitones=Math.round(Math.max(-12,Math.min(12,Number(saved.settings.pitchSemitones)||0)));}
         // Repair saved display text in memory; keep identifiers and file paths intact.
         const tracks=[...this.data.library.favorites,...this.data.library.history,...this.data.library.local,...this.data.library.playlists.flatMap(p=>p.tracks??[]),...this.data.tasks.flatMap(t=>t.track?[t.track]:[])];
         for(const track of tracks)for(const key of ['name','artist','album'] as const)if(typeof track[key]==='string')track[key]=serviceText(track[key]);

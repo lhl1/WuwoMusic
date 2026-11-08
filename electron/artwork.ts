@@ -2,9 +2,11 @@ import fs from 'node:fs/promises';
 import path from 'node:path';
 import {createHash} from 'node:crypto';
 import type {Fetcher} from './provider';
+import {commentImageUrl} from '../src/comment-content';
 import {canonicalArtworkHost} from '../src/artwork-source';
 
-export function artworkSource(raw:string,avatar=false):string {
+export function artworkSource(raw:string,avatar=false,comment=false):string {
+  if(comment){const safe=commentImageUrl(raw);if(!safe)throw Error('不支持的评论图片来源');return safe;}
   const url=new URL(raw);
   if(!['http:','https:'].includes(url.protocol)||url.username||url.password||(url.port&&url.port!=='443')||(!/(^|\.)(kuwo|kwcdn)\.cn$/i.test(url.hostname)&&!(avatar&&(['q.qlogo.cn','thirdwx.qlogo.cn','thirdqq.qlogo.cn'].includes(url.hostname)||/^p[1-9]\.music\.126\.net$/.test(url.hostname)||/^pic[1-9]\.y\.qq\.com$/.test(url.hostname)))))throw Error('不支持的图片来源');
   url.protocol='https:';return canonicalArtworkHost(url).href;
@@ -18,9 +20,9 @@ export function imageType(bytes:Uint8Array):string|undefined {
 export class ArtworkCache {
   private pending=new Map<string,Promise<Buffer>>();
   private active=0;private waiters:Array<()=>void>=[];private writes=0;
-  constructor(private directory:string,private fetcher:Fetcher,private offline:()=>boolean,private avatar=false){}
+  constructor(private directory:string,private fetcher:Fetcher,private offline:()=>boolean,private avatar=false,private comment=false){}
   async bytes(raw:string):Promise<Buffer>{
-    const url=artworkSource(raw,this.avatar),key=createHash('sha256').update(url).digest('hex');
+    const url=artworkSource(raw,this.avatar,this.comment),key=createHash('sha256').update(url).digest('hex');
     const filename=path.join(this.directory,key+'.image');
     const cached=await fs.readFile(filename).catch(()=>undefined);if(cached&&imageType(cached))return cached;
     if(this.offline())throw Error('图片尚未缓存');
@@ -33,7 +35,7 @@ export class ArtworkCache {
     try{
       if(this.offline())throw Error('离线模式');
       const res=await this.fetcher(url,{headers:{'User-Agent':'Mozilla/5.0'},signal:AbortSignal.timeout(12000)});
-      if(res.url)artworkSource(res.url,this.avatar);
+      if(res.url)artworkSource(res.url,this.avatar,this.comment);
       if(!res.ok||Number(res.headers.get('content-length'))>8*1024*1024)throw Error('图片暂不可用');
       if(!res.body)throw Error('空图片');
       const reader=res.body.getReader(),chunks:Buffer[]=[];let size=0;

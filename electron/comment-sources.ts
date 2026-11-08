@@ -1,7 +1,8 @@
-import type {Comment,CommentPage,CommentSort,CommentSource,CommentPreference,Track} from '../src/shared';
+import type {Comment,CommentPage,CommentSort,CommentSource,CommentPreference,CommentSourceStatus,Track} from '../src/shared';
 import type {Fetcher} from './provider';
 import {CommentService} from './comments';
 import {serviceText} from '../src/text';
+import {commentContent} from '../src/comment-content';
 
 export const commentSourceNames:Record<CommentSource,string>={netease:'网易云音乐',qq:'QQ 音乐',kuwo:'酷我音乐'};
 export const sourceOrder=(preference:CommentPreference='auto'):CommentSource[]=>preference==='auto'?['netease','qq','kuwo']:[preference,...(['netease','qq','kuwo'] as const).filter(s=>s!==preference)];
@@ -23,7 +24,7 @@ export function normalizeNetease(raw:any,sort:CommentSort,page:number):CommentPa
  const rows=sort==='hot'?raw.hotComments:raw.comments;
  if(!Array.isArray(rows)||!Number.isFinite(Number(raw.total)))throw Error('网易云音乐评论格式异常');
  const total=Math.max(0,Number(raw.total)),more=sort==='hot'?raw.hasMore:raw.more;
- return {comments:rows.slice(0,20).filter((r:any)=>r.commentId&&r.content).map((r:any):Comment=>({id:'netease:'+r.commentId,author:safe(r.user?.nickname||'云村听众',200),avatar:r.user?.avatarUrl,time:stamp(r.time),text:safe(r.content),likes:Math.max(0,Number(r.likedCount)||0)})),total,page,pageSize:20,pages:more===false?page:Math.max(page,Math.ceil(total/20)),source:'netease'};
+ return {comments:rows.slice(0,20).filter((r:any)=>r.commentId&&r.content).map((r:any):Comment=>({id:'netease:'+r.commentId,author:safe(r.user?.nickname||'云村听众',200),avatar:r.user?.avatarUrl,time:stamp(r.time),...commentContent(r.content,Array.isArray(r.pictures)?r.pictures:[]),likes:Math.max(0,Number(r.likedCount)||0)})),total,page,pageSize:20,pages:more===false?page:Math.max(page,Math.ceil(total/20)),source:'netease'};
 }
 export function normalizeQQ(raw:any,sort:CommentSort,page:number):CommentPage{
  if(raw?.code!==0||raw.subcode&&raw.subcode!==0)throw Error('QQ 音乐评论服务暂不可用');
@@ -31,15 +32,15 @@ export function normalizeQQ(raw:any,sort:CommentSort,page:number):CommentPage{
  if(!Array.isArray(block?.commentlist)||!Number.isFinite(Number(block.commenttotal)))throw Error('QQ 音乐评论格式异常');
  // The public hot endpoint currently repeats the same twenty rows for every pagenum.
  const total=sort==='hot'?Math.min(20,Number(block.commenttotal)):Math.max(0,Number(block.commenttotal));
- return {comments:block.commentlist.slice(0,20).filter((r:any)=>r.commentid&&r.rootcommentcontent).map((r:any):Comment=>({id:'qq:'+r.commentid,author:safe(r.nick||r.rootcommentnick||'音乐听众',200),avatar:r.avatarurl,time:stamp(r.time),text:safe(r.rootcommentcontent),likes:Math.max(0,Number(r.praisenum)||0)})),total,page,pageSize:20,pages:sort==='hot'?1:raw.morecomment===0?page:Math.max(page,Math.ceil(total/20)),source:'qq'};
+ return {comments:block.commentlist.slice(0,20).filter((r:any)=>r.commentid&&r.rootcommentcontent).map((r:any):Comment=>({id:'qq:'+r.commentid,author:safe(r.nick||r.rootcommentnick||'音乐听众',200),avatar:r.avatarurl,time:stamp(r.time),...commentContent(r.rootcommentcontent,Array.isArray(r.pic)?r.pic:[]),likes:Math.max(0,Number(r.praisenum)||0)})),total,page,pageSize:20,pages:sort==='hot'?1:raw.morecomment===0?page:Math.max(page,Math.ceil(total/20)),source:'qq'};
 }
 export class MultiCommentService{
  private kuwo:CommentService;
  private cache=new Map<string,{expires:number;value:CommentPage}>();
  private pending=new Map<string,Promise<CommentPage>>();
- private choices=new Map<string,{expires:number;source:CommentSource;id:string}>();
- private emptyUntil=new Map<string,number>();
- private resolving=new Map<string,Promise<{source:CommentSource;id:string}|undefined>>();
+ private matches=new Map<string,Promise<string|undefined>>();
+ private probes=new Map<string,{expires:number;promise:Promise<CommentSourceStatus[]>}>();
+ private choices=new Map<string,CommentSource>();
  constructor(private fetcher:Fetcher,private offline:()=>boolean,private now=Date.now){this.kuwo=new CommentService(fetcher,offline,now);}
  private async json(url:string,source:CommentSource){const response=await this.fetcher(url,{headers:{'User-Agent':'Mozilla/5.0',Referer:source==='netease'?'https://music.163.com/':'https://y.qq.com/'},signal:AbortSignal.timeout(10000),cache:'no-store'});if(!response.ok)throw Error(commentSourceNames[source]+'连接失败');return response.json();}
  private async match(t:Track,source:CommentSource){
@@ -57,22 +58,31 @@ export class MultiCommentService{
   pending=(async()=>{const url=source==='netease'?`https://music.163.com/api/v1/resource/${sort==='hot'?'hotcomments':'comments'}/R_SO_4_${id}?limit=20&offset=${(page-1)*20}`:`https://c.y.qq.com/base/fcgi-bin/fcg_global_comment_h5.fcg?biztype=1&topid=${id}&cmd=${sort==='hot'?6:8}&pagenum=${page-1}&pagesize=20&format=json`;
    const raw=await this.json(url,source),value=source==='netease'?normalizeNetease(raw,sort,page):normalizeQQ(raw,sort,page);this.cache.set(key,{value,expires:this.now()+300000});if(this.cache.size>200)this.cache.delete(this.cache.keys().next().value!);return value;})();this.pending.set(key,pending);try{return await pending;}finally{this.pending.delete(key);}
  }
- async get(t:Track,sort:CommentSort,page:number,preference:CommentPreference='auto',force=false):Promise<CommentPage>{
-  if(!['hot','latest'].includes(sort)||!Number.isInteger(page)||page<1||page>10000||!['auto','netease','qq','kuwo'].includes(preference))throw Error('无效的评论查询');
+ private matchCached(t:Track,source:CommentSource,force=false){
+  const key=JSON.stringify([t.id,t.onlineId,t.name,t.artist,t.album,t.duration,source]);
+  if(force)this.matches.delete(key);let value=this.matches.get(key);
+  if(!value){value=this.match(t,source);this.matches.set(key,value);if(this.matches.size>300)this.matches.delete(this.matches.keys().next().value!);value.catch(()=>this.matches.delete(key));}return value;
+ }
+ async inspect(t:Track,force=false):Promise<CommentSourceStatus[]>{
   if(this.offline())throw Error('当前为离线模式，联网后可查看评论');
-  const key=JSON.stringify([t.id,t.name,t.artist,t.album,t.duration,preference]);let choice=this.choices.get(key);
-  if(force&&page===1){this.choices.delete(key);this.emptyUntil.delete(key);}
-  if(!force&&(this.emptyUntil.get(key)??0)>this.now())return {comments:[],total:0,page,pageSize:20,pages:1};
-  if(!choice||page===1&&choice.expires<=this.now()||force&&page===1){
-   let resolving=this.resolving.get(key);
-   if(!resolving){resolving=(async()=>{const errors:string[]=[];for(const source of sourceOrder(preference)){
-    try{const id=await this.match(t,source);if(!id)continue;const initial=await this.page(source,id,'latest',1,force);if(initial.total>0||initial.comments.length){const chosen={source,id,expires:this.now()+300000};this.choices.set(key,chosen);if(this.choices.size>150)this.choices.delete(this.choices.keys().next().value!);return chosen;}}
-    catch(e){errors.push((e as Error).message);}
-   }if(errors.length)throw Error('评论源暂未就绪：'+errors.join('；'));this.emptyUntil.set(key,this.now()+300000);if(this.emptyUntil.size>150)this.emptyUntil.delete(this.emptyUntil.keys().next().value!);return undefined;})();this.resolving.set(key,resolving);}
-   try{const selected=await resolving;choice=selected?{...selected,expires:this.now()+300000}:undefined;}finally{this.resolving.delete(key);}
+  const key=JSON.stringify([t.id,t.onlineId,t.name,t.artist,t.album,t.duration]);const existing=this.probes.get(key);if(!force&&existing&&existing.expires>this.now())return existing.promise;
+  const promise=Promise.all((['netease','qq','kuwo']as const).map(async(source):Promise<CommentSourceStatus>=>{try{const id=await this.matchCached(t,source,force);if(!id)return {source,state:'unmatched'};const p=await this.page(source,id,'latest',1,force);return {source,state:p.total>0||p.comments.length?'available':'empty',total:p.total};}catch(e){return {source,state:'error',error:(e as Error).message};}}));
+  this.probes.set(key,{expires:this.now()+300000,promise});if(this.probes.size>150)this.probes.delete(this.probes.keys().next().value!);return promise;
+ }
+ async get(t:Track,sort:CommentSort,page:number,preference:CommentPreference='auto',force=false,manual?:CommentSource):Promise<CommentPage>{
+  if(!['hot','latest'].includes(sort)||!Number.isInteger(page)||page<1||page>10000||!['auto','netease','qq','kuwo'].includes(preference)||manual&&!['netease','qq','kuwo'].includes(manual))throw Error('无效的评论查询');
+  if(this.offline())throw Error('当前为离线模式，联网后可查看评论');
+  const statuses=(await this.inspect(t,force&&page===1)).map(s=>({...s}));
+  const key=JSON.stringify([t.id,t.onlineId,t.name,t.artist,t.album,t.duration,preference,manual]);
+  const previous=this.choices.get(key);let first=manual??previous;const order=sourceOrder(manual??preference);if(first)order.splice(0,order.length,first,...order.filter(s=>s!==first));
+  let fallbackFrom:CommentSource|undefined;
+  for(const source of order){const status=statuses.find(s=>s.source===source)!;
+   // Manual selection of a genuinely empty source stays empty; failures still fall through.
+   if(status.state!=='available'){if(source===manual&&status.state!=='error')return {comments:[],total:0,page:1,pageSize:20,pages:1,source,statuses};if(status.state==='error'&&!fallbackFrom)fallbackFrom=source;continue;}
+   try{const id=await this.matchCached(t,source);if(!id)continue;const cursor=previous&&source!==previous?1:page;const data=await this.page(source,id,sort,cursor,force);this.choices.set(key,source);if(this.choices.size>200)this.choices.delete(this.choices.keys().next().value!);return {...data,statuses,fallbackFrom};}
+   catch(e){status.state='error';status.error=(e as Error).message;fallbackFrom??=source;}
   }
-  if(!choice)return {comments:[],total:0,page,pageSize:20,pages:1};
-  // Keep one provider throughout pagination and sorting. No mixing unrelated platform rows.
-  return this.page(choice.source,choice.id,sort,page,force);
+  const errors=statuses.filter(s=>s.state==='error');if(errors.length)throw Error('评论源暂未就绪：'+errors.map(s=>commentSourceNames[s.source]+'：'+s.error).join('；'));
+  return {comments:[],total:0,page:1,pageSize:20,pages:1,statuses};
  }
 }

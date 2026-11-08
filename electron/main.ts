@@ -32,7 +32,7 @@ const appDir=app.getAppPath();
 protocol.registerSchemesAsPrivileged([{scheme:'kuwo',privileges:{standard:true,secure:true,supportFetchAPI:true,stream:true,corsEnabled:true}}]);
 let window:BrowserWindow,store:Store,downloads:DownloadManager;
 let artwork:ArtworkCache,metadata:MetadataCache;
-let avatars:ArtworkCache;
+let avatars:ArtworkCache,commentImages:ArtworkCache;
 let network:NetworkPolicy;
 let desktopLyrics:DesktopLyricsController;
 const fetchNetwork=(url:string,init?:RequestInit)=>network.fetch(url,init);
@@ -95,6 +95,7 @@ async function enrichDownload(t:DownloadTask){
 async function registerMedia(){
   protocol.handle('kuwo',async request=>{
     const u=new URL(request.url);
+    if(u.hostname==='comment-image'){if(!['GET','HEAD'].includes(request.method))return new Response(null,{status:405});const raw=u.searchParams.get('url');return raw?commentImages.response(raw):new Response(null,{status:404});}
     if(u.hostname==='avatar'){
       if(!['GET','HEAD'].includes(request.method))return new Response(null,{status:405});
       const raw=u.searchParams.get('url');return raw?avatars.response(raw):new Response(null,{status:404});
@@ -171,7 +172,8 @@ function registerIpc(){
   handle('queueState',async items=>{const file=path.join(app.getPath('userData'),'queue.json');if(items!==undefined){if(!Array.isArray(items)||items.length>5000)throw Error('队列过长');const list=uniqueTracks(items.map(track));await fsp.writeFile(file,JSON.stringify(list),'utf8');return list;}try{const saved=JSON.parse(await fsp.readFile(file,'utf8'));if(!Array.isArray(saved))return [];return uniqueTracks(saved.slice(0,5000).flatMap(value=>{try{return [track(value)];}catch{return [];} }));}catch{return [];}});
   handle('saveQueue',(name,items)=>{name=text(name,100).trim();if(!name)throw Error('请输入歌单名称');if(!Array.isArray(items)||!items.length||items.length>5000)throw Error('请选择 1–5000 首歌曲');if(store.data.library.playlists.length>=100)throw Error('最多创建 100 个歌单');createImportedPlaylist(store.data.library,name,uniqueTracks(items.map(track)));store.save();return structuredClone(store.data.library);});
   handle('snapshot',()=>({...store.snapshot(),themeDark:nativeTheme.shouldUseDarkColors}));
-  handle('comments',(value,sort,page,force)=>comments.get(track(value),sort,integer(page,1),store.data.settings.commentPreference??'auto',force===true));
+  handle('comments',(value,sort,page,force,source)=>comments.get(track(value),sort,integer(page,1),store.data.settings.commentPreference??'auto',force===true,source));
+  handle('commentSources',(value,force)=>comments.inspect(track(value),force===true));
   handle('publishLyrics',frame=>desktopLyrics.publish(frame));
   handle('search',(q,p)=>provider.search(text(q),integer(p)));
   handle('home',page=>provider.home(integer(page,0,1000)));
@@ -235,8 +237,9 @@ function registerIpc(){
     if(patch.offline!==undefined){if(typeof patch.offline!=='boolean')throw new Error('无效的离线设置');s.offline=patch.offline;if(s.offline){void hifi.stopRemote();}if(s.offline)for(const t of store.data.tasks.filter(t=>['queued','resolving','downloading'].includes(t.status)))void downloads.action(t.id,'pause');}
     if(patch.commentPreference!==undefined){if(!['auto','netease','qq','kuwo'].includes(patch.commentPreference))throw Error('无效的评论来源');s.commentPreference=patch.commentPreference;}
     if(patch.vocalMode!==undefined){if(!['original','accompaniment','vocal'].includes(patch.vocalMode))throw Error('无效的音效');if(s.audioOutput==='hifi'&&patch.vocalMode!=='original')throw Error('HiFi 独占模式保持原音，请切换标准输出后使用音效');s.vocalMode=patch.vocalMode;}
-    if(patch.audioOutput==='hifi')s.vocalMode='original';
-    if(patch.playbackRate!==undefined){if(![0.75,1,1.25,1.5,2].includes(patch.playbackRate))throw new Error('无效的播放速度');s.playbackRate=patch.playbackRate;}
+    if(patch.audioOutput==='hifi'){s.vocalMode='original';s.vocalBalance=0;s.playbackRate=1;s.pitchSemitones=0;}
+    for(const [key,min,max]of [['vocalBalance',-1,1],['pitchSemitones',-12,12]]as const)if(patch[key]!==undefined){if(!Number.isFinite(patch[key])||patch[key]<min||patch[key]>max||key==='pitchSemitones'&&!Number.isInteger(patch[key]))throw Error('无效的音效参数');if(s.audioOutput==='hifi'&&patch[key]!==0)throw Error('HiFi 独占保持原音');s[key]=patch[key];}
+    if(patch.playbackRate!==undefined){if(!Number.isFinite(patch.playbackRate)||patch.playbackRate<.5||patch.playbackRate>2)throw new Error('无效的播放速度');if(s.audioOutput==='hifi'&&patch.playbackRate!==1)throw Error('HiFi 独占保持原速');s.playbackRate=patch.playbackRate;}
     if(patch.lyricOffset!==undefined){if(!Number.isFinite(patch.lyricOffset)||Math.abs(patch.lyricOffset)>30)throw new Error('歌词偏移应在 30 秒以内');s.lyricOffset=patch.lyricOffset;}
     if(patch.lyricFontSize!==undefined){if(![14,16,18,20,22,24].includes(patch.lyricFontSize))throw new Error('无效的歌词字号');s.lyricFontSize=patch.lyricFontSize;}
     if(patch.coverMode!==undefined){if(!['record','square'].includes(patch.coverMode))throw new Error('无效的封面模式');s.coverMode=patch.coverMode;}
@@ -268,6 +271,7 @@ else {
     nativeTheme.on('updated',()=>{if(window&&!window.isDestroyed()){window.setBackgroundColor(nativeTheme.shouldUseDarkColors?'#1b1c1f':'#fcfbf7');window.webContents.send('music:theme',nativeTheme.shouldUseDarkColors);}});
     artwork=new ArtworkCache(path.join(app.getPath('userData'),'artwork'),fetchNetwork,()=>Boolean(store.data.settings.offline));
     avatars=new ArtworkCache(path.join(app.getPath('userData'),'avatars'),fetchNetwork,()=>Boolean(store.data.settings.offline),true);
+    commentImages=new ArtworkCache(path.join(app.getPath('userData'),'comment-images'),fetchNetwork,()=>Boolean(store.data.settings.offline),false,true);
     metadata=new MetadataCache(path.join(app.getPath('userData'),'metadata'),provider,()=>Boolean(store.data.settings.offline));
     downloads=new DownloadManager(store,provider,fetchNetwork,tasks=>{if(window&&!window.isDestroyed())window.webContents.send('music:tasks',tasks);for(const t of tasks)if(t.status==='completed'){const original=store.data.tasks.find(x=>x.id===t.id);if(original)void enrichDownload(original);}},t=>discovery.mv(t));
     await registerMedia();registerIpc();
@@ -280,7 +284,7 @@ else {
     window.webContents.setWindowOpenHandler(()=>({action:'deny'}));
     window.webContents.on('will-navigate',e=>e.preventDefault());
     window.once('ready-to-show',()=>{window.webContents.setZoomFactor(store.data.settings.zoom);window.showInactive();});
-    desktopLyrics=new DesktopLyricsController({entry:path.join(appDir,'dist/index.html'),preload:path.join(appDir,'dist-electron/preload.cjs'),directory:app.getPath('userData'),enabled:store.data.settings.desktopLyrics===true,onEnabled:enabled=>{store.data.settings.desktopLyrics=enabled;store.save();},onCommand:action=>window.webContents.send('music:playerCommand',action)});
+    desktopLyrics=new DesktopLyricsController({entry:path.join(appDir,'dist/index.html'),preload:path.join(appDir,'dist-electron/preload.cjs'),directory:app.getPath('userData'),icon:path.join(appDir,'dist/icon.png'),onReveal:()=>{window.show();window.focus();},enabled:store.data.settings.desktopLyrics===true,onEnabled:enabled=>{store.data.settings.desktopLyrics=enabled;store.save();},onCommand:(action,value)=>window.webContents.send('music:playerCommand',action,value)});
     ipcMain.handle('music:desktopLyrics',(event,action,value)=>{if(event.senderFrame!==event.sender.mainFrame||(event.sender!==window.webContents&&!desktopLyrics.owns(event.sender)))throw Error('无效的调用来源');return desktopLyrics.action(action,value);});
     await window.loadFile(path.join(appDir,'dist/index.html'));
     if(store.data.settings.desktopLyrics)await desktopLyrics.action('toggle');

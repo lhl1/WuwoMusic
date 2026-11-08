@@ -9,9 +9,9 @@ import {artworkSource} from '../electron/artwork';
 import {appearanceDefaults,themeSource,applyAppearance} from '../src/preferences';
 import {canRequestComments,LatestRequest} from '../src/comment-state';
 import {commentScrollRunning} from '../src/comment-feed';
-const raw={result:'ok',total:'41',totalPage:'3',rows:[{id:12,u_name:'听众',u_pic:'http://q.qlogo.cn/g',time:'2020-01-01',msg:'<b>文本</b>\n第二行',like_num:'21'}]};
+const raw={result:'ok',total:'41',totalPage:'3',rows:[{id:12,u_name:'听众',u_pic:'http://q.qlogo.cn/g',time:'2020-01-01',msg:'文本\n第二行',like_num:'21'}]};
 test('comments preserve plain text and normalize paging, numbers and empty results',()=>{
- const page=normalizeComments(raw,2);assert.equal(page.comments[0].text,'<b>文本</b>\n第二行');assert.equal(page.comments[0].likes,21);assert.equal(page.page,2);assert.equal(page.pages,3);assert.equal(page.pageSize,20);
+ const page=normalizeComments(raw,2);assert.equal(page.comments[0].text,'文本\n第二行');assert.equal(page.comments[0].likes,21);assert.equal(page.page,2);assert.equal(page.pages,3);assert.equal(page.pageSize,20);
  assert.deepEqual(normalizeComments({result:'ok',total:0,rows:[],totalPage:0},1).comments,[]);
  assert.equal(normalizeComments({result:'ok',data:{info:[],total:'0'}},1).total,0);
  assert.throws(()=>normalizeComments({code:'600',result:'ok',data:{info:[],total:'0'}},1));

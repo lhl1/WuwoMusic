@@ -1,0 +1,99 @@
+{
+  "date": "2026-11-08T08:35:52.465Z",
+  "system": "10.0.19045",
+  "electron": "45.2.3",
+  "proxy": "direct",
+  "results": [
+    {
+      "track": {
+        "id": "193290598",
+        "name": "如愿",
+        "artist": "王菲",
+        "album": "如愿",
+        "duration": 265
+      },
+      "source": "netease",
+      "statuses": [
+        {
+          "source": "netease",
+          "state": "available",
+          "total": 36314
+        },
+        {
+          "source": "qq",
+          "state": "available",
+          "total": 47076
+        },
+        {
+          "source": "kuwo",
+          "state": "empty",
+          "total": 0
+        }
+      ],
+      "hotRows": 20,
+      "hotPages": 54,
+      "latestRows": 20,
+      "total": 36314,
+      "nextPageRows": 20,
+      "distinctNextPage": true,
+      "kuwoPreferredActualSource": "netease",
+      "kuwoPreferredRows": 20
+    },
+    {
+      "track": {
+        "id": "228908",
+        "name": "晴天",
+        "artist": "周杰伦",
+        "album": "叶惠美",
+        "duration": 269
+      },
+      "source": "qq",
+      "statuses": [
+        {
+          "source": "netease",
+          "state": "unmatched"
+        },
+        {
+          "source": "qq",
+          "state": "available",
+          "total": 230665
+        },
+        {
+          "source": "kuwo",
+          "state": "available",
+          "total": 24399
+        }
+      ],
+      "hotRows": 19,
+      "hotPages": 1,
+      "latestRows": 18,
+      "total": 230665,
+      "nextPageRows": 19,
+      "distinctNextPage": true,
+      "kuwoPreferredActualSource": "kuwo",
+      "kuwoPreferredRows": 20
+    }
+  ],
+  "images": [
+    {
+      "source": "netease",
+      "host": "p2.music.126.net",
+      "bytes": 99414
+    },
+    {
+      "source": "qq",
+      "host": "thirdwx.qlogo.cn",
+      "bytes": 3855
+    },
+    {
+      "emoji": "e400824",
+      "bytes": 1712
+    },
+    {
+      "emoji": "e400001",
+      "bytes": 934
+    }
+  ],
+  "offlineRefused": true,
+  "status": "passed"
+}
