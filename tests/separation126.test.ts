@@ -38,3 +38,17 @@ test('a new song cancels the previous preparation before writing its own cache',
  let fetching!:()=>void;const started=new Promise<void>(r=>{fetching=r;}),service=new SeparationService(path.join(dir,'cache'),path.resolve('build/separation'),path.resolve('build/hifi/mpv.exe'),s=>{if(s.id==='old'&&s.phase==='fetching')fetching();});
  try{const old=service.prepare({key:'old',download:async(_file,signal)=>new Promise<void>((_,reject)=>{if(signal.aborted)reject(signal.reason);else signal.addEventListener('abort',()=>reject(signal.reason),{once:true});})},'old'),rejected=assert.rejects(old,{name:'AbortError'});await started;const next=await service.prepare({key:'next',file:input},'new');await rejected;assert.ok((await fs.stat(next)).size>68);assert.equal((await fs.readdir(path.join(dir,'cache'))).length,1);}finally{await service.dispose();await fs.rm(dir,{recursive:true,force:true});}
 });
+
+test('real native AI accepts Chinese install/cache/source paths with spaces and symbols',async()=>{
+ const root=await temporary(),dir=path.join(root,'中文 安装与缓存 🎵'),resources=path.join(dir,'引擎 模型'),cache=path.join(dir,'下载 音乐'),input=path.join(dir,'月亮照山川 & 测试.wav');
+ await fs.mkdir(dir);await fs.cp(path.resolve('build/separation'),resources,{recursive:true});await fs.writeFile(input,wave([[1000,1000],[-1000,-1000]],44100));
+ const events:unknown[]=[],service=new SeparationService(cache,resources,path.resolve('build/hifi/mpv.exe'),()=>{},(event,fields)=>events.push({event,...fields}));
+ try{const output=await service.prepare({file:input,key:'unicode-path'},'unicode');assert.ok((await fs.stat(output)).size>68);assert.deepEqual(events,[]);assert.equal((await fs.readdir(cache)).length,1,'private model links/copies must be cleaned');}
+ finally{await service.dispose();await fs.rm(root,{recursive:true,force:true});}
+});
+
+test('worker errors retain stage, exit code and bounded output for diagnostics',async()=>{
+ const events:{event:string;fields:Record<string,unknown>}[]=[];
+ await assert.rejects(runAudioWorker(process.execPath,['-e',"console.log('x'.repeat(5000));console.error('model failed https://example.com/private-token');process.exit(7)"],new AbortController().signal,5000,{stage:'AI 分离',diagnostic:(event,fields)=>events.push({event,fields})}),/AI 分离失败（退出码 7）/);
+ assert.equal(events.length,1);assert.equal(events[0].event,'worker-failed');assert.equal(events[0].fields.code,7);assert.equal(events[0].fields.stage,'AI 分离');const output=String(events[0].fields.output);assert.ok(output.length<=4000);assert.ok(output.includes('model failed'));assert.ok(!output.includes('private-token'));
+});

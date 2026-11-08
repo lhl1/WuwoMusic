@@ -1,0 +1,10 @@
+{
+  "date": "2026-11-08T10:41:54.398Z",
+  "platform": "win32",
+  "oldCallFailed": true,
+  "oldExitCode": 4294967295,
+  "nativeCouldNotOpenUnicodeInput": true,
+  "fixedOutputBytes": 589892,
+  "fixedCallPassed": true,
+  "passed": true
+}

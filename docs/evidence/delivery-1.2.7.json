@@ -1,0 +1,22 @@
+{
+  "date": "2026-11-08T10:43:36.320Z",
+  "version": "1.2.7",
+  "output": "D:\\3DS_MAX\\20261107_music\\kuwo-desktop\\release\\无我音乐-1.2.7\\win-unpacked",
+  "backup": "D:\\3DS_MAX\\20261107_music\\backups\\wuwo-before-1.2.7-20261108-183201",
+  "runtimeFilesCompared": 200,
+  "allRuntimeFilesEqualToGuiCopy": true,
+  "automatedTests": 125,
+  "formalProfileWrittenByQA": false,
+  "checks": {
+    "oldUnicodeFailureReproduced": true,
+    "realUnicodeModelSourceCache": true,
+    "packagedUnicodeGui": true,
+    "realOnlineSameSong": true,
+    "crossVolumeModelCopy": true
+  },
+  "limitations": [
+    "Windows 11 and physical DAC not tested",
+    "Same AI model and output limits as 1.2.6",
+    "Independent profile GUI run; user old windows were left running"
+  ]
+}

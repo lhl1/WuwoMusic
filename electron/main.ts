@@ -49,6 +49,7 @@ const nativeCatalog=new NativeCatalog(provider);
 let playTicket=0;
 let playAbort:AbortController|undefined;
 const playbackLog=new PlaybackLog(path.join(app.getPath('userData'),'logs/playback.log'));
+const separationLog=new PlaybackLog(path.join(app.getPath('userData'),'logs/separation.log'));
 type MediaSource={file?:string;url?:string;signal?:AbortSignal;refresh?:()=>Promise<string>;separationKey?:string};
 const hifi=new HifiPlayer(path.join(app.isPackaged?process.resourcesPath:path.join(appDir,'build'),'hifi','mpv.exe'),state=>{if(window&&!window.isDestroyed())window.webContents.send('music:hifi',state);});
 const bridge=new AudioBridge(fetchNetwork,()=>Boolean(store?.data.settings.offline));
@@ -296,7 +297,7 @@ else {
     commentImages=new ArtworkCache(path.join(app.getPath('userData'),'comment-images'),fetchNetwork,()=>Boolean(store.data.settings.offline),false,true);
     metadata=new MetadataCache(path.join(app.getPath('userData'),'metadata'),provider,()=>Boolean(store.data.settings.offline));
     downloads=new DownloadManager(store,provider,fetchNetwork,tasks=>{if(window&&!window.isDestroyed())window.webContents.send('music:tasks',tasks);for(const t of tasks)if(t.status==='completed'){const original=store.data.tasks.find(x=>x.id===t.id);if(original)void enrichDownload(original);}},t=>discovery.mv(t));
-    separation=new SeparationService(path.join(store.data.settings.downloadDir,'.wuwo-cache','stems'),path.join(app.isPackaged?process.resourcesPath:path.join(appDir,'build'),'separation'),path.join(app.isPackaged?process.resourcesPath:path.join(appDir,'build'),'hifi','mpv.exe'),state=>{if(window&&!window.isDestroyed())window.webContents.send('music:separation',state);});
+    separation=new SeparationService(path.join(store.data.settings.downloadDir,'.wuwo-cache','stems'),path.join(app.isPackaged?process.resourcesPath:path.join(appDir,'build'),'separation'),path.join(app.isPackaged?process.resourcesPath:path.join(appDir,'build'),'hifi','mpv.exe'),state=>{if(window&&!window.isDestroyed())window.webContents.send('music:separation',state);},(event,fields)=>separationLog.write(event,fields));
     await registerMedia();registerIpc();
     session.defaultSession.setPermissionRequestHandler((_w,_p,cb)=>cb(false));
     session.defaultSession.webRequest.onBeforeRequest({urls:['http://*/*','https://*/*']},(_details,callback)=>callback({cancel:Boolean(store.data.settings.offline)}));

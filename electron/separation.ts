@@ -7,21 +7,23 @@ import type {SeparationProgress} from '../src/shared';
 export const SEPARATION_VERSION='spleeter-2stems-fp16-v1';
 export interface SeparationInput {file?:string;key:string;signal?:AbortSignal;download?:(file:string,signal:AbortSignal)=>Promise<void>}
 type Progress=(state:SeparationProgress)=>void;
+export type SeparationDiagnostic=(event:string,fields:Record<string,unknown>)=>void;
+interface WorkerOptions {cwd?:string;stage?:string;diagnostic?:SeparationDiagnostic}
 const MAX_DURATION=15*60, MAX_CACHE=2*1024**3;
 async function validCachedWav(file:string){const h=await fs.open(file,'r');try{const stat=await h.stat(),b=Buffer.alloc(68);await h.read(b,0,68,0);return b.toString('ascii',0,4)==='RIFF'&&b.readUInt16LE(22)===6&&b.readUInt32LE(24)===44100&&b.toString('ascii',60,64)==='data'&&b.readUInt32LE(64)+68===stat.size&&stat.size>68;}finally{await h.close();}}
 
 /** Run only packaged, fixed executables. Abort kills the worker and waits for its exit. */
-export function runAudioWorker(executable:string,args:string[],signal:AbortSignal,timeout=8*60_000):Promise<void>{
+export function runAudioWorker(executable:string,args:string[],signal:AbortSignal,timeout=8*60_000,options:WorkerOptions={}):Promise<void>{
  signal.throwIfAborted();
  return new Promise((resolve,reject)=>{
-  const child=spawn(executable,args,{windowsHide:true,stdio:['ignore','ignore','pipe']});let tail='',failure:Error|undefined;
+  const child=spawn(executable,args,{cwd:options.cwd,windowsHide:true,stdio:['ignore','pipe','pipe']});let tail='',failure:Error|undefined;const started=Date.now();
   const abort=()=>{failure=signal.reason instanceof Error?signal.reason:Error('声伴处理已取消');child.kill();};
   const timer=setTimeout(()=>{failure=Error('声伴处理超时，请重试或选择较短的歌曲');child.kill();},timeout);
   signal.addEventListener('abort',abort,{once:true});
-  child.stderr.on('data',b=>{tail=(tail+b.toString()).slice(-2000);});
+  const capture=(b:Buffer)=>{tail=(tail+b.toString()).slice(-4000);};child.stderr.on('data',capture);child.stdout.on('data',capture);
   const clean=()=>{clearTimeout(timer);signal.removeEventListener('abort',abort);};
-  child.once('error',e=>{clean();reject(Error('声伴引擎无法启动：'+e.message));});
-  child.once('close',code=>{clean();if(failure)reject(failure);else if(code!==0)reject(Error('声伴引擎处理失败'+(tail.includes('bad_alloc')?'，内存不足':'（'+code+'）')));else resolve();});
+  child.once('error',e=>{clean();options.diagnostic?.('worker-start-failed',{stage:options.stage??'worker',error:e.message});reject(Error('声伴引擎无法启动：'+e.message));});
+  child.once('close',(code,exitSignal)=>{clean();if(failure)reject(failure);else if(code!==0){options.diagnostic?.('worker-failed',{stage:options.stage??'worker',code,signal:exitSignal,elapsedMs:Date.now()-started,output:tail.replace(/https?:\/\/\S+/g,'[url]')});reject(Error((options.stage??'声伴引擎处理')+'失败'+(tail.includes('bad_alloc')?'，内存不足':'（退出码 '+code+'）')));}else resolve();});
  });
 }
 
@@ -60,7 +62,7 @@ export async function interleaveStems(dry:string,vocals:string,accompaniment:str
 export class SeparationService {
  private active?:{id:string;controller:AbortController;promise:Promise<string>};
  private pinned?:string;
- constructor(private directory:string,private resources:string,private mpv:string,private progress:Progress){}
+ constructor(private directory:string,private resources:string,private mpv:string,private progress:Progress,private diagnostic?:SeparationDiagnostic){}
  cancel(id?:string){if(!id||this.active?.id===id)this.active?.controller.abort(new DOMException('声伴处理已取消','AbortError'));}
  async dispose(){this.cancel();await this.active?.promise.catch(()=>{});}
  prepare(input:SeparationInput,id:string):Promise<string>{
@@ -82,11 +84,15 @@ export class SeparationService {
   try{
    send('fetching');const original=input.file??path.join(job,'source.audio');if(!input.file){if(!input.download)throw Error('当前音源无法用于声伴处理');await input.download(original,signal);}
    send('decoding');const dry=path.join(job,'dry.wav');
-   await runAudioWorker(this.mpv,['--no-config','--no-video','--end=901','--audio-samplerate=44100','--audio-channels=stereo','--of=wav','--oac=pcm_s16le','--o='+dry,'--',original],signal);
+   await runAudioWorker(this.mpv,['--no-config','--no-video','--end=901','--audio-samplerate=44100','--audio-channels=stereo','--of=wav','--oac=pcm_s16le','--o='+dry,'--',original],signal,undefined,{stage:'音频解码',diagnostic:this.diagnostic});
    const layout=await pcmWav(dry);if(layout.frames/44100>MAX_DURATION)throw Error('声伴处理暂支持 15 分钟以内的歌曲');
    const space=await fs.statfs(job);if(space.bavail*space.bsize<layout.bytes*5+64*1024**2)throw Error('音乐下载目录空间不足，无法准备声伴缓存');
    send('separating');const vocals=path.join(job,'vocals.wav'),accompaniment=path.join(job,'accompaniment.wav');
-   await runAudioWorker(path.join(this.resources,'sherpa-onnx-offline-source-separation.exe'),['--print-args=false','--num-threads=2','--spleeter-vocals='+path.join(this.resources,'vocals.fp16.onnx'),'--spleeter-accompaniment='+path.join(this.resources,'accompaniment.fp16.onnx'),'--input-wav='+dry,'--output-vocals-wav='+vocals,'--output-accompaniment-wav='+accompaniment],signal);
+   // The native CLI uses narrow argv/file APIs on Windows. CreateProcess accepts a
+   // Unicode cwd/executable, but every filename passed to the worker must be ASCII.
+   // A hard link costs no extra model space; cross-volume installs use private copies.
+   for(const name of ['vocals.fp16.onnx','accompaniment.fp16.onnx']){signal.throwIfAborted();const from=path.join(this.resources,name),to=path.join(job,name);try{await fs.link(from,to);}catch{await fs.copyFile(from,to,fs.constants.COPYFILE_EXCL);}}
+   await runAudioWorker(path.join(this.resources,'sherpa-onnx-offline-source-separation.exe'),['--print-args=false','--num-threads=2','--spleeter-vocals=vocals.fp16.onnx','--spleeter-accompaniment=accompaniment.fp16.onnx','--input-wav=dry.wav','--output-vocals-wav=vocals.wav','--output-accompaniment-wav=accompaniment.wav'],signal,undefined,{cwd:job,stage:'AI 分离',diagnostic:this.diagnostic});
    send('mixing');const mixed=path.join(job,'mix.wav');await interleaveStems(dry,vocals,accompaniment,mixed,signal);signal.throwIfAborted();await fs.rename(mixed,final);this.pinned=final;completed=true;send('ready');return final;
   }finally{
    // job is a freshly created, private direct child; never remove an arbitrary input path.

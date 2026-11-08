@@ -1,0 +1,50 @@
+{
+  "date": "2026-11-08T10:39:29.519Z",
+  "electron": "45.2.3",
+  "system": "10.0.19045",
+  "proxy": "direct",
+  "track": {
+    "id": "6878708",
+    "name": "青花瓷",
+    "artist": "周杰伦",
+    "duration": 239,
+    "quality": "flac",
+    "format": "flac"
+  },
+  "phases": [
+    {
+      "id": "online-verification",
+      "phase": "fetching",
+      "at": 1794134369837
+    },
+    {
+      "id": "online-verification",
+      "phase": "decoding",
+      "at": 1794134370468
+    },
+    {
+      "id": "online-verification",
+      "phase": "separating",
+      "at": 1794134371483
+    },
+    {
+      "id": "online-verification",
+      "phase": "mixing",
+      "at": 1794134383043
+    },
+    {
+      "id": "online-verification",
+      "phase": "ready",
+      "at": 1794134383982
+    }
+  ],
+  "sourceBytes": 26171656,
+  "sourceComplete": true,
+  "outputSeconds": 239.6299319727891,
+  "elapsedMs": 14162,
+  "outputChannels": 6,
+  "unicodeCache": true,
+  "unicodeRuntime": true,
+  "crossVolume": true,
+  "passed": true
+}
