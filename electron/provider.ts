@@ -1,5 +1,6 @@
 import {nativeHome} from './native-home';
 import {canonicalArtworkHost} from '../src/artwork-source';
+import {serviceText} from '../src/text';
 import { createCipheriv } from 'node:crypto';
 import JSON5 from 'json5';
 import type { Collection, LyricLine, Purpose, Quality, ResolvedAudio, SearchResult, Track } from '../src/shared';
@@ -16,12 +17,18 @@ export function decodeBody(bytes: Uint8Array, contentType = ''): string {
   catch { return new TextDecoder('gb18030').decode(bytes); }
 }
 export function clean(value: unknown): string {
-  return String(value ?? '').replace(/<[^>]*>/g, '').replace(/&amp;/g, '&').replace(/&quot;/g, '"').replace(/&#39;|&apos;/g, "'").replace(/&lt;/g,'<').replace(/&gt;/g,'>');
+  return serviceText(value);
 }
 export function imageUrl(value:unknown,kind:'album'|'artist'='album'):string|undefined {
   const text=String(value??'').trim();if(!text || text==='undefined')return;
   if(/^https?:\/\//i.test(text)){try{const url=new URL(text);url.protocol='https:';return canonicalArtworkHost(url).href;}catch{return;}}
   if(/^\d+\/[\w/.-]+$/.test(text))return `https://img4.kuwo.cn/star/${kind==='album'?'albumcover':'artist'}/${text}`;
+}
+export function albumDetails(raw:Record<string,any>,id:string):Collection {
+  let tags:string[]=[];
+  try{const rows=typeof raw.tag==='string'&&raw.tag.length<4000?JSON5.parse(raw.tag):raw.tag;if(Array.isArray(rows))tags=[...new Set(rows.map(r=>clean(r?.cat2||r?.cat1)).filter(Boolean))].slice(0,4);}catch{/* Optional malformed tags must not hide the album. */}
+  const releaseDate=String(raw.pub??'');
+  return {id,kind:'album',name:clean(raw.name),artist:clean(raw.artist),cover:imageUrl(raw.hts_img||raw.img||raw.pic),description:clean(raw.info).slice(0,20000),count:Number(raw.songnum)||undefined,releaseDate:/^\d{4}-\d{2}-\d{2}$/.test(releaseDate)?releaseDate:undefined,company:clean(raw.company),language:clean(raw.lang),subtitle:clean(raw.title),tags};
 }
 export function normalizeTrack(row: Record<string, any>): Track {
   const id = String(row.MUSICRID ?? row.musicrid ?? row.musicrId ?? row.rid ?? row.id ?? '').replace(/^MUSIC_/, '');
@@ -38,7 +45,8 @@ export function normalizeTrack(row: Record<string, any>): Track {
     album: clean(row.ALBUM ?? row.album), duration: Number.isFinite(duration) ? duration : 0,
     cover: imageUrl(row.albumpic || row.pic || row.img || row.hts_PICPATH || row.web_albumpic_short) || imageUrl(row.web_artistpic_short,'artist'),
     qualities, availability: unavailable ? 'unavailable' : 'unknown',
-    hasMv:String(row.MVFLAG??row.hasmv??row.hasMv??'0')==='1'||Number(row.mvpayinfo?.vid)>0,artistId:String(row.ARTISTID??row.artistid??'')||undefined,albumId:String(row.ALBUMID??row.albumid??'')||undefined,
+    hasMv:String(row.MVFLAG??row.hasmv??row.hasMv??'0')==='1'||Number(row.mvpayinfo?.vid)>0,artistId:String(row.ARTISTID??row.artistid??'')||undefined,albumId:String(row.ALBUMID??row.albumid??row.albumId??'')||undefined,
+    catalogTags:/\bDTSX\b|level:dtsx\b/i.test(String(row.formats??'')+';'+String(row.N_MINFO??row.n_minfo??''))?['DTS:X']:undefined,
     payInfo: {play: String(pay.play ?? ''), download: String(pay.download ?? pay.down ?? ''), trial: String(pay.listen_fragment ?? '0') === '1', encrypted: String(pay.local_encrypt ?? '0') === '1'} };
 }
 export function flattenRanks(root: any): Collection[] {
@@ -135,7 +143,9 @@ export class KuwoProvider {
       : kind==='album'||kind==='artist'?`https://search.kuwo.cn/r.s?stype=${kind==='album'?'albuminfo':'artist2music'}&${kind}id=${id}&pn=${page}&rn=30&encoding=utf8&rformat=json&show_copyright_off=1&vipver=1`
       : `https://nplserver.kuwo.cn/pl.svc?op=getlistinfo&pid=${id}&pn=${page}&rn=30&encode=utf8&keyset=pl2012&identity=kuwo&vipver=MUSIC_9.1.1.2_BCS2&newver=1`;
     const d = await this.json(url,60000);
-    return {tracks:(d.musiclist ?? []).map(normalizeTrack),total:Number(d.total ?? d.num ?? d.songnum ?? 0),page};
+    const collection=kind==='album'?albumDetails(d,id):undefined;
+    const tracks=(d.musiclist ?? []).map((row:Record<string,any>)=>{const track=normalizeTrack(row);if(collection){track.cover??=collection.cover;track.albumId??=id;}return track;});
+    return {tracks,total:Number(d.total ?? d.num ?? d.songnum ?? 0),page,collection};
   }
   async collectionCover(id:string,kind:Collection['kind']):Promise<string|undefined>{
     if(!/^\d+$/.test(id))throw new MusicError('INVALID','无效的封面编号');

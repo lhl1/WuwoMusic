@@ -8,10 +8,11 @@ export interface Track {
   id: string; name: string; artist: string; album: string; duration: number;
   cover?: string; qualities: Quality[]; localPath?: string;
   hasMv?:boolean; artistId?:string; albumId?:string; onlineId?:string; audioInfo?:AudioInfo;
+  catalogTags?:string[];
   availability?: 'unknown' | 'available' | 'restricted' | 'trial' | 'unavailable';
   payInfo?: { play?: string; download?: string; trial?: boolean; encrypted?: boolean };
 }
-export interface Collection { id: string; name: string; cover?: string; description?: string; count?: number; kind: 'playlist' | 'rank' | 'album' | 'artist'; artist?:string; group?:string; plays?:number }
+export interface Collection { id: string; name: string; cover?: string; description?: string; count?: number; kind: 'playlist' | 'rank' | 'album' | 'artist'; artist?:string; group?:string; plays?:number; releaseDate?:string; company?:string; language?:string; subtitle?:string; tags?:string[] }
 export interface SearchSuggestion {text:string;description?:string}
 export interface SearchHints {suggestions:SearchSuggestion[];hot:SearchSuggestion[];idle:SearchSuggestion[]}
 export interface RankPeriod {id:string;rankId:string;year:string;name:string;cover?:string}
@@ -22,7 +23,7 @@ export interface PlaylistPage {items:Collection[];total:number;page:number}
 export interface MvSource {url:string;quality:string;bitrate:number;local?:boolean}
 export interface LyricLine { time: number; text: string }
 export interface ResolvedAudio { url: string; quality: Quality; format: string; trial: boolean; duration?: number; bitrate?: number; cover?: string; headers?: Record<string,string> }
-export interface SearchResult { tracks: Track[]; total: number; page: number }
+export interface SearchResult { tracks: Track[]; total: number; page: number; collection?:Collection }
 export interface QualityOption {quality:Quality;available:boolean;error?:string;format?:string;bitrate?:number}
 export type DownloadStatus = 'queued' | 'resolving' | 'downloading' | 'paused' | 'completed' | 'failed' | 'cancelled';
 export interface DownloadTask {

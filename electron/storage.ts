@@ -2,6 +2,7 @@ import fs from 'node:fs';
 import path from 'node:path';
 import type { Snapshot } from '../src/shared';
 import {appearanceDefaults} from '../src/preferences';
+import {serviceText} from '../src/text';
 
 export class Store {
   data: Snapshot;
@@ -19,6 +20,9 @@ export class Store {
         if(saved.settings?.playerLayoutVersion!==2){this.data.settings.coverMode='record';this.data.settings.autoHotComments=false;this.data.settings.playerLayoutVersion=2;}
         this.data.library={...this.data.library,...saved.library};
         this.data.tasks=Array.isArray(saved.tasks)?saved.tasks:[];
+        // Repair saved display text in memory; keep identifiers and file paths intact.
+        const tracks=[...this.data.library.favorites,...this.data.library.history,...this.data.library.local,...this.data.library.playlists.flatMap(p=>p.tracks??[]),...this.data.tasks.flatMap(t=>t.track?[t.track]:[])];
+        for(const track of tracks)for(const key of ['name','artist','album'] as const)if(typeof track[key]==='string')track[key]=serviceText(track[key]);
         for(const t of this.data.tasks) if(['queued','resolving','downloading'].includes(t.status)){t.status='paused';t.speed=0;}
       } catch {
         fs.copyFileSync(filename,`${filename}.unreadable-${Date.now()}.bak`);

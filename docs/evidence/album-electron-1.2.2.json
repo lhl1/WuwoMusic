@@ -1,0 +1,417 @@
+{
+  "date": "2026-11-08T04:37:22.911Z",
+  "system": "10.0.19045",
+  "electron": "45.2.3",
+  "proxy": "direct",
+  "tracks": [
+    {
+      "id": "1098696",
+      "name": "His Smile",
+      "artist": "麗美",
+      "album": "Love Letter",
+      "duration": 296,
+      "cover": "https://img4.kuwo.cn/star/albumcover/120/s3s43/94/3098126809.jpg",
+      "qualities": [
+        "128k",
+        "320k",
+        "flac"
+      ],
+      "availability": "unknown",
+      "hasMv": false,
+      "artistId": "103087",
+      "albumId": "10140374",
+      "catalogTags": [
+        "DTS:X"
+      ],
+      "payInfo": {
+        "play": "1111",
+        "download": "1111",
+        "trial": true,
+        "encrypted": true
+      }
+    },
+    {
+      "id": "70127989",
+      "name": "Childhood Days",
+      "artist": "麗美",
+      "album": "Love Letter",
+      "duration": 98,
+      "cover": "https://img4.kuwo.cn/star/albumcover/120/s3s43/94/3098126809.jpg",
+      "qualities": [
+        "128k",
+        "320k",
+        "flac"
+      ],
+      "availability": "unknown",
+      "hasMv": false,
+      "artistId": "103087",
+      "albumId": "10140374",
+      "catalogTags": [
+        "DTS:X"
+      ],
+      "payInfo": {
+        "play": "1100",
+        "download": "1111",
+        "trial": false,
+        "encrypted": true
+      }
+    },
+    {
+      "id": "1098624",
+      "name": "Flow In The Wind",
+      "artist": "麗美",
+      "album": "Love Letter",
+      "duration": 88,
+      "cover": "https://img4.kuwo.cn/star/albumcover/120/s3s43/94/3098126809.jpg",
+      "qualities": [
+        "128k",
+        "320k",
+        "flac"
+      ],
+      "availability": "unknown",
+      "hasMv": false,
+      "artistId": "103087",
+      "albumId": "10140374",
+      "catalogTags": [
+        "DTS:X"
+      ],
+      "payInfo": {
+        "play": "1100",
+        "download": "1111",
+        "trial": false,
+        "encrypted": true
+      }
+    },
+    {
+      "id": "1098701",
+      "name": "Letter of No Return",
+      "artist": "麗美",
+      "album": "Love Letter",
+      "duration": 78,
+      "cover": "https://img4.kuwo.cn/star/albumcover/120/s3s43/94/3098126809.jpg",
+      "qualities": [
+        "128k",
+        "320k",
+        "flac"
+      ],
+      "availability": "unknown",
+      "hasMv": false,
+      "artistId": "103087",
+      "albumId": "10140374",
+      "catalogTags": [
+        "DTS:X"
+      ],
+      "payInfo": {
+        "play": "1100",
+        "download": "1111",
+        "trial": false,
+        "encrypted": true
+      }
+    },
+    {
+      "id": "1098675",
+      "name": "Sweet Rumors",
+      "artist": "麗美",
+      "album": "Love Letter",
+      "duration": 189,
+      "cover": "https://img4.kuwo.cn/star/albumcover/120/s3s43/94/3098126809.jpg",
+      "qualities": [
+        "128k",
+        "320k",
+        "flac"
+      ],
+      "availability": "unknown",
+      "hasMv": false,
+      "artistId": "103087",
+      "albumId": "10140374",
+      "catalogTags": [
+        "DTS:X"
+      ],
+      "payInfo": {
+        "play": "1111",
+        "download": "1111",
+        "trial": true,
+        "encrypted": true
+      }
+    },
+    {
+      "id": "1098649",
+      "name": "Forgive Me",
+      "artist": "麗美",
+      "album": "Love Letter",
+      "duration": 252,
+      "cover": "https://img4.kuwo.cn/star/albumcover/120/s3s43/94/3098126809.jpg",
+      "qualities": [
+        "128k",
+        "320k",
+        "flac"
+      ],
+      "availability": "unknown",
+      "hasMv": false,
+      "artistId": "103087",
+      "albumId": "10140374",
+      "catalogTags": [
+        "DTS:X"
+      ],
+      "payInfo": {
+        "play": "1100",
+        "download": "1111",
+        "trial": false,
+        "encrypted": true
+      }
+    },
+    {
+      "id": "1098683",
+      "name": "Fading",
+      "artist": "麗美",
+      "album": "Love Letter",
+      "duration": 71,
+      "cover": "https://img4.kuwo.cn/star/albumcover/120/s3s43/94/3098126809.jpg",
+      "qualities": [
+        "128k",
+        "320k",
+        "flac"
+      ],
+      "availability": "unknown",
+      "hasMv": false,
+      "artistId": "103087",
+      "albumId": "10140374",
+      "catalogTags": [
+        "DTS:X"
+      ],
+      "payInfo": {
+        "play": "1100",
+        "download": "1111",
+        "trial": false,
+        "encrypted": true
+      }
+    },
+    {
+      "id": "819166",
+      "name": "Frozen Summer",
+      "artist": "麗美",
+      "album": "Love Letter",
+      "duration": 232,
+      "cover": "https://img4.kuwo.cn/star/albumcover/120/s3s43/94/3098126809.jpg",
+      "qualities": [
+        "128k",
+        "320k",
+        "flac"
+      ],
+      "availability": "unknown",
+      "hasMv": false,
+      "artistId": "103087",
+      "albumId": "10140374",
+      "catalogTags": [
+        "DTS:X"
+      ],
+      "payInfo": {
+        "play": "1100",
+        "download": "1111",
+        "trial": false,
+        "encrypted": true
+      }
+    },
+    {
+      "id": "22835372",
+      "name": "The Flight",
+      "artist": "麗美",
+      "album": "Love Letter",
+      "duration": 104,
+      "cover": "https://img4.kuwo.cn/star/albumcover/120/s3s43/94/3098126809.jpg",
+      "qualities": [
+        "128k",
+        "320k",
+        "flac"
+      ],
+      "availability": "unknown",
+      "hasMv": false,
+      "artistId": "103087",
+      "albumId": "10140374",
+      "catalogTags": [
+        "DTS:X"
+      ],
+      "payInfo": {
+        "play": "1100",
+        "download": "1111",
+        "trial": false,
+        "encrypted": true
+      }
+    },
+    {
+      "id": "1098617",
+      "name": "He Loves You So",
+      "artist": "麗美",
+      "album": "Love Letter",
+      "duration": 164,
+      "cover": "https://img4.kuwo.cn/star/albumcover/120/s3s43/94/3098126809.jpg",
+      "qualities": [
+        "128k",
+        "320k",
+        "flac"
+      ],
+      "availability": "unknown",
+      "hasMv": false,
+      "artistId": "103087",
+      "albumId": "10140374",
+      "catalogTags": [
+        "DTS:X"
+      ],
+      "payInfo": {
+        "play": "1100",
+        "download": "1111",
+        "trial": false,
+        "encrypted": true
+      }
+    },
+    {
+      "id": "1098648",
+      "name": "A Winter Story",
+      "artist": "麗美",
+      "album": "Love Letter",
+      "duration": 199,
+      "cover": "https://img4.kuwo.cn/star/albumcover/120/s3s43/94/3098126809.jpg",
+      "qualities": [
+        "128k",
+        "320k",
+        "flac"
+      ],
+      "availability": "unknown",
+      "hasMv": false,
+      "artistId": "103087",
+      "albumId": "10140374",
+      "catalogTags": [
+        "DTS:X"
+      ],
+      "payInfo": {
+        "play": "1111",
+        "download": "1111",
+        "trial": true,
+        "encrypted": true
+      }
+    },
+    {
+      "id": "1098699",
+      "name": "Eccentric Love Parade",
+      "artist": "麗美",
+      "album": "Love Letter",
+      "duration": 99,
+      "cover": "https://img4.kuwo.cn/star/albumcover/120/s3s43/94/3098126809.jpg",
+      "qualities": [
+        "128k",
+        "320k",
+        "flac"
+      ],
+      "availability": "unknown",
+      "hasMv": false,
+      "artistId": "103087",
+      "albumId": "10140374",
+      "catalogTags": [
+        "DTS:X"
+      ],
+      "payInfo": {
+        "play": "1100",
+        "download": "1111",
+        "trial": false,
+        "encrypted": true
+      }
+    },
+    {
+      "id": "1098679",
+      "name": "Soil of His Tears",
+      "artist": "麗美",
+      "album": "Love Letter",
+      "duration": 166,
+      "cover": "https://img4.kuwo.cn/star/albumcover/120/s3s43/94/3098126809.jpg",
+      "qualities": [
+        "128k",
+        "320k",
+        "flac"
+      ],
+      "availability": "unknown",
+      "hasMv": false,
+      "artistId": "103087",
+      "albumId": "10140374",
+      "catalogTags": [
+        "DTS:X"
+      ],
+      "payInfo": {
+        "play": "1100",
+        "download": "1111",
+        "trial": false,
+        "encrypted": true
+      }
+    },
+    {
+      "id": "359087",
+      "name": "Gateway To Heaven",
+      "artist": "麗美",
+      "album": "Love Letter",
+      "duration": 220,
+      "cover": "https://img4.kuwo.cn/star/albumcover/120/s3s43/94/3098126809.jpg",
+      "qualities": [
+        "128k",
+        "320k",
+        "flac"
+      ],
+      "availability": "unknown",
+      "hasMv": false,
+      "artistId": "103087",
+      "albumId": "10140374",
+      "catalogTags": [
+        "DTS:X"
+      ],
+      "payInfo": {
+        "play": "1100",
+        "download": "1111",
+        "trial": false,
+        "encrypted": true
+      }
+    },
+    {
+      "id": "1098610",
+      "name": "Small Happiness",
+      "artist": "麗美",
+      "album": "Love Letter",
+      "duration": 239,
+      "cover": "https://img4.kuwo.cn/star/albumcover/120/s3s43/94/3098126809.jpg",
+      "qualities": [
+        "128k",
+        "320k",
+        "flac"
+      ],
+      "availability": "unknown",
+      "hasMv": false,
+      "artistId": "103087",
+      "albumId": "10140374",
+      "catalogTags": [
+        "DTS:X"
+      ],
+      "payInfo": {
+        "play": "1111",
+        "download": "1111",
+        "trial": true,
+        "encrypted": true
+      }
+    }
+  ],
+  "total": 15,
+  "page": 0,
+  "collection": {
+    "id": "10140374",
+    "kind": "album",
+    "name": "Love Letter",
+    "artist": "麗美",
+    "cover": "https://img4.kuwo.cn/star/albumcover/240/s3s43/94/3098126809.jpg",
+    "description": "一封寄往天国的情书，意外开启两段刻骨铭心的爱情\n跃然于纸上的回忆，让人重温暗恋的甜美亦使人放下失去的不舍\n岩井俊二导演不朽杰作电影「情书」原声带 20周年公开纪念发行\n\n【电影故事&专辑简介】\n博子的未婚夫藤井树两年前登山遇难，结束三年祭拜仪式后，顺道至树家中拜访。整理遗物的途中意外发现了树国中的毕业纪念册，此时依旧沉浸在失去树的伤痛中的博子，抑制不住心中的思念，按男友少年时的地址向心中的天国寄了一封情书：藤井树君，你好吗？我很想念你。原以为这会是封有去无回的情书，没想到却意外地收到回信，落款处竟是藤井树。继续通信，博子发现，回信人的女藤井树和男藤井树是中学同学，并且整个中学时期男藤井树都深爱着女藤井树。博子按地址赶到，却竟然发现一个秘密，女藤井树竟和自己长得一模一样。随着回忆的不断展开，博子执意要弄明白的是，这么多年来，男藤井树一直深深爱着的，究竟是女藤井树呢？还是貌似女藤井树的自己呢？两个容貌酷似的美丽女子，一个深爱而不能得到，一个被爱却并不知道，如果不是因为死亡，她们也许永远都不会知道这没有回应的爱会是如此美丽和忧伤。\n故事发生在一整个冬季里。电影取景于日本以雪景出名的小樽，漫天的大雪由始至终都飘在观众的心里，男藤井树的少年之恋，博子对未婚夫的深深眷恋，女藤井树渐渐发现以往所不知的爱情真相……直到最后，博子终于放弃了对男藤井树是否爱自己的追问和折磨，来到他遇难的山上，站在及膝的积雪中对黎明的山顶放声大喊：“藤井树君，你好吗？我过得很好！”寒冬下依然温暖的浓情世界，让人落泪……\n「情书」用镜头和情感精心编织了一段埋葬多年未被揭发和一段生死不渝的情感，电影通篇没有出现“我爱你”的字眼，但却让人深深感到爱情的最真与最美。\n看过「情书」的人，都不会忘记电影中那些优美的旋律。一直和「岩井俊二」合作的「REMEDIOS」这次创作的电影原声带，依旧是高水准制作。\n原声带以钢琴、小提琴、大提琴、合成乐器、吉他为主，没有喧哗的电子音乐，结合视频的情节发展，烘托出视频的主题，但又完全可以独立于视频而存在，和视频中反复出现的白雪皑皑的影像可谓相得益彰。整张专辑共 15 首曲子，主要可归类为音乐小品，大多为回忆、感伤之作，与视频回忆死者爱情故事的主题相吻合。 \" Childhood Days \" 、 \" His Smile \" ..等旋律，一直在心中流淌。最适宜在清净的夜里聆听，助你脱去一身风尘仆仆，洗净心灵的浮躁，沉浸入如水的月色之中。",
+    "count": 15,
+    "releaseDate": "1995-04-21",
+    "company": "℗ Haisheng Group China",
+    "language": "纯音乐",
+    "subtitle": "《情书》电影原声带",
+    "tags": [
+      "日本流行",
+      "流行Pop"
+    ]
+  }
+}

@@ -1,0 +1,26 @@
+{
+  "version": "1.2.2",
+  "date": "2026-11-08T12:46:05.618292+08:00",
+  "output": "D:\\3DS_MAX\\20261107_music\\kuwo-desktop\\release\\无我音乐-1.2.2",
+  "backup": "D:\\3DS_MAX\\20261107_music\\backups\\wuwo-before-1.2.2-20261108-123306",
+  "runtimeFilesCompared": 81,
+  "qaCopyMatches": true,
+  "formalStateUnchanged": true,
+  "testsPassed": 89,
+  "realElectronAlbum": "10140374",
+  "realElectronTracksChecked": 15,
+  "themesChecked": [
+    "dark",
+    "light"
+  ],
+  "applicationZoomChecked": [
+    1,
+    1.5
+  ],
+  "largerTextChecked": true,
+  "descriptionExpandCollapseChecked": true,
+  "returnToSearchChecked": true,
+  "windows11Tested": false,
+  "exeSha256": "ee506d9a9f883f24856b92e71dc872978a877a8dc53e4723bf933457fc229bc2",
+  "asarSha256": "562f0402890ddd0b8c3f556f0d1d5b446b05e2c9e31c1e1355288bd2c46ffeea"
+}
