@@ -6,12 +6,13 @@ import {appearanceDefaults} from '../src/preferences';
 export class Store {
   data: Snapshot;
   constructor(public filename:string, musicDir:string) {
-    this.data = {settings:{downloadDir:path.join(musicDir,'无我音乐'),concurrency:3,quality:'flac',qualityPolicyVersion:1,volume:0.75,zoom:1,proxyMode:'direct',audioOutput:'normal',audioDevice:'auto',...appearanceDefaults},library:{favorites:[],history:[],local:[],playlists:[]},tasks:[]};
+    this.data = {settings:{downloadDir:path.join(musicDir,'无我音乐'),concurrency:3,quality:'flac',qualityPolicyVersion:1,volume:0.75,muted:false,zoom:1,proxyMode:'direct',audioOutput:'normal',audioDevice:'auto',...appearanceDefaults},library:{favorites:[],history:[],local:[],playlists:[]},tasks:[]};
     if(fs.existsSync(filename)) {
       try {
         const saved=JSON.parse(fs.readFileSync(filename,'utf8'));
         if(saved.version!==1) throw new Error('Unsupported state version');
         this.data.settings={...this.data.settings,...saved.settings};
+        this.data.settings.muted=saved.settings?.muted===true;
         this.data.settings.proxyMode=saved.settings?.proxyMode==='system'?'system':'direct';
         // This release adopts lossless-first once; later explicit quality choices remain intact.
         if(saved.settings?.qualityPolicyVersion!==1)this.data.settings.quality='flac';

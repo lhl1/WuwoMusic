@@ -1,0 +1,12 @@
+{
+  "output": "D:\\3DS_MAX\\20261107_music\\kuwo-desktop\\release\\无我音乐-1.2.0-播放器优化\\win-unpacked",
+  "backup": "D:/3DS_MAX/20261107_music/backups/wuwo-before-player-polish-20261108-102055",
+  "formalProfileUnchanged": true,
+  "filesVerified": 81,
+  "tests": 83,
+  "muteVolumePreserved": true,
+  "verifiedAgainstGuiCopy": true,
+  "exeSha256": "31b36dcacb589329d3b2383e2497978e26c8b7eb13f369de8c610d88b0a98d6d",
+  "asarSha256": "d7e7448e55701dc94da076ddc961b42a178f4d47b44c1159214d260f389ebd59",
+  "nativeMuteLimitation": "Exclusive output unavailable on remote-audio-only host; real mpv IPC idle mode verified."
+}

@@ -38,7 +38,7 @@ export type ProxyMode = 'direct'|'system';
 export interface Comment { id:string; author:string; avatar?:string; time:string; text:string; likes:number }
 export interface CommentPage { comments:Comment[]; total:number; page:number; pageSize:number; pages:number }
 export type CommentSort = 'hot'|'latest';
-export interface Settings { downloadDir: string; concurrency: number; quality: Quality; qualityPolicyVersion?:number; playerLayoutVersion?:number; volume: number; zoom: number; offline?: boolean; proxyMode?:ProxyMode; playbackRate?:number; lyricOffset?:number; lyricFontSize?:number; coverMode?:'record'|'square'; saveLyrics?:boolean; saveCover?:boolean; theme?:Theme; textSize?:TextSize; autoHotComments?:boolean; audioOutput?:'normal'|'hifi'; audioDevice?:string }
+export interface Settings { downloadDir: string; concurrency: number; quality: Quality; qualityPolicyVersion?:number; playerLayoutVersion?:number; volume: number; muted?:boolean; zoom: number; offline?: boolean; proxyMode?:ProxyMode; playbackRate?:number; lyricOffset?:number; lyricFontSize?:number; coverMode?:'record'|'square'; saveLyrics?:boolean; saveCover?:boolean; theme?:Theme; textSize?:TextSize; autoHotComments?:boolean; audioOutput?:'normal'|'hifi'; audioDevice?:string }
 export interface LocalPlaylist { id: string; name: string; tracks: Track[] }
 export interface Library { favorites: Track[]; history: Track[]; local: Track[]; playlists: LocalPlaylist[] }
 export interface Snapshot { settings: Settings; library: Library; tasks: DownloadTask[]; themeDark?:boolean }

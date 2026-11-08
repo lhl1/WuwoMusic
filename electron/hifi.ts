@@ -3,12 +3,14 @@ import {connect,type Socket} from 'node:net';
 import {randomUUID} from 'node:crypto';
 import type {AudioDevice,AudioInfo,HifiState} from '../src/shared';
 const delay=(ms:number)=>new Promise(r=>setTimeout(r,ms));
-export function hifiArguments(pipe:string,device='auto'):string[]{
+export function hifiArguments(pipe:string,device='auto',muted=false):string[]{
  if(device!=='auto'&&!/^wasapi\/[\w{}.-]+$/.test(device))throw Error('无效的音频设备');
- return ['--no-config','--no-video','--no-terminal','--idle=yes','--keep-open=no','--ao=wasapi','--audio-exclusive=yes','--audio-fallback-to-null=no','--audio-normalize-downmix=no','--replaygain=no','--speed=1','--volume=100','--volume-max=100','--af=','--gapless-audio=no','--input-default-bindings=no','--load-scripts=no',`--audio-device=${device}`,`--input-ipc-server=${pipe}`];
+ return ['--no-config','--no-video','--no-terminal','--idle=yes','--keep-open=no','--ao=wasapi','--audio-exclusive=yes','--audio-fallback-to-null=no','--audio-normalize-downmix=no','--replaygain=no','--speed=1',`--mute=${muted?'yes':'no'}`,'--volume=100','--volume-max=100','--af=','--gapless-audio=no','--input-default-bindings=no','--load-scripts=no',`--audio-device=${device}`,`--input-ipc-server=${pipe}`];
 }
 export function mpvInfo(p:any):AudioInfo|undefined{return p?{sampleRate:p.samplerate,channels:p['channel-count'],bitsPerSample:Number(String(p.format??'').match(/\d+/)?.[0])||undefined,format:p.format}:undefined;}
 export class HifiPlayer {
+ private muted=false;
+ async setMuted(value:boolean){if(typeof value!=='boolean')throw Error('无效的静音设置');if(this.socket&&!this.socket.destroyed)await this.command(['set_property','mute',value]);this.muted=value;}
  private playbackJob:Promise<unknown>=Promise.resolve();
  private child?:ChildProcess;private socket?:Socket;private serial=0;private pending=new Map<number,{resolve:(v:any)=>void;reject:(e:Error)=>void;timer:ReturnType<typeof setTimeout>}>();private buffer='';private timer?:ReturnType<typeof setInterval>;private loading?:{resolve:()=>void;reject:(e:Error)=>void};private sourceRemote=false;private loadSerial=0;
  state:HifiState={active:false,playing:false,position:0,duration:0,generation:0};
@@ -28,7 +30,7 @@ export class HifiPlayer {
   }}
  private async start(device:string){
   await this.dispose();const pipe=`\\\\.\\pipe\\wuwo-hifi-${randomUUID()}`;
-  const child=spawn(this.executable,hifiArguments(pipe,device),{windowsHide:true,stdio:['ignore','ignore','pipe']});this.child=child;
+  const child=spawn(this.executable,hifiArguments(pipe,device,this.muted),{windowsHide:true,stdio:['ignore','ignore','pipe']});this.child=child;
   let failure:Error|undefined;child.once('error',e=>{failure=e;});child.stderr?.resume();
   child.once('exit',()=>{if(this.child!==child)return;this.socket?.destroy();this.socket=undefined;if(this.state.active||this.loading){const error=Error('HiFi 音频引擎已退出');this.loading?.reject(error);this.state={...this.state,active:false,playing:false,error:error.message};this.emit();}});
   for(let n=0;n<60;n++){if(this.child!==child)throw Error('播放已取消');if(failure)throw Error('HiFi 引擎无法启动：'+failure.message);if(child.exitCode!==null)throw Error('HiFi 引擎无法启动');
@@ -51,7 +53,7 @@ export class HifiPlayer {
   let timeout:ReturnType<typeof setTimeout>|undefined;
   try{
    const loaded=new Promise<void>((resolve,reject)=>{timeout=setTimeout(()=>reject(Error('HiFi 音频加载超时')),25000);this.loading={resolve,reject};});void loaded.catch(()=>{});
-   await this.command(['loadfile',source,'replace']);await loaded;
+   await this.command(['set_property','mute',this.muted]);await this.command(['loadfile',source,'replace']);await loaded;
    let output:any;
    for(let n=0;n<40;n++){if(ticket!==this.loadSerial)throw Error('播放已取消');if(this.state.error)throw Error(this.state.error);output=await this.command(['get_property','audio-out-params']).catch(()=>null);if(output)break;await delay(100);}
    const ao=await this.command(['get_property','current-ao']);if(ao!=='wasapi'||!output)throw Error('设备未能建立 WASAPI 独占输出');

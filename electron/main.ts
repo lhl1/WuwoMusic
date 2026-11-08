@@ -179,7 +179,7 @@ function registerIpc(){
       signal.throwIfAborted();if(ticket!==playTicket)throw Error('播放已取消');
       if(store.data.settings.audioOutput==='hifi'){
         const target=source.file??await bridge.source(source as RemoteMedia);signal.throwIfAborted();
-        const generation=await hifi.play(target,store.data.settings.audioDevice??'auto',result.bitsPerSample);signal.throwIfAborted();if(ticket!==playTicket)throw Error('播放已取消');playbackLog.write('prepared',{id:t.id,engine:'hifi',ms:Date.now()-start});return {...result,url:'',engine:'hifi',generation};
+        await hifi.setMuted(Boolean(store.data.settings.muted));const generation=await hifi.play(target,store.data.settings.audioDevice??'auto',result.bitsPerSample);signal.throwIfAborted();if(ticket!==playTicket)throw Error('播放已取消');playbackLog.write('prepared',{id:t.id,engine:'hifi',ms:Date.now()-start});return {...result,url:'',engine:'hifi',generation};
       }
       playbackLog.write('prepared',{id:t.id,engine:'browser',ms:Date.now()-start});return {...result,url:mediaToken(source),engine:'browser'};
     },35000,'播放准备超时，请重试',control.signal);
@@ -196,6 +196,7 @@ function registerIpc(){
     if(patch.textSize!==undefined){if(!['standard','large','larger'].includes(patch.textSize))throw Error('无效的文字大小');s.textSize=patch.textSize;}
     if(patch.autoHotComments!==undefined){if(typeof patch.autoHotComments!=='boolean')throw Error('无效的轮播设置');s.autoHotComments=patch.autoHotComments;}
     if(patch.concurrency!==undefined){if(!Number.isInteger(patch.concurrency)||patch.concurrency<1||patch.concurrency>6)throw new Error('并发数量应为 1–6');s.concurrency=patch.concurrency;}
+    if(patch.muted!==undefined){if(typeof patch.muted!=='boolean')throw Error('无效的静音设置');await hifi.setMuted(patch.muted);s.muted=patch.muted;}
     if(patch.volume!==undefined){if(!Number.isFinite(patch.volume)||patch.volume<0||patch.volume>1)throw new Error('无效的音量');s.volume=patch.volume;}
     if(patch.zoom!==undefined){if(![0.75,1,1.25,1.5].includes(patch.zoom))throw new Error('无效的显示比例');s.zoom=patch.zoom;window.webContents.setZoomFactor(s.zoom);}
     if(patch.audioOutput!==undefined){if(!['normal','hifi'].includes(patch.audioOutput))throw Error('无效的输出模式');s.audioOutput=patch.audioOutput;}

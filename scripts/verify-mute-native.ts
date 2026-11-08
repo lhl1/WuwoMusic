@@ -1,0 +1,5 @@
+import {HifiPlayer} from '../electron/hifi';import fs from 'node:fs/promises';import path from 'node:path';import assert from 'node:assert/strict';
+const p=new HifiPlayer(path.resolve('build/hifi/mpv.exe'),()=>{});try{
+ const devices=await p.devices();await p.setMuted(true);await(p as any).start('auto');assert.equal(await(p as any).command(['get_property','mute']),true);await p.setMuted(false);assert.equal(await(p as any).command(['get_property','mute']),false);assert.equal(await(p as any).command(['get_property','volume']),100);await p.setMuted(true);await(p as any).start('auto');assert.equal(await(p as any).command(['get_property','mute']),true);
+ const report={date:new Date().toISOString(),startupMuted:true,unmute:true,fixedVolume:100,engineRestartPreservesMute:true,devices:devices.map(d=>d.name),limitation:'Only remote audio device available; WASAPI exclusive playback attempt failed. Verified real mpv mute property and restart in idle mode, not exclusive audible output.'};await fs.writeFile('docs/evidence/player-mute-native.json',JSON.stringify(report,null,2));console.log(report);
+}finally{await p.dispose();}

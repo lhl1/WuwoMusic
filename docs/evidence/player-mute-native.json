@@ -1,0 +1,12 @@
+{
+  "date": "2026-11-08T02:23:26.391Z",
+  "startupMuted": true,
+  "unmute": true,
+  "fixedVolume": 100,
+  "engineRestartPreservesMute": true,
+  "devices": [
+    "Autoselect device",
+    "远程音频"
+  ],
+  "limitation": "Only remote audio device available; WASAPI exclusive playback attempt failed. Verified real mpv mute property and restart in idle mode, not exclusive audible output."
+}
