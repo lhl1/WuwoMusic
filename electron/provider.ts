@@ -1,3 +1,4 @@
+import {nativeHome} from './native-home';
 import { createCipheriv } from 'node:crypto';
 import JSON5 from 'json5';
 import type { Collection, LyricLine, Purpose, Quality, ResolvedAudio, SearchResult, Track } from '../src/shared';
@@ -122,9 +123,9 @@ export class KuwoProvider {
     return (d.data?.data ?? []).map((r:any)=>({id:String(r.id),name:clean(r.name),cover:r.img,description:clean(r.desc),count:Number(r.total),kind:'playlist'}));
   }
   async home(page=0) {
-    const [rec, ranks] = await Promise.allSettled([this.recommendations(page),this.ranks()]);
-    if (rec.status==='rejected' && ranks.status==='rejected') throw rec.reason;
-    return {recommendations:rec.status==='fulfilled'?rec.value:[],ranks:ranks.status==='fulfilled'?ranks.value:[]};
+    const [rec, ranks, native] = await Promise.allSettled([this.recommendations(page),this.ranks(),nativeHome(this)]);
+    if (rec.status==='rejected' && ranks.status==='rejected' && (native.status==='rejected'||(!native.value.editorial.length&&!native.value.daily.length))) throw rec.reason;
+    return {...(native.status==='fulfilled'?native.value:{editorial:[],daily:[],nativeErrors:['原生推荐暂不可用']}),recommendations:rec.status==='fulfilled'?rec.value:[],ranks:ranks.status==='fulfilled'?ranks.value:[]};
   }
   async collection(id:string,kind:Collection['kind'],page=0): Promise<SearchResult> {
     if (!/^\d+$/.test(id)) throw new MusicError('INVALID','无效的列表编号');

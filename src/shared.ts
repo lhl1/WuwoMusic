@@ -52,7 +52,7 @@ export interface DesktopApi {
   playlistTags():Promise<PlaylistTag[]>;
   discoverPlaylists(page:number,order:'hot'|'new',tag?:string):Promise<PlaylistPage>;
   mv(track:Track):Promise<MvSource>;
-  home(page?:number): Promise<{ recommendations: Collection[]; ranks: Collection[] }>;
+  home(page?:number): Promise<{ recommendations: Collection[]; ranks: Collection[]; editorial:Collection[];daily:Track[];nativeErrors:string[] }>;
   collection(id: string, kind: Collection['kind'], page?: number, period?:string): Promise<SearchResult>;
   rankPeriods(id:string):Promise<RankPeriod[]>;
   searchHints(query:string):Promise<SearchHints>;

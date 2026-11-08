@@ -1,0 +1,15 @@
+{
+  "output": "D:\\3DS_MAX\\20261107_music\\kuwo-desktop\\release\\无我音乐-1.2.0-推荐与返回\\win-unpacked",
+  "backup": "D:/3DS_MAX/20261107_music/backups/wuwo-before-recommend-20261108-100201",
+  "filesVerified": 81,
+  "formalProfileUnchanged": true,
+  "tests": 81,
+  "guiChecks": [
+    "home modules",
+    "player expand/collapse",
+    "return to local",
+    "editorial detail/back"
+  ],
+  "exeSha256": "8a578a41c92ee3188eb68a0b072eac460a88c7d16815bcc130791d8c4d43b2d8",
+  "asarSha256": "b32c5c99ac2a090e7ca629c9d4d112561593c5cb8a72324802c710b7a4f3107a"
+}
