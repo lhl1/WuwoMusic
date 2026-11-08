@@ -1,4 +1,5 @@
 import {nativeHome} from './native-home';
+import {canonicalArtworkHost} from '../src/artwork-source';
 import { createCipheriv } from 'node:crypto';
 import JSON5 from 'json5';
 import type { Collection, LyricLine, Purpose, Quality, ResolvedAudio, SearchResult, Track } from '../src/shared';
@@ -19,7 +20,7 @@ export function clean(value: unknown): string {
 }
 export function imageUrl(value:unknown,kind:'album'|'artist'='album'):string|undefined {
   const text=String(value??'').trim();if(!text || text==='undefined')return;
-  if(/^https?:\/\//i.test(text))return text.replace(/^http:/i,'https:');
+  if(/^https?:\/\//i.test(text)){try{const url=new URL(text);url.protocol='https:';return canonicalArtworkHost(url).href;}catch{return;}}
   if(/^\d+\/[\w/.-]+$/.test(text))return `https://img4.kuwo.cn/star/${kind==='album'?'albumcover':'artist'}/${text}`;
 }
 export function normalizeTrack(row: Record<string, any>): Track {

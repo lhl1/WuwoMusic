@@ -13,6 +13,23 @@ test('relative artwork paths normalize; cache rejects arbitrary origins',()=>{
  assert.equal(imageUrl('http://img4.kuwo.cn/a.jpg'),'https://img4.kuwo.cn/a.jpg');
  for(const u of ['file:///C:/secret','https://127.0.0.1/a','https://kuwo.cn.evil.test/a','https://u:p@img4.kuwo.cn/a'])assert.throws(()=>artworkSource(u));
 });
+test('legacy CDN aliases normalize at both API and persisted-image entry points',()=>{
+ const legacy='http://img1.kwcdn.kuwo.cn/star/userpl2015/20/94/cover_700.jpg?v=2';
+ const expected='https://img1.kuwo.cn/star/userpl2015/20/94/cover_700.jpg?v=2';
+ assert.equal(imageUrl(legacy),expected);assert.equal(artworkSource(legacy),expected);
+ assert.equal(artworkSource(expected),expected);
+ assert.throws(()=>artworkSource('https://img1.kwcdn.kuwo.cn.evil.test/a.jpg'));
+ assert.throws(()=>artworkSource('https://u:p@img1.kwcdn.kuwo.cn/a.jpg'));
+ assert.equal(imageUrl('https://img1.kwcdn.kuwo.cn:bad/a.jpg'),undefined);
+});
+test('legacy and canonical covers share one download and the same offline cache',async()=>{
+ const tmp=await fs.mkdtemp(path.join(os.tmpdir(),'wuwo-cdn-'));let calls=0,offline=false;
+ const png=Buffer.from('iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAQAAAC1HAwCAAAAC0lEQVR42mP8/x8AAwMCAO+a3ioAAAAASUVORK5CYII=','base64');
+ const old='https://img1.kwcdn.kuwo.cn/a.png',current='https://img1.kuwo.cn/a.png';
+ const cache=new ArtworkCache(tmp,async url=>{calls++;assert.equal(url,current);await new Promise(r=>setTimeout(r,10));return new Response(png);},()=>offline);
+ try{await Promise.all([cache.bytes(old),cache.bytes(current)]);assert.equal(calls,1);offline=true;assert.deepEqual(await cache.bytes(old),png);assert.equal(calls,1);}
+ finally{await fs.rm(tmp,{recursive:true,force:true});}
+});
 test('LRC supports repeated timestamps, hundredths, milliseconds and offset',()=>{
  const lines=parseLrc('[ar:歌手]\n[offset:500]\n[00:01.25][00:05.125]第一句\n[01:02]第二句');assert.deepEqual(lines,[{time:0.75,text:'第一句'},{time:4.625,text:'第一句'},{time:61.5,text:'第二句'}]);
  const reparsed=parseLrc(formatLrc(lines));assert.equal(reparsed.length,3);assert.equal(reparsed[0].time,0.75);assert.equal(reparsed[1].time,4.63);

@@ -2,11 +2,12 @@ import fs from 'node:fs/promises';
 import path from 'node:path';
 import {createHash} from 'node:crypto';
 import type {Fetcher} from './provider';
+import {canonicalArtworkHost} from '../src/artwork-source';
 
 export function artworkSource(raw:string,avatar=false):string {
   const url=new URL(raw);
   if(!['http:','https:'].includes(url.protocol)||url.username||url.password||(!/(^|\.)(kuwo|kwcdn)\.cn$/i.test(url.hostname)&&!(avatar&&['q.qlogo.cn','thirdwx.qlogo.cn','thirdqq.qlogo.cn'].includes(url.hostname))))throw Error('不支持的图片来源');
-  url.protocol='https:';return url.href;
+  url.protocol='https:';return canonicalArtworkHost(url).href;
 }
 export function imageType(bytes:Uint8Array):string|undefined {
   if(bytes[0]===0xff&&bytes[1]===0xd8)return 'image/jpeg';

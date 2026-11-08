@@ -1,0 +1,13 @@
+
+> kuwo-desktop@1.2.1 build
+> tsc --noEmit && vite build && node scripts/build-main.mjs
+
+vite v7.3.7 building client environment for production...
+transforming...
+✓ 1766 modules transformed.
+rendering chunks...
+computing gzip size...
+dist/index.html                   0.62 kB │ gzip:  0.41 kB
+dist/assets/index-zGh1nLlH.css   90.73 kB │ gzip: 17.18 kB
+dist/assets/index-DwdU6stq.js   316.45 kB │ gzip: 98.56 kB │ map: 1,322.45 kB
+✓ built in 1.72s

@@ -1,0 +1,313 @@
+{
+  "date": "2026-11-08T03:17:40.190Z",
+  "electron": "45.2.3",
+  "platform": "win32",
+  "system": "10.0.19045",
+  "proxy": "direct",
+  "certificateValidation": true,
+  "covers": 32,
+  "failed": 0,
+  "offlineCache": true,
+  "legacy": [
+    {
+      "source": "https://img1.kwcdn.kuwo.cn/star/userpl2015/20/94/1669648458462_590027620_700.jpg",
+      "resolved": "https://img1.kuwo.cn/star/userpl2015/20/94/1669648458462_590027620_700.jpg",
+      "bytes": 52143
+    },
+    {
+      "source": "https://img1.kwcdn.kuwo.cn/star/userpl2015/38/69/1521820436254_288469338_700.jpg",
+      "resolved": "https://img1.kuwo.cn/star/userpl2015/38/69/1521820436254_288469338_700.jpg",
+      "bytes": 42291
+    }
+  ],
+  "rows": [
+    {
+      "module": "editorial",
+      "id": "3591809862",
+      "name": "王源生日快乐丨最美的时光遇见你",
+      "url": "https://img1.kuwo.cn/star/userpl2015/68/82/1730979256535_500000968_700.jpg",
+      "type": "image/jpeg",
+      "bytes": 55893,
+      "sha256": "22d9740e3149596a6d856692024a92ef09bf16abff55a32b68cb9f5a92c5a8da"
+    },
+    {
+      "module": "editorial",
+      "id": "3591838168",
+      "name": "朴树生日丨纯真的时光，摇滚的少年",
+      "url": "https://img1.kuwo.cn/star/userpl2015/68/82/1730950105679_500000968_700.jpg",
+      "type": "image/jpeg",
+      "bytes": 123305,
+      "sha256": "f9154809eac2ef74267b5d06347dafca109de1a1653f626632f267a378e32aaa"
+    },
+    {
+      "module": "editorial",
+      "id": "3352552779",
+      "name": "车载甜歌｜抖落一身星光，长眠于心！",
+      "url": "https://img1.kuwo.cn/star/userpl2015/17/9/1652417518893_514621017_700.jpg",
+      "type": "image/jpeg",
+      "bytes": 54313,
+      "sha256": "2e31a04c8f8ef187c4caf6d6e586150bf50f97a964da106665b7fea5d240ed5a"
+    },
+    {
+      "module": "editorial",
+      "id": "3423520895",
+      "name": "经典粤语：岁月都无法掩盖其中韵味。",
+      "url": "https://img1.kuwo.cn/star/userpl2015/20/94/1669648458462_590027620_700.jpg",
+      "type": "image/jpeg",
+      "bytes": 52143,
+      "sha256": "48739753ef7244517c71bfcb7944eab9429bf5d5ff007a59308895aa3520305a"
+    },
+    {
+      "module": "editorial",
+      "id": "2434992086",
+      "name": "伤感丨你的世界，我曾经来过",
+      "url": "https://img1.kuwo.cn/star/userpl2015/38/69/1521820436254_288469338_700.jpg",
+      "type": "image/jpeg",
+      "bytes": 42291,
+      "sha256": "5d236edf62a3b0e1d5c6dd05518c4ea28baa5395542909712a7e79b2e312889d"
+    },
+    {
+      "module": "editorial",
+      "id": "3503093233",
+      "name": "舒缓钢琴曲：日暮晚风，音符轻拂耳畔",
+      "url": "https://img1.kuwo.cn/star/userpl2015/66/34/1695893911796_595471966_700.jpg",
+      "type": "image/jpeg",
+      "bytes": 101459,
+      "sha256": "9ef71e82628ee24c4f5c44ea7cc454e1f6dcd6d2728a593cbcd6130d5b8b4729"
+    },
+    {
+      "module": "editorial",
+      "id": "3677378442",
+      "name": "古风集：枉有醉人酒，解不开忧愁",
+      "url": "https://img1.kuwo.cn/star/userpl2015/68/22/1767094811656_224567868_700.jpg",
+      "type": "image/jpeg",
+      "bytes": 38288,
+      "sha256": "8bcbab2f5add10ea3c3bb61a243b428925279ae977fc907f3d4c139af598769d"
+    },
+    {
+      "module": "editorial",
+      "id": "3677832056",
+      "name": "【欧美治愈】温柔藏在山野烂漫处",
+      "url": "https://img1.kuwo.cn/star/userpl2015/44/22/1767294450212_224582344_700.jpg",
+      "type": "image/jpeg",
+      "bytes": 33474,
+      "sha256": "f2bd6fefde48cd00027ada5d747bced05855eccd74f1808d5b735747da326671"
+    },
+    {
+      "module": "playlists",
+      "id": "3678617986",
+      "name": "古风戏腔丨一曲舞霓裳清影醉红颜",
+      "url": "https://img1.kuwo.cn/star/userpl2015/40/22/1767708768671_224576140_500.jpg",
+      "type": "image/jpeg",
+      "bytes": 40268,
+      "sha256": "6b5820ad85a31c666c3841d5c459d9303d42f9c3595b2ca43a8fa2c0fa911856"
+    },
+    {
+      "module": "playlists",
+      "id": "3575766446",
+      "name": "短视频DJ热门歌曲｜网红BGM",
+      "url": "https://img1.kuwo.cn/star/userpl2015/25/94/1725873340689_174039025_500.jpg",
+      "type": "image/jpeg",
+      "bytes": 59801,
+      "sha256": "57d8891998c6942be7e19cfda557eef8ad54f602c9c8506ef3d3eab218b06f07"
+    },
+    {
+      "module": "playlists",
+      "id": "3677488020",
+      "name": "爱的故事翻篇，被爱的人不用道歉",
+      "url": "https://img1.kuwo.cn/star/userpl2015/78/22/1767155386545_224572078_500.jpg",
+      "type": "image/jpeg",
+      "bytes": 16815,
+      "sha256": "b233a8a0a1996e5199d731300c80424775f446b64c5c780e05555f59e5d24904"
+    },
+    {
+      "module": "playlists",
+      "id": "2996314807",
+      "name": "经典老歌大放送！一人一首代表作！",
+      "url": "https://img1.kuwo.cn/star/userpl2015/3/90/1641896326458_189029403_500.jpg",
+      "type": "image/jpeg",
+      "bytes": 27932,
+      "sha256": "9c5db3a52094c1ae2482dd77e490bd4fcb5470826a3a5027344d448961778cab"
+    },
+    {
+      "module": "playlists",
+      "id": "3677150229",
+      "name": "国风热歌来袭｜100首诗意旋律",
+      "url": "https://img1.kuwo.cn/star/userpl2015/70/22/1766859167301_224578170_500.jpg",
+      "type": "image/jpeg",
+      "bytes": 28279,
+      "sha256": "101c07f29c0a5d92c7b08ceabfea2bcbf6d5c75789c4dc191efc0b112cdd2f69"
+    },
+    {
+      "module": "playlists",
+      "id": "3680085909",
+      "name": "2026短视频热门歌曲合集【精选】",
+      "url": "https://img1.kuwo.cn/star/userpl2015/23/76/1768379343889_135259123_500.jpg",
+      "type": "image/jpeg",
+      "bytes": 38641,
+      "sha256": "92a47bfc90b104dc91c2f81a0ea786d1293b741bd2fc7efea4af891faf0326cc"
+    },
+    {
+      "module": "playlists",
+      "id": "3677105457",
+      "name": "伤感：眼泪都留不住你要走的心！",
+      "url": "https://img1.kuwo.cn/star/userpl2015/78/22/1766839196922_224573678_500.jpg",
+      "type": "image/jpeg",
+      "bytes": 19113,
+      "sha256": "103b7e7b3c1ef306d3dd67a576081e81275b31c2457247e2e85d3a36c3b7388c"
+    },
+    {
+      "module": "playlists",
+      "id": "3689581612",
+      "name": "听的是最苦的歌，熬的是最长的夜",
+      "url": "https://img1.kuwo.cn/star/userpl2015/25/22/1772704328726_224584325_500.jpg",
+      "type": "image/jpeg",
+      "bytes": 19847,
+      "sha256": "7a780b0aeb63365fb720489600e977d3fc05d970f7b0862615cd37061cde2fea"
+    },
+    {
+      "module": "playlists",
+      "id": "3001661381",
+      "name": "伤感情歌｜不眠夜里的孤单心事",
+      "url": "https://img1.kuwo.cn/star/userpl2015/98/82/1587870043089_121006198_500.jpg",
+      "type": "image/jpeg",
+      "bytes": 14406,
+      "sha256": "5116c793b5920e10c3f75587bbece55dd36595343d597d7a5499dbccb45b6141"
+    },
+    {
+      "module": "playlists",
+      "id": "2802745654",
+      "name": "【经典国语】老男人的情怀老男人的歌",
+      "url": "https://img1.kuwo.cn/star/userpl2015/47/31/1561132622670_11868547_500.jpg",
+      "type": "image/jpeg",
+      "bytes": 30704,
+      "sha256": "151004adc211d1a377075832d4bd635868deb0064bd11da8bfd95b4d93e78af2"
+    },
+    {
+      "module": "playlists",
+      "id": "2508547657",
+      "name": "【伤感】对于你，我总是好了伤疤忘了疼",
+      "url": "https://img1.kuwo.cn/star/userpl2015/32/88/1529897363916_273384232_500.jpg",
+      "type": "image/jpeg",
+      "bytes": 39141,
+      "sha256": "0e120ea250342c0e81b128db0c8272a9029b58a2710d623217150b0482fa52b7"
+    },
+    {
+      "module": "playlists",
+      "id": "3596743037",
+      "name": "英文流行｜好听又治愈的欧美歌曲",
+      "url": "https://img1.kuwo.cn/star/userpl2015/25/94/1732692064935_174039025_500.jpg",
+      "type": "image/jpeg",
+      "bytes": 70549,
+      "sha256": "71d11d59031ad62e785139379d103cfda0ae57472749c99486b9cff159682e27"
+    },
+    {
+      "module": "ranks",
+      "id": "16",
+      "name": "酷我热歌榜",
+      "url": "https://zimg.kuwo.cn/bang/9/5/1794106201034_489927.png",
+      "type": "image/png",
+      "bytes": 98398,
+      "sha256": "6ab6e977059355492afd332c9902a711a699c3e52776c7ed7ca33ad3045659e0"
+    },
+    {
+      "module": "ranks",
+      "id": "93",
+      "name": "酷我飙升榜",
+      "url": "https://zimg.kuwo.cn/bang/1/7/1794106203723_489929.png",
+      "type": "image/png",
+      "bytes": 169353,
+      "sha256": "fe4ca2ae6f0af62234b364e6ea9368840e752ba9f2761c2c4d540cb1d0c9f6d5"
+    },
+    {
+      "module": "ranks",
+      "id": "17",
+      "name": "酷我新歌榜",
+      "url": "https://zimg.kuwo.cn/bang/0/7/1794106202417_489928.png",
+      "type": "image/png",
+      "bytes": 146552,
+      "sha256": "8cca087156ef54315598698989f42802bf801ebb717b99a8b280f96fd62aacde"
+    },
+    {
+      "module": "ranks",
+      "id": "158",
+      "name": "短视频酷我排行榜",
+      "url": "https://zimg.kuwo.cn/bang/1/6/1794106208715_490022.png",
+      "type": "image/png",
+      "bytes": 75706,
+      "sha256": "61e3d06b27cc1742c75267d6e321e5afa9483c10fd01fda06886b7d4026b7a8b"
+    },
+    {
+      "module": "ranks",
+      "id": "176",
+      "name": "万物DJ榜",
+      "url": "https://zimg.kuwo.cn/bang/8/4/1794106225719_534778.png",
+      "type": "image/png",
+      "bytes": 99442,
+      "sha256": "6756fe5879d40d5a597f5aabf439f6dc2d13552bf9b5b5dd51dfadef83e27484"
+    },
+    {
+      "module": "ranks",
+      "id": "26",
+      "name": "经典怀旧榜",
+      "url": "https://zimg.kuwo.cn/bang/1/2/1794106221172_530769.png",
+      "type": "image/png",
+      "bytes": 118031,
+      "sha256": "1a41483bb6b61388e4b260d65660e9765f6acc157c2474dbe7379b4985ba65d1"
+    },
+    {
+      "module": "daily",
+      "id": "273793106",
+      "name": "吴哥窟",
+      "url": "https://img1.kuwo.cn/star/albumcover/500/s4s91/40/4275708905.jpg",
+      "type": "image/jpeg",
+      "bytes": 35131,
+      "sha256": "6b5c4b77381779da4e7fce84e6570dfd2abafd34005d36be447952d16b105586"
+    },
+    {
+      "module": "daily",
+      "id": "1039960",
+      "name": "都是你的错",
+      "url": "https://img1.kuwo.cn/star/albumcover/240/s4s11/62/1434162535.jpg",
+      "type": "image/jpeg",
+      "bytes": 8532,
+      "sha256": "4e9c7ff0f7007ce1030efc148087dcd49bd8bf262f5693f29849dea6f396fea7"
+    },
+    {
+      "module": "daily",
+      "id": "201734692",
+      "name": "讲不出再见",
+      "url": "https://img2.kuwo.cn/star/albumcover/240/s4s54/92/1052241222.jpg",
+      "type": "image/jpeg",
+      "bytes": 23553,
+      "sha256": "051a1378846fa676813a1e149f89decd17e41162e885d2712323761fe8d654e2"
+    },
+    {
+      "module": "daily",
+      "id": "6878708",
+      "name": "青花瓷",
+      "url": "https://img1.kuwo.cn/star/albumcover/240/s4s5/99/258670286.jpg",
+      "type": "image/jpeg",
+      "bytes": 16544,
+      "sha256": "2b61ad318f524d496bc99a2f4c5fd6a789d4176ba9536ff3ec0a055931f4c81c"
+    },
+    {
+      "module": "daily",
+      "id": "193290598",
+      "name": "如愿",
+      "url": "https://img3.kuwo.cn/star/albumcover/240/15/57/2715116001.jpg",
+      "type": "image/jpeg",
+      "bytes": 21253,
+      "sha256": "4ab2ba957581fdbd07925601a46a8d352802a5c4678ab4183fe428a189c7ae55"
+    },
+    {
+      "module": "daily",
+      "id": "306518865",
+      "name": "负我不负她",
+      "url": "https://img4.kuwo.cn/star/albumcover/240/s4s16/23/140148828.jpg",
+      "type": "image/jpeg",
+      "bytes": 10109,
+      "sha256": "7de1f3a407c35afe60e330ccf81521c6d86bf6155bd73fa60264f11bec0fd8c7"
+    }
+  ]
+}
