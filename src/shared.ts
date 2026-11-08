@@ -41,9 +41,14 @@ export type Theme = 'system'|'light'|'dark';
 export type TextSize = 'standard'|'large'|'larger';
 export type ProxyMode = 'direct'|'system';
 export interface Comment { id:string; author:string; avatar?:string; time:string; text:string; likes:number }
-export interface CommentPage { comments:Comment[]; total:number; page:number; pageSize:number; pages:number }
+export type CommentSource='netease'|'qq'|'kuwo';
+export type CommentPreference='auto'|CommentSource;
+export type VocalMode='original'|'accompaniment'|'vocal';
+export interface DesktopLyricFrame {title:string;artist:string;current:string;next:string;playing:boolean;progress:number}
+export interface DesktopLyricState {enabled:boolean;locked:boolean;fontSize:number;opacity:number;frame:DesktopLyricFrame}
+export interface CommentPage { comments:Comment[]; total:number; page:number; pageSize:number; pages:number;source?:CommentSource }
 export type CommentSort = 'hot'|'latest';
-export interface Settings { downloadDir: string; concurrency: number; quality: Quality; qualityPolicyVersion?:number; playerLayoutVersion?:number; volume: number; muted?:boolean; zoom: number; offline?: boolean; proxyMode?:ProxyMode; playbackRate?:number; lyricOffset?:number; lyricFontSize?:number; coverMode?:'record'|'square'; saveLyrics?:boolean; saveCover?:boolean; theme?:Theme; textSize?:TextSize; autoHotComments?:boolean; audioOutput?:'normal'|'hifi'; audioDevice?:string }
+export interface Settings { downloadDir: string; concurrency: number; quality: Quality; qualityPolicyVersion?:number; playerLayoutVersion?:number; volume: number; muted?:boolean; zoom: number; offline?: boolean; proxyMode?:ProxyMode; playbackRate?:number; lyricOffset?:number; lyricFontSize?:number; coverMode?:'record'|'square'; saveLyrics?:boolean; saveCover?:boolean; theme?:Theme; textSize?:TextSize; autoHotComments?:boolean; audioOutput?:'normal'|'hifi'; audioDevice?:string;commentPreference?:CommentPreference;vocalMode?:VocalMode;desktopLyrics?:boolean }
 export interface LocalPlaylist { id: string; name: string; tracks: Track[] }
 export interface Library { favorites: Track[]; history: Track[]; local: Track[]; playlists: LocalPlaylist[] }
 export interface Snapshot { settings: Settings; library: Library; tasks: DownloadTask[]; themeDark?:boolean }
@@ -53,7 +58,13 @@ export interface DesktopApi {
   libraryImport(scope:LibraryScope,id?:string,kind?:'files'|'folder'|'list'):Promise<LibraryResult>;
   libraryExport(scope:LibraryScope,id:string,format:'json'|'m3u8'):Promise<string|null>;
   snapshot(): Promise<Snapshot>;
-  comments(id:string,sort:CommentSort,page:number,force?:boolean):Promise<CommentPage>;
+  queueState(tracks?:Track[]):Promise<Track[]>;
+  saveQueue(name:string,tracks:Track[]):Promise<Library>;
+  comments(track:Track,sort:CommentSort,page:number,force?:boolean):Promise<CommentPage>;
+  desktopLyrics(action:'state'|'toggle'|'close'|'lock'|'font'|'opacity'|'reset'|'play'|'previous'|'next',value?:number):Promise<DesktopLyricState>;
+  publishLyrics(frame:DesktopLyricFrame):Promise<void>;
+  onDesktopLyrics(callback:(state:DesktopLyricState)=>void):()=>void;
+  onPlayerCommand(callback:(action:'play'|'previous'|'next')=>void):()=>void;
   onTheme(callback:(dark:boolean)=>void):()=>void;
   onVisibility(callback:(visible:boolean)=>void):()=>void;
   search(query: string, page: number): Promise<SearchResult>;

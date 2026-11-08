@@ -8,5 +8,7 @@ import './refinement.css';
 import './polish.css';
 import './collection.css';
 import './desktop123.css';
+import './desktop124.css';
+import {DesktopLyrics} from './components/DesktopLyrics';
 import {applyAppearance} from './preferences';
-window.desktop.snapshot().then(snapshot=>{applyAppearance(snapshot.settings,Boolean(snapshot.themeDark));createRoot(document.getElementById('root')!).render(<React.StrictMode><App/></React.StrictMode>);}).catch(()=>{createRoot(document.getElementById('root')!).render(<App/>);});
+if(location.hash==='#desktop-lyrics'){createRoot(document.getElementById('root')!).render(<DesktopLyrics/>);}else window.desktop.snapshot().then(snapshot=>{applyAppearance(snapshot.settings,Boolean(snapshot.themeDark));createRoot(document.getElementById('root')!).render(<React.StrictMode><App/></React.StrictMode>);}).catch(()=>{createRoot(document.getElementById('root')!).render(<App/>);});

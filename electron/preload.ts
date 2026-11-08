@@ -3,6 +3,10 @@ import type { DesktopApi, DownloadTask, Library } from '../src/shared';
 const invoke=(method:string,...args:unknown[])=>ipcRenderer.invoke(`music:${method}`,...args).catch((error:Error)=>{throw new Error(error.message.replace(/^Error invoking remote method '[^']+': (?:Error: )?/,''));});
 const api:DesktopApi={
   artist:(id,tab,p)=>invoke('artist',id,tab,p),libraryAction:(scope,id,action,ids,value)=>invoke('libraryAction',scope,id,action,ids,value),libraryImport:(scope,id,kind)=>invoke('libraryImport',scope,id,kind),libraryExport:(scope,id,format)=>invoke('libraryExport',scope,id,format),
+  desktopLyrics:(a,v)=>invoke('desktopLyrics',a,v),publishLyrics:frame=>invoke('publishLyrics',frame),
+  onDesktopLyrics(callback){const handler=(_e:unknown,state:any)=>callback(state);ipcRenderer.on('music:desktopLyrics',handler);return()=>ipcRenderer.removeListener('music:desktopLyrics',handler);},
+  onPlayerCommand(callback){const handler=(_e:unknown,action:any)=>callback(action);ipcRenderer.on('music:playerCommand',handler);return()=>ipcRenderer.removeListener('music:playerCommand',handler);},
+  queueState:tracks=>invoke('queueState',tracks),saveQueue:(name,tracks)=>invoke('saveQueue',name,tracks),
   snapshot:()=>invoke('snapshot'), search:(q,p)=>invoke('search',q,p), home:p=>invoke('home',p),
   searchHints:q=>invoke('searchHints',q),rankPeriods:id=>invoke('rankPeriods',id),
   searchCatalog:(q,kind,p)=>invoke('searchCatalog',q,kind,p),playlistTags:()=>invoke('playlistTags'),discoverPlaylists:(p,order,tag)=>invoke('discoverPlaylists',p,order,tag),mv:t=>invoke('mv',t),

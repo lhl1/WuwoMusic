@@ -1,0 +1,8 @@
+import {useEffect,useRef,useState} from 'react';
+import {AudioLines,Check} from 'lucide-react';
+import type {Settings,VocalMode} from '../shared';
+export function EffectsPopover({settings,onChange}:{settings?:Settings;onChange:(s:Partial<Settings>)=>void}){
+ const [open,setOpen]=useState(false),root=useRef<HTMLDivElement>(null);const mode=settings?.vocalMode??'original',exclusive=settings?.audioOutput==='hifi';
+ useEffect(()=>{if(!open)return;const close=(e:PointerEvent)=>{if(!root.current?.contains(e.target as Node))setOpen(false);};const key=(e:KeyboardEvent)=>{if(e.key==='Escape'){setOpen(false);root.current?.querySelector('button')?.focus();}};document.addEventListener('pointerdown',close);document.addEventListener('keydown',key);return()=>{document.removeEventListener('pointerdown',close);document.removeEventListener('keydown',key);};},[open]);
+ return <div className="effects-control" ref={root}><button className={`icon-button ${mode!=='original'?'active':''}`} title="伴奏与伴唱" aria-label="伴奏与伴唱" aria-expanded={open} onClick={()=>setOpen(v=>!v)}><AudioLines size={20}/></button>{open?<div className="effects-popover" role="group" aria-label="人声处理"><b>伴奏与伴唱</b>{([{value:'original',title:'原声',detail:'保留原始听感'},{value:'accompaniment',title:'伴奏 · 人声减弱',detail:'减弱立体声中央的人声'},{value:'vocal',title:'伴唱 · 人声聚焦',detail:'收窄声场，突出中央人声'}] as const).map(item=><button key={item.value} aria-pressed={mode===item.value} disabled={exclusive&&item.value!=='original'} onClick={()=>onChange({vocalMode:item.value as VocalMode})}><span><strong>{item.title}</strong><small>{item.detail}</small></span>{mode===item.value?<Check size={16}/>:null}</button>)}<p>{exclusive?'HiFi 独占保持原音，切换标准输出后可使用。':'基于立体声处理，效果因录音而异；不是独立人声或伴奏音轨。'}</p></div>:null}</div>;
+}

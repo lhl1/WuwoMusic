@@ -6,7 +6,7 @@ import {canonicalArtworkHost} from '../src/artwork-source';
 
 export function artworkSource(raw:string,avatar=false):string {
   const url=new URL(raw);
-  if(!['http:','https:'].includes(url.protocol)||url.username||url.password||(!/(^|\.)(kuwo|kwcdn)\.cn$/i.test(url.hostname)&&!(avatar&&['q.qlogo.cn','thirdwx.qlogo.cn','thirdqq.qlogo.cn'].includes(url.hostname))))throw Error('不支持的图片来源');
+  if(!['http:','https:'].includes(url.protocol)||url.username||url.password||(url.port&&url.port!=='443')||(!/(^|\.)(kuwo|kwcdn)\.cn$/i.test(url.hostname)&&!(avatar&&(['q.qlogo.cn','thirdwx.qlogo.cn','thirdqq.qlogo.cn'].includes(url.hostname)||/^p[1-9]\.music\.126\.net$/.test(url.hostname)||/^pic[1-9]\.y\.qq\.com$/.test(url.hostname)))))throw Error('不支持的图片来源');
   url.protocol='https:';return canonicalArtworkHost(url).href;
 }
 export function imageType(bytes:Uint8Array):string|undefined {
