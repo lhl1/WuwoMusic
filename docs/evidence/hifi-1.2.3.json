@@ -1,0 +1,15 @@
+{
+  "date": "2026-11-08T05:36:16.971Z",
+  "devices": [
+    {
+      "id": "auto",
+      "name": "Autoselect device"
+    },
+    {
+      "id": "wasapi/{3.0.0.00000001}.{6C26BA7D-F0B2-4225-B422-8168C5261E45}",
+      "name": "远程音频"
+    }
+  ],
+  "supported": false,
+  "error": "HiFi 独占输出失败：设备忙碌、格式不支持或音频连接失效，请更换设备或切回标准模式"
+}

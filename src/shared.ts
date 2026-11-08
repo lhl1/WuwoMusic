@@ -9,6 +9,7 @@ export interface Track {
   cover?: string; qualities: Quality[]; localPath?: string;
   hasMv?:boolean; artistId?:string; albumId?:string; onlineId?:string; audioInfo?:AudioInfo;
   catalogTags?:string[];
+  subtitle?:string; lyricSnippet?:string; missing?:boolean;
   availability?: 'unknown' | 'available' | 'restricted' | 'trial' | 'unavailable';
   payInfo?: { play?: string; download?: string; trial?: boolean; encrypted?: boolean };
 }
@@ -20,6 +21,9 @@ export type SearchKind='all'|'music'|'playlist'|'artist'|'album'|'lyrics';
 export interface CatalogResult extends SearchResult {items:Collection[]; errors?:string[]}
 export interface PlaylistTag {id:string;name:string;group:string}
 export interface PlaylistPage {items:Collection[];total:number;page:number}
+export interface ArtistPage {artist:Collection;tracks:Track[];albums:Collection[];videos:Track[];total:number;page:number;facts:Record<string,string>}
+export type LibraryScope='local'|'favorites'|'playlist';
+export interface LibraryResult {library:Library;message?:string}
 export interface MvSource {url:string;quality:string;bitrate:number;local?:boolean}
 export interface LyricLine { time: number; text: string }
 export interface ResolvedAudio { url: string; quality: Quality; format: string; trial: boolean; duration?: number; bitrate?: number; cover?: string; headers?: Record<string,string> }
@@ -44,6 +48,10 @@ export interface LocalPlaylist { id: string; name: string; tracks: Track[] }
 export interface Library { favorites: Track[]; history: Track[]; local: Track[]; playlists: LocalPlaylist[] }
 export interface Snapshot { settings: Settings; library: Library; tasks: DownloadTask[]; themeDark?:boolean }
 export interface DesktopApi {
+  artist(id:string,tab:'music'|'albums'|'videos'|'about',page:number):Promise<ArtistPage>;
+  libraryAction(scope:LibraryScope,id:string,action:string,ids:string[],value?:string):Promise<LibraryResult>;
+  libraryImport(scope:LibraryScope,id?:string,kind?:'files'|'folder'|'list'):Promise<LibraryResult>;
+  libraryExport(scope:LibraryScope,id:string,format:'json'|'m3u8'):Promise<string|null>;
   snapshot(): Promise<Snapshot>;
   comments(id:string,sort:CommentSort,page:number,force?:boolean):Promise<CommentPage>;
   onTheme(callback:(dark:boolean)=>void):()=>void;

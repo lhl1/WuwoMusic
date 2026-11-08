@@ -1,0 +1,20 @@
+import {useEffect,useState} from 'react';
+import {Play,Heart,ArrowDownToLine,Clapperboard} from 'lucide-react';
+import type {ArtistPage,Collection,Track} from '../shared';
+import {CollectionHeader} from './CollectionHeader';
+import {CollectionCards} from './Discovery';
+import {Cover} from './Cover';
+export type ArtistTab='music'|'albums'|'videos'|'about';
+export function ArtistView({collection,tab,page,onTab,onPage,onOpen,onPlay,onMv,onFavorite,onDownload,favorites,onLoading}:{collection:Collection;tab:ArtistTab;page:number;onTab:(t:ArtistTab)=>void;onPage:(p:number)=>void;onOpen:(c:Collection)=>void;onPlay:(t:Track,list:Track[])=>void;onMv:(t:Track)=>void;onFavorite:(t:Track)=>void;onDownload:(t:Track)=>void;favorites:Set<string>;onLoading:(loading:boolean)=>void}){
+ const [data,setData]=useState<ArtistPage|null>(null),[error,setError]=useState(''),[loading,setLoading]=useState(true),[retry,setRetry]=useState(0);
+ useEffect(()=>{let live=true;setLoading(true);onLoading(true);setError('');setData(null);window.desktop.artist(collection.id,tab,page).then(r=>{if(live)setData(r);}).catch(e=>{if(live){setData(null);setError(e.message);}}).finally(()=>{if(live){setLoading(false);onLoading(false);}});return()=>{live=false;};},[collection.id,tab,page,retry,onLoading]);
+ return <><CollectionHeader key={collection.id} collection={{...(data?.artist??collection),description:undefined}} total={data?.artist.count??collection.count??0}/><div className="artist-tabs tabs">{([['music','单曲'],['albums','专辑'],['videos','视频'],['about','了解 TA']]as const).map(([key,label])=><button key={key} className={tab===key?'active':''} onClick={()=>onTab(key)}>{label}</button>)}</div>
+ {loading?<div className="empty compact">正在加载…</div>:error?<div className="empty"><p>{error}</p><button className="secondary" onClick={()=>setRetry(n=>n+1)}>重试</button></div>:data?<>
+ {tab==='music'?<><div className="artist-actions"><button className="primary" disabled={!data.tracks.length} onClick={()=>onPlay(data.tracks[0],data.tracks)}><Play size={15}/>播放本页</button><span>{data.total.toLocaleString()} 首</span></div><div className="artist-song-list">{data.tracks.map((t,i)=><div className="artist-song" key={t.id}><span className="muted">{i+1+page*30}</span><button className="artist-song-play" onClick={()=>onPlay(t,data.tracks)}><Cover src={t.cover} id={t.id} name={t.name}/><span><b>{t.name}</b><small>{t.album}</small><span className="track-badges">{t.catalogTags?.map(tag=><span className="catalog-badge" key={tag}>{tag}</span>)}</span></span></button>{t.hasMv?<button className="icon-button" aria-label={`观看 ${t.name} MV`} onClick={()=>onMv(t)}><Clapperboard size={17}/></button>:null}<button className="icon-button" aria-label={`喜欢 ${t.name}`} onClick={()=>onFavorite(t)}><Heart size={17} fill={favorites.has(t.id)?'currentColor':'none'}/></button><button className="icon-button" aria-label={`下载 ${t.name}`} onClick={()=>onDownload(t)}><ArrowDownToLine size={17}/></button></div>)}</div></>:null}
+ {tab==='albums'?<CollectionCards items={data.albums} onOpen={onOpen}/>:null}
+ {tab==='videos'?<div className="artist-video-grid">{data.videos.map(t=><button className="artist-video" key={t.id} onClick={()=>onMv(t)}><div><Cover src={t.cover} name={t.name} large/><span><Play size={18}/></span></div><b>{t.name}</b><small>{t.artist} · {Math.floor(t.duration/60)}:{String(t.duration%60).padStart(2,'0')}</small></button>)}</div>:null}
+ {tab==='about'?<section className="artist-about"><dl>{Object.entries(data.facts).map(([key,value])=><div key={key}><dt>{key}</dt><dd>{value}</dd></div>)}</dl><h2>歌手简介</h2><p>{data.artist.description||'暂无简介'}</p></section>:null}
+ {tab!=='about'&&!data.tracks.length&&!data.albums.length&&!data.videos.length?<div className="empty">暂无内容</div>:null}
+ {tab!=='about'&&data.total>(tab==='music'?30:24)?<div className="pagination"><button className="secondary" disabled={!page} onClick={()=>onPage(page-1)}>上一页</button><span>{page+1} / {Math.ceil(data.total/(tab==='music'?30:24))}</span><button className="secondary" disabled={(page+1)*(tab==='music'?30:24)>=data.total} onClick={()=>onPage(page+1)}>下一页</button></div>:null}
+ </>:null}</>;
+}

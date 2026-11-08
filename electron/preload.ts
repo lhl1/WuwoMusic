@@ -2,6 +2,7 @@ import { contextBridge, ipcRenderer,webUtils } from 'electron';
 import type { DesktopApi, DownloadTask, Library } from '../src/shared';
 const invoke=(method:string,...args:unknown[])=>ipcRenderer.invoke(`music:${method}`,...args).catch((error:Error)=>{throw new Error(error.message.replace(/^Error invoking remote method '[^']+': (?:Error: )?/,''));});
 const api:DesktopApi={
+  artist:(id,tab,p)=>invoke('artist',id,tab,p),libraryAction:(scope,id,action,ids,value)=>invoke('libraryAction',scope,id,action,ids,value),libraryImport:(scope,id,kind)=>invoke('libraryImport',scope,id,kind),libraryExport:(scope,id,format)=>invoke('libraryExport',scope,id,format),
   snapshot:()=>invoke('snapshot'), search:(q,p)=>invoke('search',q,p), home:p=>invoke('home',p),
   searchHints:q=>invoke('searchHints',q),rankPeriods:id=>invoke('rankPeriods',id),
   searchCatalog:(q,kind,p)=>invoke('searchCatalog',q,kind,p),playlistTags:()=>invoke('playlistTags'),discoverPlaylists:(p,order,tag)=>invoke('discoverPlaylists',p,order,tag),mv:t=>invoke('mv',t),

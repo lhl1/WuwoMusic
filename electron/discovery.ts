@@ -23,7 +23,7 @@ export class DiscoveryService {
   if(kind==='music')return {...await this.provider.search(query,page),items:[]};
   const params=new URLSearchParams({client:'kt',cluster:'0',strategy:'2012',ver:'mbox',show_copyright_off:'1',encoding:'utf8',rformat:'json',mobi:'1',vipver:'1',pn:String(page),rn:'30',ft:kind==='lyrics'?'music':kind,newver:'3',correct:'1'});
   params.set(kind==='lyrics'?'lrccontent':'all',query.slice(0,200));
-  if(kind==='lyrics'){params.set('newsearch','1');params.set('searchapi','11');}
+  if(kind==='lyrics'){params.set('newsearch','1');params.set('searchapi','11');params.set('ver','MUSIC_5.2.1.3_UG8');params.set('vipver','MUSIC_8.0.3.0_BCS75');params.set('show_copyright_off','0');params.set('uid','0');}
   const d=await this.provider.json('https://search.kuwo.cn/r.s?'+params);
   const total=Number(d.TOTAL??d.total??d.HIT)||0;
   return {tracks:kind==='lyrics'?(d.abslist??[]).map(normalizeTrack):[],items:kind==='lyrics'?[]:catalogItems(d,kind),total,page};

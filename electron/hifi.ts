@@ -10,6 +10,7 @@ export function hifiArguments(pipe:string,device='auto',muted=false):string[]{
 export function mpvInfo(p:any):AudioInfo|undefined{return p?{sampleRate:p.samplerate,channels:p['channel-count'],bitsPerSample:Number(String(p.format??'').match(/\d+/)?.[0])||undefined,format:p.format}:undefined;}
 export class HifiPlayer {
  private muted=false;
+ private gainSerial=0;private gain=100;
  async setMuted(value:boolean){if(typeof value!=='boolean')throw Error('无效的静音设置');if(this.socket&&!this.socket.destroyed)await this.command(['set_property','mute',value]);this.muted=value;}
  private playbackJob:Promise<unknown>=Promise.resolve();
  private child?:ChildProcess;private socket?:Socket;private serial=0;private pending=new Map<number,{resolve:(v:any)=>void;reject:(e:Error)=>void;timer:ReturnType<typeof setTimeout>}>();private buffer='';private timer?:ReturnType<typeof setInterval>;private loading?:{resolve:()=>void;reject:(e:Error)=>void};private sourceRemote=false;private loadSerial=0;
@@ -69,13 +70,20 @@ export class HifiPlayer {
   if(generation!==this.state.generation||!this.socket)return;
   this.state={...this.state,position:position??this.state.position,duration:duration??this.state.duration,playing:!paused&&this.state.active&&!this.state.ended,info:{...mpvInfo(info),bitrate:bitrate?Math.round(bitrate/1000):undefined},output:mpvInfo(output)??this.state.output};this.emit();
  }finally{this.polling=false;}}
+ private async fadeGain(target:number,duration:number,token:number){
+  const from=this.gain,start=Date.now();
+  while(token===this.gainSerial&&this.socket){const p=Math.min(1,(Date.now()-start)/duration),gain=from+(target-from)*p*p*(3-2*p);await this.command(['set_property','volume',gain]);if(token!==this.gainSerial)return false;this.gain=gain;if(p===1)return true;await delay(12);}return false;
+ }
  async control(action:'pause'|'resume'|'seek'|'stop',position?:number){
   if(action==='stop'){this.loadSerial++;await this.dispose();return;}
   if(action==='seek'){if(!Number.isFinite(position)||position!<0||position!>86400)throw Error('无效的播放位置');await this.command(['seek',position,'absolute+exact']);}
-  else await this.command(['set_property','pause',action==='pause']);await this.poll();
+  else{const token=++this.gainSerial;if(action==='pause'){if(!await this.fadeGain(0,140,token))return;await this.command(['set_property','pause',true]);if(token!==this.gainSerial)return;await this.command(['set_property','volume',100]);this.gain=100;}
+   else{await this.command(['set_property','volume',0]);if(token!==this.gainSerial)return;this.gain=0;await this.command(['set_property','pause',false]);await this.fadeGain(100,180,token);}}
+  await this.poll();
  }
  async stopRemote(){if(this.sourceRemote)await this.control('stop');}
  async dispose(){
+  this.gainSerial++;this.gain=100;
   this.loading?.reject(Error('播放已停止'));this.loading=undefined;
   clearInterval(this.timer);this.timer=undefined;const child=this.child;this.child=undefined;this.socket?.destroy();this.socket=undefined;this.buffer='';
   for(const p of this.pending.values()){clearTimeout(p.timer);p.reject(Error('HiFi 播放已停止'));}this.pending.clear();

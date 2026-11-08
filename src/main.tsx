@@ -7,5 +7,6 @@ import './redesign.css';
 import './refinement.css';
 import './polish.css';
 import './collection.css';
+import './desktop123.css';
 import {applyAppearance} from './preferences';
 window.desktop.snapshot().then(snapshot=>{applyAppearance(snapshot.settings,Boolean(snapshot.themeDark));createRoot(document.getElementById('root')!).render(<React.StrictMode><App/></React.StrictMode>);}).catch(()=>{createRoot(document.getElementById('root')!).render(<App/>);});

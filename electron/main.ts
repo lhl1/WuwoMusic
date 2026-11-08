@@ -16,6 +16,9 @@ import {DiscoveryService} from './discovery';
 import {themeSource} from '../src/preferences';
 import {inspectFile,inspectStream} from './audio-info';
 import {readLocalFiles,chooseLocalMatch} from './local-music';
+import {artistPage} from './artist';
+import type {LibraryScope} from '../src/shared';
+import {libraryList,changeLibrary,scanAudioFolder,exportLibrary,importLibraryFile,uniqueTracks,createImportedPlaylist} from './library-tools';
 import {HifiPlayer} from './hifi';
 import {AudioBridge} from './audio-bridge';
 import {NativeCatalog} from './native-catalog';
@@ -129,7 +132,7 @@ async function registerMedia(){
 async function importFiles(files:unknown):Promise<Track[]>{
   const items=await readLocalFiles(files);if(!items.length)throw Error('未发现可播放的音频文件');
   for(const t of items){if(t.cover)await metadata.save(t.id,{cover:t.cover});const m=await parseFile(t.localPath!).catch(()=>null),embedded=m?.common.lyrics?.find(l=>l.syncText?.length||l.text);if(embedded){const lines=embedded.syncText?.filter(l=>l.timestamp!==undefined).map(l=>({time:l.timestamp!/1000,text:l.text}))??parseLrc(embedded.text??'');if(lines.length)await metadata.save(t.id,{lyrics:lines});}}
-  const known=new Map(store.data.library.local.map(t=>[t.id,t]));for(const t of items)known.set(t.id,{...known.get(t.id),...t,cover:t.cover??known.get(t.id)?.cover});store.data.library.local=[...known.values()];store.save();window.webContents.send('music:library',structuredClone(store.data.library));return items.map(t=>known.get(t.id)!);
+  store.data.library.local=uniqueTracks([...store.data.library.local,...items]);store.save();window.webContents.send('music:library',structuredClone(store.data.library));return items.map(t=>store.data.library.local.find(v=>v.id===t.id||v.localPath?.toLowerCase()===t.localPath?.toLowerCase())!);
 }
 async function enrichLocal(t:Track):Promise<Track>{
   if(!t.localPath||store.data.settings.offline)return t;
@@ -140,6 +143,29 @@ async function enrichLocal(t:Track):Promise<Track>{
   })();localMatches.set(t.id,task);try{return await task;}finally{localMatches.delete(t.id);}
 }
 function registerIpc(){
+  const scopeOf=(value:unknown):LibraryScope=>{if(!['local','favorites','playlist'].includes(value as string))throw Error('无效的资料类型');return value as LibraryScope;};
+  handle('artist',(id,tab,p)=>artistPage(provider,text(id,30),tab,integer(p,0,1000)));
+  handle('libraryAction',async(scope,id,action,ids,value)=>{
+    const target=scopeOf(scope);id=text(id??'',100);if(!Array.isArray(ids)||ids.length>10000||ids.some(v=>typeof v!=='string'||v.length>100))throw Error('无效的歌曲选择');
+    const list=libraryList(store.data.library,target,id);
+    if(action==='locate'){const t=list.find(t=>ids.includes(t.id));if(!t?.localPath)throw Error('请选择本地文件');shell.showItemInFolder(t.localPath);return {library:structuredClone(store.data.library)};}
+    if(action==='check'){let missing=0;for(const t of list){if(t.localPath){t.missing=!(await fsp.access(t.localPath).then(()=>true,()=>false));if(t.missing)missing++;}}store.save();return {library:structuredClone(store.data.library),message:missing?`${missing} 首文件已失效，可在筛选中查看`:'文件检查完成，均可访问'};}
+    changeLibrary(store.data.library,target,id,text(action,30),ids,text(value??'',100));store.save();return {library:structuredClone(store.data.library),message:action==='remove'?'已从列表移除':'已更新'};
+  });
+  handle('libraryImport',async(scope,id,kind)=>{
+    const target=scopeOf(scope);id=text(id??'',100);if(!['files','folder','list'].includes(kind))throw Error('无效的导入方式');
+    const r=await dialog.showOpenDialog(window,{title:kind==='folder'?'导入音乐目录':kind==='list'?'导入歌单':'导入音频',properties:kind==='folder'?['openDirectory']:['openFile',...(kind==='files'?['multiSelections' as const]:[])],filters:kind==='list'?[{name:'歌单文件',extensions:['json','m3u8','m3u']}]:[{name:'音频',extensions:['mp3','flac','wav','aac','m4a','ogg','opus','aiff','aif','alac']}]});
+    if(r.canceled)return {library:structuredClone(store.data.library)};
+    let tracks:Track[]=[],name='导入的歌单',skipped=0;
+    if(kind==='list'){const result=await importLibraryFile(r.filePaths[0]);tracks=result.tracks;name=result.name;skipped=result.skipped;store.data.library.local=uniqueTracks([...store.data.library.local,...tracks.filter(t=>t.localPath)]);}
+    else{const files=kind==='folder'?await scanAudioFolder(r.filePaths[0]):r.filePaths;for(let i=0;i<files.length;i+=500)tracks.push(...await importFiles(files.slice(i,i+500)));}
+    if(target==='playlist'&&!id)createImportedPlaylist(store.data.library,name,tracks);else{const list=libraryList(store.data.library,target,id);list.splice(0,list.length,...uniqueTracks([...list,...(target==='local'?tracks.filter(t=>t.localPath):tracks)]));}
+    const added=target==='local'?tracks.filter(t=>t.localPath).length:tracks.length;if(target==='local')skipped+=tracks.length-added;store.save();return {library:structuredClone(store.data.library),message:`导入 ${added} 首${skipped?`，跳过 ${skipped} 个无效或重复条目`:''}`};
+  });
+  handle('libraryExport',async(scope,id,format)=>{
+    const target=scopeOf(scope);id=text(id??'',100);if(!['json','m3u8'].includes(format))throw Error('无效的导出格式');const tracks=libraryList(store.data.library,target,id),name=target==='local'?'本地音乐':target==='favorites'?'我喜欢':store.data.library.playlists.find(p=>p.id===id)!.name;
+    const r=await dialog.showSaveDialog(window,{title:'导出歌单',defaultPath:name.replace(/[<>:"/\\|?*]/g,'_')+'.'+format,filters:[{name:format==='json'?'无我音乐歌单':'M3U8 本地播放列表',extensions:[format]}]});if(r.canceled||!r.filePath)return null;await fsp.writeFile(r.filePath,exportLibrary(name,tracks,format),'utf8');return r.filePath;
+  });
   handle('snapshot',()=>({...store.snapshot(),themeDark:nativeTheme.shouldUseDarkColors}));
   handle('comments',(id,sort,page,force)=>comments.get(text(id,20),sort,integer(page,1),force===true));
   handle('search',(q,p)=>provider.search(text(q),integer(p)));

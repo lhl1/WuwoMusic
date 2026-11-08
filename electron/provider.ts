@@ -38,6 +38,7 @@ export function normalizeTrack(row: Record<string, any>): Track {
   if (/bitrate:320|MP3H/.test(formats)) qualities.push('320k');
   if (/format:flac|ALFLAC/.test(formats)) qualities.push('flac');
   const pay = row.payInfo ?? row.payinfo ?? {};
+  const catalogTags=[...(String(row.fpay??'0')==='1'?['VIP']:[]),...(String(row.originalsongtype??'0')==='1'?['原唱']:[]),...(/\bDTSX\b|level:dtsx\b/i.test(String(row.formats??'')+';'+String(row.N_MINFO??row.n_minfo??''))?['DTS:X']:[])];
   const unavailable = String(row.ONLINE ?? row.online ?? '1') === '0';
   const time = row.DURATION ?? row.duration ?? row.songTimeMinutes ?? 0;
   const duration = String(time).includes(':') ? String(time).split(':').reduce((n,v)=>n*60+Number(v),0) : Number(time);
@@ -46,7 +47,8 @@ export function normalizeTrack(row: Record<string, any>): Track {
     cover: imageUrl(row.albumpic || row.pic || row.img || row.hts_PICPATH || row.web_albumpic_short) || imageUrl(row.web_artistpic_short,'artist'),
     qualities, availability: unavailable ? 'unavailable' : 'unknown',
     hasMv:String(row.MVFLAG??row.hasmv??row.hasMv??'0')==='1'||Number(row.mvpayinfo?.vid)>0,artistId:String(row.ARTISTID??row.artistid??'')||undefined,albumId:String(row.ALBUMID??row.albumid??row.albumId??'')||undefined,
-    catalogTags:/\bDTSX\b|level:dtsx\b/i.test(String(row.formats??'')+';'+String(row.N_MINFO??row.n_minfo??''))?['DTS:X']:undefined,
+    catalogTags:catalogTags.length?catalogTags:undefined,
+    subtitle:clean(row.SUBTITLE??row.subtitle)||undefined,lyricSnippet:clean(row.lrc)||undefined,
     payInfo: {play: String(pay.play ?? ''), download: String(pay.download ?? pay.down ?? ''), trial: String(pay.listen_fragment ?? '0') === '1', encrypted: String(pay.local_encrypt ?? '0') === '1'} };
 }
 export function flattenRanks(root: any): Collection[] {
