@@ -1,0 +1,26 @@
+{
+  "date": "2026-11-08T10:23:40.148Z",
+  "version": "1.2.6",
+  "output": "D:\\3DS_MAX\\20261107_music\\kuwo-desktop\\release\\无我音乐-1.2.6\\win-unpacked",
+  "backup": "D:\\3DS_MAX\\20261107_music\\backups\\wuwo-before-1.2.6-20261108-171911",
+  "runtimeFilesCompared": 200,
+  "allRuntimeFilesEqualToGuiCopy": true,
+  "formalProfilesUnchanged": true,
+  "formalProfileWrittenByQA": false,
+  "systemProxyChanged": false,
+  "automatedTests": 123,
+  "checks": {
+    "realCpuAI": true,
+    "realElectronNetwork": true,
+    "realAudioPCM": true,
+    "sourceRaceCancellation": true,
+    "nativeGui": true
+  },
+  "manifestFiles": 209,
+  "limitations": [
+    "Windows 11 and physical DAC not tested",
+    "Independent Spleeter model; not a QQ proprietary-model clone or quality-equivalence proof",
+    "44.1kHz / 16bit AI stems; 15-minute / 512MiB input limit",
+    "Online network/audio integration passed; GUI search foreground unavailable on this host"
+  ]
+}

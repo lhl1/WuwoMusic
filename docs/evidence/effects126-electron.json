@@ -1,0 +1,140 @@
+{
+  "date": "2026-11-08T10:16:17.031Z",
+  "electron": "45.2.3",
+  "system": "10.0.19045",
+  "messages": [
+    {
+      "level": 1,
+      "message": "%cDownload the React DevTools for a better development experience: https://react.dev/link/react-devtools\nYou might need to use a local HTTP server (instead of file://): https://react.dev/link/react-devtools-faq font-weight:bold"
+    },
+    {
+      "level": 2,
+      "message": "Construction of MediaElementAudioSourceNode is not useful when context is closed."
+    },
+    {
+      "level": 2,
+      "message": "Construction of ChannelSplitterNode is not useful when context is closed."
+    },
+    {
+      "level": 2,
+      "message": "Construction of ChannelMergerNode is not useful when context is closed."
+    },
+    {
+      "level": 2,
+      "message": "Connecting nodes after the context has been closed is not useful."
+    },
+    {
+      "level": 2,
+      "message": "Construction of GainNode is not useful when context is closed."
+    },
+    {
+      "level": 2,
+      "message": "Connecting nodes after the context has been closed is not useful."
+    },
+    {
+      "level": 2,
+      "message": "Connecting nodes after the context has been closed is not useful."
+    },
+    {
+      "level": 2,
+      "message": "Construction of GainNode is not useful when context is closed."
+    },
+    {
+      "level": 2,
+      "message": "Connecting nodes after the context has been closed is not useful."
+    },
+    {
+      "level": 2,
+      "message": "Connecting nodes after the context has been closed is not useful."
+    },
+    {
+      "level": 2,
+      "message": "Construction of GainNode is not useful when context is closed."
+    },
+    {
+      "level": 2,
+      "message": "Connecting nodes after the context has been closed is not useful."
+    },
+    {
+      "level": 2,
+      "message": "Connecting nodes after the context has been closed is not useful."
+    },
+    {
+      "level": 2,
+      "message": "Construction of GainNode is not useful when context is closed."
+    },
+    {
+      "level": 2,
+      "message": "Connecting nodes after the context has been closed is not useful."
+    },
+    {
+      "level": 2,
+      "message": "Connecting nodes after the context has been closed is not useful."
+    },
+    {
+      "level": 2,
+      "message": "Construction of GainNode is not useful when context is closed."
+    },
+    {
+      "level": 2,
+      "message": "Connecting nodes after the context has been closed is not useful."
+    },
+    {
+      "level": 2,
+      "message": "Connecting nodes after the context has been closed is not useful."
+    },
+    {
+      "level": 2,
+      "message": "Construction of GainNode is not useful when context is closed."
+    },
+    {
+      "level": 2,
+      "message": "Connecting nodes after the context has been closed is not useful."
+    },
+    {
+      "level": 2,
+      "message": "Connecting nodes after the context has been closed is not useful."
+    },
+    {
+      "level": 2,
+      "message": "Connecting nodes after the context has been closed is not useful."
+    }
+  ],
+  "original": {
+    "frequency": 438.739013671875,
+    "rms": 0.25896150808153373
+  },
+  "vocal": {
+    "frequency": 659.454345703125,
+    "rms": 0.2589342958408214
+  },
+  "accompaniment": {
+    "frequency": 880.169677734375,
+    "rms": 0.2589673495628903
+  },
+  "pitch": {
+    "frequency": 1318.90869140625,
+    "rms": 0.2589286233991675
+  },
+  "rate": 1.25,
+  "seekPosition": 3.702404,
+  "pauseDrift": 0,
+  "restoredPosition": 2,
+  "remainedPaused": true,
+  "restored": {
+    "frequency": 438.739013671875,
+    "rms": 0.25893239853942346
+  },
+  "passed": true,
+  "races": {
+    "staleIgnored": true,
+    "staysPaused": true,
+    "samePosition": true,
+    "restoredPaused": true,
+    "disabledIgnored": true,
+    "midSwapCancelled": true,
+    "resetDuringFade": true,
+    "cancelledRequests": 7,
+    "passed": true
+  }
+}

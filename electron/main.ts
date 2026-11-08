@@ -27,7 +27,11 @@ import {mediaResponse,type RemoteMedia} from './media-proxy';
 import {bounded} from '../src/playback-control';
 import {PlaybackLog} from './playback-log';
 import {NetworkPolicy,proxyMode} from './network-policy';
+import {SeparationService} from './separation';
 
+// Standard Electron profile override, also used for isolated acceptance runs.
+const profileDirectory=app.commandLine.getSwitchValue('user-data-dir');
+if(profileDirectory){app.setPath('userData',path.resolve(profileDirectory));app.setPath('sessionData',path.resolve(profileDirectory));}
 const appDir=app.getAppPath();
 protocol.registerSchemesAsPrivileged([{scheme:'kuwo',privileges:{standard:true,secure:true,supportFetchAPI:true,stream:true,corsEnabled:true}}]);
 let window:BrowserWindow,store:Store,downloads:DownloadManager;
@@ -35,6 +39,7 @@ let artwork:ArtworkCache,metadata:MetadataCache;
 let avatars:ArtworkCache,commentImages:ArtworkCache;
 let network:NetworkPolicy;
 let desktopLyrics:DesktopLyricsController;
+let separation:SeparationService;
 const fetchNetwork=(url:string,init?:RequestInit)=>network.fetch(url,init);
 const comments=new MultiCommentService(fetchNetwork,()=>Boolean(store?.data.settings.offline));
 const metadataHandled=new Set<string>();
@@ -44,7 +49,7 @@ const nativeCatalog=new NativeCatalog(provider);
 let playTicket=0;
 let playAbort:AbortController|undefined;
 const playbackLog=new PlaybackLog(path.join(app.getPath('userData'),'logs/playback.log'));
-type MediaSource={file?:string;url?:string;signal?:AbortSignal;refresh?:()=>Promise<string>};
+type MediaSource={file?:string;url?:string;signal?:AbortSignal;refresh?:()=>Promise<string>;separationKey?:string};
 const hifi=new HifiPlayer(path.join(app.isPackaged?process.resourcesPath:path.join(appDir,'build'),'hifi','mpv.exe'),state=>{if(window&&!window.isDestroyed())window.webContents.send('music:hifi',state);});
 const bridge=new AudioBridge(fetchNetwork,()=>Boolean(store?.data.settings.offline));
 const localMatches=new Map<string,Promise<Track>>();
@@ -188,12 +193,28 @@ function registerIpc(){
   handle('importLyrics',async id=>{const t=knownTrack(id);const r=await dialog.showOpenDialog(window,{title:'选择 LRC 歌词',properties:['openFile'],filters:[{name:'同步歌词',extensions:['lrc']}]});if(r.canceled)return null;return metadata.importFile(t.id,r.filePaths[0]);});
   handle('hifiDevices',()=>hifi.devices());
   const cancelPlay=async()=>{playTicket++;playAbort?.abort(new DOMException('播放已取消','AbortError'));playAbort=undefined;await hifi.control('stop');};
-  handle('cancelPlay',cancelPlay);
+  handle('cancelPlay',async()=>{separation.cancel();return cancelPlay();});
+  handle('cancelSeparation',id=>separation.cancel(text(id,80)));
+  handle('prepareSeparation',async(url,id)=>{
+    const value=text(url,200);if(!/^kuwo:\/\/media\/[a-f0-9-]{36}$/.test(value))throw Error('无效的声伴音源');
+    const source=sources.get(new URL(value).pathname.slice(1));if(!source?.separationKey)throw Error('当前音源已失效，请重新播放');
+    source.signal?.throwIfAborted();
+    const file=await separation.prepare({file:source.file,key:source.separationKey,signal:source.signal,download:async(file,signal)=>{
+      if(store.data.settings.offline)throw Error('离线模式无法获取在线声伴音源');
+      const response=await mediaResponse({...source,signal} as RemoteMedia,new Request(value,{signal}),fetchNetwork);
+      if(!response.ok||!response.body)throw Error('声伴音源下载失败，请重试');
+      const declared=Number(response.headers.get('content-length'));if(declared>512*1024**2){await response.body.cancel();throw Error('声伴音源超过 512 MB');}
+      const reader=response.body.getReader(),out=await fsp.open(file,'wx');let size=0;
+      try{for(;;){signal.throwIfAborted();const {done,value}=await reader.read();if(done)break;size+=value.length;if(size>512*1024**2)throw Error('声伴音源超过 512 MB');await out.write(value);}if(!size||(declared&&size!==declared))throw Error('声伴音源下载不完整');}
+      finally{await reader.cancel().catch(()=>{});await out.close();}
+    }},text(id,80));
+    source.signal?.throwIfAborted();return {url:mediaToken({file,signal:source.signal})};
+  });
   handle('playbackEvent',(event,id)=>{if(!['started','startup-retry','stall-retry','failed','cancelled'].includes(event))throw Error('无效的播放事件');playbackLog.write(event,{id:text(id,100)});});
   handle('hifiControl',async(action,position)=>{if(!['pause','resume','seek','stop'].includes(action))throw Error('无效的播放控制');if(action==='stop')return cancelPlay();await hifi.control(action,position);});
   handle('enrichLocal',value=>enrichLocal(track(value)));
   handle('play',async(value,q)=>{
-    const t=track(value),preferred=quality(q),ticket=++playTicket,start=Date.now();playAbort?.abort(new DOMException('已切换歌曲','AbortError'));const control=new AbortController();playAbort=control;
+    const t=track(value),preferred=quality(q),ticket=++playTicket,start=Date.now();separation.cancel();playAbort?.abort(new DOMException('已切换歌曲','AbortError'));const control=new AbortController();playAbort=control;
     playbackLog.write('prepare',{id:t.id,quality:preferred,engine:store.data.settings.audioOutput??'normal'});
     const stop=()=>{if(ticket===playTicket)void hifi.control('stop').catch(()=>{});};control.signal.addEventListener('abort',stop,{once:true});
     try{return await bounded(async signal=>{
@@ -214,6 +235,7 @@ function registerIpc(){
         const target=source.file??await bridge.source(source as RemoteMedia);signal.throwIfAborted();
         await hifi.setMuted(Boolean(store.data.settings.muted));const generation=await hifi.play(target,store.data.settings.audioDevice??'auto',result.bitsPerSample);signal.throwIfAborted();if(ticket!==playTicket)throw Error('播放已取消');playbackLog.write('prepared',{id:t.id,engine:'hifi',ms:Date.now()-start});return {...result,url:'',engine:'hifi',generation};
       }
+      source.separationKey=t.localPath??[t.id,result.quality,result.format,result.duration,result.bitrate].join('|');
       playbackLog.write('prepared',{id:t.id,engine:'browser',ms:Date.now()-start});return {...result,url:mediaToken(source),engine:'browser'};
     },35000,'播放准备超时，请重试',control.signal);
     }catch(e){if(ticket===playTicket)control.abort(e);playbackLog.write('prepare-failed',{id:t.id,ms:Date.now()-start,error:String(e).replace(/https?:\/\/\S+/g,'[url]').slice(0,200)});throw e;}
@@ -274,6 +296,7 @@ else {
     commentImages=new ArtworkCache(path.join(app.getPath('userData'),'comment-images'),fetchNetwork,()=>Boolean(store.data.settings.offline),false,true);
     metadata=new MetadataCache(path.join(app.getPath('userData'),'metadata'),provider,()=>Boolean(store.data.settings.offline));
     downloads=new DownloadManager(store,provider,fetchNetwork,tasks=>{if(window&&!window.isDestroyed())window.webContents.send('music:tasks',tasks);for(const t of tasks)if(t.status==='completed'){const original=store.data.tasks.find(x=>x.id===t.id);if(original)void enrichDownload(original);}},t=>discovery.mv(t));
+    separation=new SeparationService(path.join(store.data.settings.downloadDir,'.wuwo-cache','stems'),path.join(app.isPackaged?process.resourcesPath:path.join(appDir,'build'),'separation'),path.join(app.isPackaged?process.resourcesPath:path.join(appDir,'build'),'hifi','mpv.exe'),state=>{if(window&&!window.isDestroyed())window.webContents.send('music:separation',state);});
     await registerMedia();registerIpc();
     session.defaultSession.setPermissionRequestHandler((_w,_p,cb)=>cb(false));
     session.defaultSession.webRequest.onBeforeRequest({urls:['http://*/*','https://*/*']},(_details,callback)=>callback({cancel:Boolean(store.data.settings.offline)}));
@@ -291,6 +314,6 @@ else {
     for(const t of store.data.tasks.filter(t=>t.status==='completed').slice(0,30))void enrichDownload(t);
   }).catch(e=>{dialog.showErrorBox('无我音乐启动失败',String(e));app.exit(1);});
   let quitting=false;
-  app.on('before-quit',event=>{if(quitting||!downloads)return;event.preventDefault();quitting=true;desktopLyrics?.dispose();bridge.close();void Promise.allSettled([downloads.shutdown(),hifi.dispose()]).finally(()=>app.quit());});
+  app.on('before-quit',event=>{if(quitting||!downloads)return;event.preventDefault();quitting=true;desktopLyrics?.dispose();bridge.close();void Promise.allSettled([downloads.shutdown(),hifi.dispose(),separation.dispose()]).finally(()=>app.quit());});
   app.on('window-all-closed',()=>app.quit());
 }

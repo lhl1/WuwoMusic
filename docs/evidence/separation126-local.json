@@ -1,0 +1,42 @@
+{
+  "input": "Spleeter official audio_example.mp3 (not redistributed)",
+  "seconds": 11.145578231292516,
+  "elapsedMs": 851,
+  "realTimeFactor": 0.07633326708984375,
+  "rms": [
+    0.25032960233879065,
+    0.24289546672363008,
+    0.11441751436399615,
+    0.10547724619895331,
+    0.21766759445988051,
+    0.21390084449565888
+  ],
+  "maxReconstruction": 1.7576904296875,
+  "phases": [
+    {
+      "id": "verification",
+      "phase": "fetching",
+      "ms": 2
+    },
+    {
+      "id": "verification",
+      "phase": "decoding",
+      "ms": 2
+    },
+    {
+      "id": "verification",
+      "phase": "separating",
+      "ms": 103
+    },
+    {
+      "id": "verification",
+      "phase": "mixing",
+      "ms": 786
+    },
+    {
+      "id": "verification",
+      "phase": "ready",
+      "ms": 849
+    }
+  ]
+}

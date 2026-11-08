@@ -1,0 +1,155 @@
+{
+  "method": "read-only PE imports/exports and OpenVINO IR metadata",
+  "files": [
+    {
+      "file": "QQMediaPlayer.dll",
+      "bytes": 1455384,
+      "sha256": "deec8d24ace94f8c37aebc6b72b3bab67d26ee5d80123ba4c97c97af0d70b58e",
+      "machine": "0x14c",
+      "imports": {
+        "QQMusicCommon.dll": [
+          "?GetOpenVinoState@qqmusic@@YAHIAAV?$CStringT@_WV?$StrTraitATL@_WV?$ChTraitsCRT@_W@ATL@@@ATL@@@ATL@@0@Z"
+        ],
+        "qmcpcom.dll": [
+          "vocal_accomp_mix_processf_out",
+          "vocal_accomp_mix_processf_in",
+          "vocal_accomp_mix_flush_out",
+          "vocal_accomp_mix_set_param_protection",
+          "vocal_accomp_mix_create_inst",
+          "vocal_accomp_mix_set_accomp_weight",
+          "vocal_accomp_mix_set_vocal_weight",
+          "vocal_accomp_mix_inference_statistics",
+          "vocal_accomp_mix_destroy_inst",
+          "rubber_band_set_pitch_parameters"
+        ]
+      },
+      "exports": []
+    },
+    {
+      "file": "qmcpcom.dll",
+      "bytes": 3579160,
+      "sha256": "9bd0da7b2f66b639410dd9846723c2a9be396c02c88719fc3185517b2ca3bf4a",
+      "machine": "0x14c",
+      "imports": {},
+      "exports": [
+        "vocal_accomp_mix_create_inst",
+        "vocal_accomp_mix_destroy_inst",
+        "vocal_accomp_mix_flush_out",
+        "vocal_accomp_mix_get_timeout_cnt",
+        "vocal_accomp_mix_inference_statistics",
+        "vocal_accomp_mix_process_in",
+        "vocal_accomp_mix_process_out",
+        "vocal_accomp_mix_processf_in",
+        "vocal_accomp_mix_processf_out",
+        "vocal_accomp_mix_set_accomp_weight",
+        "vocal_accomp_mix_set_param_protection",
+        "vocal_accomp_mix_set_vocal_weight"
+      ]
+    },
+    {
+      "file": "OpenVino/TNET_HOST.exe",
+      "bytes": 473880,
+      "sha256": "7e993f7ba0c64f53be3314c695e9d819c82392f1b4c513ca1a89c574b8e984a3",
+      "machine": "0x8664",
+      "imports": {},
+      "exports": []
+    },
+    {
+      "file": "OpenVino/Split.xml",
+      "bytes": 3328144,
+      "sha256": "97d5033fd96aecfa135e6c555c77d99e2ef3054d20ec989edede7b7255007c00",
+      "irVersion": "11",
+      "layers": 6635,
+      "ports": [
+        {
+          "name": "input",
+          "type": "Parameter",
+          "shapes": [
+            [
+              2,
+              2,
+              47,
+              1025
+            ]
+          ]
+        },
+        {
+          "name": "hn_in",
+          "type": "Parameter",
+          "shapes": [
+            [
+              1,
+              6,
+              114,
+              100
+            ]
+          ]
+        },
+        {
+          "name": "cn_in",
+          "type": "Parameter",
+          "shapes": [
+            [
+              1,
+              6,
+              114,
+              100
+            ]
+          ]
+        },
+        {
+          "name": "band_norm_coe",
+          "type": "Parameter",
+          "shapes": [
+            [
+              2,
+              57,
+              47
+            ]
+          ]
+        },
+        {
+          "name": "output/sink_port_0",
+          "type": "Result",
+          "shapes": [
+            [
+              2,
+              2,
+              47,
+              1025
+            ]
+          ]
+        },
+        {
+          "name": "hn_out/sink_port_0",
+          "type": "Result",
+          "shapes": [
+            [
+              1,
+              6,
+              114,
+              100
+            ]
+          ]
+        },
+        {
+          "name": "cn_out/sink_port_0",
+          "type": "Result",
+          "shapes": [
+            [
+              1,
+              6,
+              114,
+              100
+            ]
+          ]
+        }
+      ]
+    },
+    {
+      "file": "OpenVino/Split.bin",
+      "bytes": 4461808,
+      "sha256": "68f3cdfd8f439a5a758c4073c44e2fef6a0989489c862e01683d1a22f7bc95ac"
+    }
+  ]
+}

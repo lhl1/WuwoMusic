@@ -5,7 +5,7 @@ import path from 'node:path';
 import os from 'node:os';
 import {MultiCommentService,matchCommentSong,normalizeNetease,normalizeQQ,sourceOrder} from '../electron/comment-sources';
 import {CommentFeed} from '../src/comment-feed';
-import {vocalMatrix} from '../src/vocal-effects';
+import {stemWeights} from '../src/vocal-effects';
 import {lyricFrame} from '../src/desktop-lyric-state';
 import {Store} from '../electron/storage';
 import {artworkSource} from '../electron/artwork';
@@ -44,8 +44,8 @@ test('repeated provider pages terminate pagination, and disposed feeds ignore st
  let done!:(v:any)=>void;const old=new CommentFeed(()=>new Promise(resolve=>done=resolve),s=>changes.push(s));const pending=old.load();old.dispose();const count=changes.length;done({comments:[row],page:1,pages:1,total:1,pageSize:20});await pending;assert.equal(changes.length,count);
 });
 test('audio matrices cancel a centered vocal and preserve original or centered focus without clipping gain',()=>{
- for(const mode of ['original','accompaniment','vocal'] as const){const [a,b,c,d]=vocalMatrix(mode);assert.ok(Math.abs(a)+Math.abs(b)<=1);assert.ok(Math.abs(c)+Math.abs(d)<=1);const out=[a*.7+b*.7,c*.7+d*.7];if(mode==='accompaniment')assert.deepEqual(out,[0,0]);else for(const value of out)assert.ok(Math.abs(value-.7)<1e-10);}
- assert.deepEqual(vocalMatrix('original'),[1,0,0,1]);
+ assert.deepEqual(stemWeights(0),[1,0,0]);assert.deepEqual(stemWeights(1),[0,0,1]);assert.deepEqual(stemWeights(-1),[0,1,0]);
+ assert.deepEqual(stemWeights(1,false),[1,0,0]);
 });
 test('desktop lyrics only accept bounded plain data and strip unrelated payload fields',()=>{
  const frame={title:'歌名',artist:'歌手',current:'第一行',next:'第二行',playing:true,progress:.4};assert.deepEqual(lyricFrame({...frame,path:'C:/secret'}),frame);

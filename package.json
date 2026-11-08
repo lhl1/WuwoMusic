@@ -1,13 +1,13 @@
 {
   "name": "kuwo-desktop",
-  "version": "1.2.5",
+  "version": "1.2.6",
   "private": true,
   "type": "module",
   "description": "无我音乐：听歌、下载与音乐评论",
   "author": "LHL",
   "main": "dist-electron/main.cjs",
   "scripts": {
-    "build": "tsc --noEmit && vite build && node scripts/build-main.mjs",
+    "build": "node scripts/verify-separation-assets.mjs && tsc --noEmit && vite build && node scripts/build-main.mjs",
     "dev": "npm run build && electron .",
     "test": "tsx --test tests/*.test.ts",
     "verify:api": "tsx scripts/verify-api.ts",
@@ -66,6 +66,13 @@
       {
         "from": "build/audio-effects",
         "to": "audio-effects",
+        "filter": [
+          "**/*"
+        ]
+      },
+      {
+        "from": "build/separation",
+        "to": "separation",
         "filter": [
           "**/*"
         ]

@@ -16,6 +16,8 @@ const api:DesktopApi={
   collection:(id,kind,page,period)=>invoke('collection',id,kind,page,period),lyrics:(id,force)=>invoke('lyrics',id,force),importLyrics:id=>invoke('importLyrics',id),
   play:(track,q)=>invoke('play',track,q), download:(tracks,q)=>invoke('download',tracks,q),downloadMv:t=>invoke('downloadMv',t),
   cancelPlay:()=>invoke('cancelPlay'),playbackEvent:(event,id)=>invoke('playbackEvent',event,id),
+  prepareSeparation:(url,id)=>invoke('prepareSeparation',url,id),cancelSeparation:id=>invoke('cancelSeparation',id),
+  onSeparation(callback){const handler=(_e:unknown,state:any)=>callback(state);ipcRenderer.on('music:separation',handler);return()=>ipcRenderer.removeListener('music:separation',handler);},
   enrichLocal:t=>invoke('enrichLocal',t),
   importDropped:files=>invoke('importDropped',files.map(f=>webUtils.getPathForFile(f)).filter(Boolean)),
   hifiDevices:()=>invoke('hifiDevices'),hifiControl:(a,p)=>invoke('hifiControl',a,p),

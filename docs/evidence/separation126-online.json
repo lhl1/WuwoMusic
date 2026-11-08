@@ -1,0 +1,46 @@
+{
+  "date": "2026-11-08T10:06:05.126Z",
+  "electron": "45.2.3",
+  "system": "10.0.19045",
+  "proxy": "direct",
+  "track": {
+    "id": "228908",
+    "name": "晴天",
+    "artist": "周杰伦",
+    "duration": 269,
+    "quality": "flac",
+    "format": "flac"
+  },
+  "phases": [
+    {
+      "id": "online-verification",
+      "phase": "fetching",
+      "at": 1794132366074
+    },
+    {
+      "id": "online-verification",
+      "phase": "decoding",
+      "at": 1794132367359
+    },
+    {
+      "id": "online-verification",
+      "phase": "separating",
+      "at": 1794132367707
+    },
+    {
+      "id": "online-verification",
+      "phase": "mixing",
+      "at": 1794132379029
+    },
+    {
+      "id": "online-verification",
+      "phase": "ready",
+      "at": 1794132380054
+    }
+  ],
+  "sourceBytes": 55397039,
+  "outputSeconds": 270.0945124716553,
+  "elapsedMs": 13999,
+  "outputChannels": 6,
+  "passed": true
+}

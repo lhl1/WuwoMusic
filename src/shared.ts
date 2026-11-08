@@ -44,6 +44,8 @@ export interface Comment { id:string; author:string; avatar?:string; time:string
 export type CommentSource='netease'|'qq'|'kuwo';
 export type CommentPreference='auto'|CommentSource;
 export type VocalMode='original'|'accompaniment'|'vocal';
+export interface SeparationProgress {id:string;phase:'fetching'|'decoding'|'separating'|'mixing'|'ready'}
+export interface SeparationState {phase:'idle'|SeparationProgress['phase']|'error';error?:string}
 export interface DesktopLyricFrame {title:string;artist:string;current:string;next:string;playing:boolean;progress:number}
 export interface DesktopLyricState {enabled:boolean;locked:boolean;fontSize:number;opacity:number;frame:DesktopLyricFrame;singleLine?:boolean;alignment?:'left'|'center'|'right';fontFamily?:string;bold?:boolean;color?:string;highlight?:string;outline?:boolean;karaoke?:boolean;mouseThrough?:boolean}
 export interface CommentSourceStatus {source:CommentSource;state:'available'|'empty'|'unmatched'|'error';total?:number;error?:string}
@@ -83,6 +85,9 @@ export interface DesktopApi {
   qualities(track:Track,purpose?:Purpose):Promise<QualityOption[]>;
   play(track: Track, quality: Quality): Promise<PlaySource>;
   cancelPlay():Promise<void>;
+  prepareSeparation(url:string,id:string):Promise<{url:string}>;
+  cancelSeparation(id:string):Promise<void>;
+  onSeparation(callback:(state:SeparationProgress)=>void):()=>void;
   playbackEvent(event:'started'|'startup-retry'|'stall-retry'|'failed'|'cancelled',id:string):Promise<void>;
   enrichLocal(track:Track):Promise<Track>;
   importDropped(files:File[]):Promise<Track[]>;
